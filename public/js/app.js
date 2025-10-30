@@ -1,0 +1,1 @@
+console.log('Magic Academy app initialized.');
