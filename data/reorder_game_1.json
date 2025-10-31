@@ -1,0 +1,29 @@
+{
+  "levels": [
+    {
+      "image": "/assets/images/arrange_words_games/arrange_words_game_1_img1.jpg",
+      "sentence": ["Léo", "pose", "un", "crayon", "bleu."],
+      "audio": "/assets/audio/reorder/leo_pose_crayon_bleu.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/arrange_words_game_1_img2.jpg",
+      "sentence": ["Marie", "prend", "sa", "trousse", "violette."],
+      "audio": "/assets/audio/reorder/marie_prend_sa_trousse_violette.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/arrange_words_game_1_alice.png",
+      "sentence": ["Salut,", "moi", "c'est", "Alice."],
+      "audio": "/assets/audio/reorder/moi_cest_alice.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/arrange_words_game_1_peinture.png",
+      "sentence": ["La", "peinture", "preferée", "de", "Léo."],
+      "audio": "/assets/audio/reorder/peinture_preferee.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/arrange_words_game_1_ecole_alice.png",
+      "sentence": ["Tu", "aimes", "aller", "à", "l’école,", "Alice?"],
+      "audio": "/assets/audio/reorder/aller_ecole_alice.mp3"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Académie — Leçon</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="container">
+      <h1 class="brand" id="lesson-title">L’Académie</h1>
+      <nav class="site-nav" aria-label="Fil d’Ariane">
+        <a href="./index.html">Accueil</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page" id="crumb-leaf">Page</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="container">
+    <div class="lesson-layout">
+      <section class="lesson-media">
+        <figure class="media-wrap">
+          <img id="lesson-image" alt="" class="media-large">
+        </figure>
+      </section>
+
+      <aside class="lesson-side">
+        <div class="panel" id="tasks">
+          <!-- рендер задач -->
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="./js/app.js"></script>
+  <script src="./js/renderLesson.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const slug = params.get('id'); // например lesson_1
+    window.renderLessonFromContent('../data/content.json', slug);
+  </script>
+</body>
+</html>
