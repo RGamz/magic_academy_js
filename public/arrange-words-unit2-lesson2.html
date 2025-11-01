@@ -174,9 +174,10 @@ function loadLevel(index) {
   container.innerHTML = "";
 
   if (index >= levels.length) {
-    img.src = "../backend/assets/images/arrange_words_games/arrange_words_game_1_win.jpg";
+    img.src = "/assets/images/arrange_words_games/arrange_words_game_1_win.jpg";
     msg.innerHTML = "🎉 Tu as terminé tous les niveaux ! Bravo !";
     checkBtn.style.display = "none";
+    container.style.display = "none";
     return;
   }
 

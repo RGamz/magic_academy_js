@@ -118,6 +118,13 @@
       "description": "La récré",
       "cover": "/assets/images/book1_unit2_lesson5_img1.jpg",
       "tag": "Débutant"
+    },
+    {
+      "slug": "lesson_17",
+      "title": "Page 18 — Les abécédaires d'Alice",
+      "description": "L'alphabet",
+      "cover": "/assets/images/book1_unit2_petitdoc1_img1.jpg",
+      "tag": "Débutant"
     }
   ],
   "lessons": {
@@ -976,6 +983,94 @@
 
               "Corrigé : 3. livre – 2. cache-cache – 6. ballon – 4. billes – 5. corde – 1. marelle."
 
+          ]
+        }
+      ]
+    },
+    "lesson_17": {
+      "title": "Les abécédaires d'Alice",
+      "breadcrumb": ["Accueil", "Page 18"],
+      "mainImage": "/assets/images/book1_unit2_petitdoc1_img1.jpg",
+      "tasks": [
+        {
+            "title": "<b>Цели урока:</b></span>",
+            "audio": "/assets/audio/b1_ch2_petitdoc1_audio1.mp3", 
+            "lines": [
+              "<b>1.</b> Découvrir (открыть для себя) французский, арабский и испанский алфавиты",
+              "<b>2.</b> Découvrir et apprendre à chanter la chanson L'alphabet",
+              "<b>3.</b> Apprendre à compter et écrire jusqu'à 30",
+              "<b>4.</b> Apprendre à épeler (произносить слово на выбор по буквам )",
+              "<b>5.</b> Mémorisent (выучить наизусть) l'ordre (порядок) alphabétique.",
+              "<b>6.</b> Выучить следующие слова и выражения, а также написать их:",
+              "<b>abécédaire, espagnol, arabe, lettres, alphabet, Tu connais ? Oui, je connais. Non, je ne connais pas.</b>"
+            ]
+            },
+        {
+          "title": "<b>Задание 1:</b> Écoute et réponds.",
+          "audio": "/assets/audio/b1_ch2_audio_38.mp3",
+          "lines": [
+              "Voici trois abécédaires : un abécédaire français, un abécédaire arabe et un abécédaire espagnol.",
+              "(Вот три букваря: французский букварь, арабский букварь и испанский букварь.)",
+
+              "Dans abécédaire, il y a « a, b, c, d » : les quatre premières lettres de l’alphabet.",
+              "(В слове «букварь» есть «a, b, c, d» — четыре первые буквы алфавита.)",
+
+              "Un abécédaire apprend à lire ou à compter ?",
+              "(Букварь учит читать или считать?)"
+          ]
+        },
+        {
+          "title": "<b>Задание 2:</b> Écoute, réponds et montre",
+          "audio": "/assets/audio/b1_ch2_audio_39.mp3",
+          "lines": [
+              "a. Qui est l’enfant français ? L’enfant 1, 2 ou 3 ? Écoute.",
+              "b. Montre l’abécédaire d’Alice."
+          ]
+        },
+        {
+          "title": "<b>Задание 3:</b> Écoute et montre",
+          "audio": "/assets/audio/b1_ch2_audio_40.mp3",
+          "lines": [     
+              "Il y a 27 lettres dans l’alphabet espagnol, 28 lettres dans l’alphabet arabe. Il y a combien de lettres dans l’alphabet français ? Écoute et compte : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z."
+          ]
+        },
+        {
+          "title": "<b>Задание 4:</b> Écoute la chanson 'L'alphabet' et chante.",
+          "audio": "/assets/audio/b1_ch2_audio_41.mp3",
+          "lines": [
+              "Eh Benoît, tu connais ton alphabet ?",
+              "Euh, non...",
+              "Quoi ? Tu ne connais pas ton alphabet ?",
+              "Ben, non...",
+              "Alors écoute !",
+              "A B C D E F G",
+              "H I J K L M N O",
+              "P Q R S T U V",
+              "W",
+              "X Y Z",
+              "C’est l’alphabet !",
+              "A B C D E F G",
+              "H I J K L M N O",
+              "P Q R S T U V",
+              "W",
+              "X Y Z",
+              "C’est l’alphabet !",
+              "Oh-la-la il va drolement vite celui-là!",
+              "Oui, mais nous on chante beaucoup mieux!",
+              "A B C D E F G",
+              "H I J K L M N O",
+              "P Q R S T U V",
+              "W",
+              "X Y Z",
+              "C’est l’alphabet !",
+              "A B C D E F G",
+              "Moi je connais l'alphabet!"
+          ]
+        },
+        {
+          "title": "<b>Задание 5:</b> Написать и произнести по буквам слова:",
+          "lines": [     
+              "CISEAUX, CORDE, COMPTER, CHANTER, DIMANCHE, MARELLE, RECITER"
           ]
         }
       ]
