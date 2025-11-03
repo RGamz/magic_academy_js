@@ -1,3 +1,30 @@
-node_modules
-.env.development
-.env.production
+# Node
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & temporary
+logs/
+*.log
+*.pid
+*.seed
+tmp/
+*.tmp
+
+# Docker
+docker-volumes/
+*.pem
+*.key
+*.crt
+
+# Certbot system path (not in repo)
+etc/letsencrypt/
