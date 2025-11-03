@@ -1,0 +1,29 @@
+name: 🚀 Deploy to Khadas
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: khadas-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy via SSH
+        run: |
+          ssh -p ${{ secrets.SERVER_PORT }} -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            cd ${{ secrets.APP_PATH }}
+            git pull origin main
+            docker compose down
+            docker compose up -d --build
+            docker system prune -f
+          EOF
