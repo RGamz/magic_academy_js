@@ -61,14 +61,18 @@
         </article>
       `).join('');
 
-      fetch('../data/content.json', {cache: 'no-store'})
+      fetch('/api/pages', {cache: 'no-store'})
         .then(r => r.json())
-        .then(renderPages)
-        .catch(() => {
+        .then(payload => {
+          if (!payload.success) throw new Error('API error');
+          renderPages(payload.data || {});
+        })
+        .catch((error) => {
+          console.error(error);
           cards.innerHTML = `
             <div class="card"><div class="card-body">
               <h4>Impossible de charger la liste</h4>
-              <p class="muted">Проверь <code>data/content.json</code> и пути.</p>
+              <p class="muted">Vérifie l’API <code>/api/pages</code> et le serveur.</p>
             </div></div>`;
         });
     </script>

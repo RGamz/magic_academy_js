@@ -1,84 +1,103 @@
-window.renderLessonFromContent = async function(contentPath, slug){
-  const $title = document.getElementById('lesson-title');
-  const $leaf  = document.getElementById('crumb-leaf');
-  const $img   = document.getElementById('lesson-image');
-  const $tasks = document.getElementById('tasks');
+/* eslint-env browser */
+/* global window, document */
 
-  if(!slug){
-    $tasks.innerHTML = `<div class="bubble">Не указан id урока (?id=lesson_x).</div>`;
+window.renderLesson = async function renderLesson(slug) {
+  const titleEl = document.getElementById('lesson-title');
+  const breadcrumbLeafEl = document.getElementById('crumb-leaf');
+  const imageEl = document.getElementById('lesson-image');
+  const tasksEl = document.getElementById('tasks');
+
+  if (!slug) {
+    tasksEl.innerHTML = '<div class="bubble">Не указан id урока (?id=lesson_x).</div>';
     return;
   }
 
-  try{
-    const res = await fetch(contentPath, {cache: 'no-store'});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const content = await res.json();
+  try {
+    const response = await fetch(`/api/lessons/${encodeURIComponent(slug)}`, {
+      cache: 'no-store',
+    });
 
-    const data = content.lessons && content.lessons[slug];
-    if(!data){
-      $tasks.innerHTML = `<div class="bubble">Урок <code>${slug}</code> не найден в <code>${contentPath}</code>.</div>`;
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const payload = await response.json();
+    const data = payload?.data?.lesson;
+
+    if (!payload.success || !data) {
+      tasksEl.innerHTML = `<div class="bubble">Урок <code>${slug}</code> не найден через API.</div>`;
       return;
     }
 
-    // Заголовки/крошки
-    if (data.title) { document.title = data.title; $title.textContent = data.title; }
-    if (Array.isArray(data.breadcrumb) && data.breadcrumb.length){
-      $leaf.textContent = data.breadcrumb[data.breadcrumb.length - 1];
+    if (data.title) {
+      document.title = data.title;
+      titleEl.textContent = data.title;
+    }
+
+    if (Array.isArray(data.breadcrumb) && data.breadcrumb.length) {
+      breadcrumbLeafEl.textContent = data.breadcrumb[data.breadcrumb.length - 1];
     } else {
-      $leaf.textContent = slug.replace(/_/g,' ');
+      breadcrumbLeafEl.textContent = slug.replace(/_/g, ' ');
     }
 
-    // Картинка
     if (data.mainImage) {
-      $img.src = data.mainImage;
-      $img.alt = data.imageAlt || 'Illustration du cours';
+      imageEl.src = data.mainImage;
+      imageEl.alt = data.imageAlt || 'Illustration du cours';
     }
 
-    // Задачи
     const tasks = Array.isArray(data.tasks) ? data.tasks : [];
-    $tasks.innerHTML = tasks.map((t, idx) => {
-      const audioId = `a${idx+1}`;
-      const linesHtml = (t.lines || []).map(line => `<p>${line}</p>`).join('');
-      const audios = t.audios || (t.audio ? [t.audio] : []);
-      const audioHtml = audios.map((src,i) =>
-        `<audio id="${audioId}${i||''}" src="${src}" controls preload="metadata"></audio>`
-      ).join('');
+    tasksEl.innerHTML =
+      tasks
+        .map((task, index) => {
+          const audioId = `a${index + 1}`;
+          const linesHtml = (task.lines || []).map((line) => `<p>${line}</p>`).join('');
+          const audioSources = task.audios || (task.audio ? [task.audio] : []);
+          const audioHtml = audioSources
+            .map(
+              (src, audioIndex) =>
+                `<audio id="${audioId}${audioIndex || ''}" src="${src}" controls preload="metadata"></audio>`
+            )
+            .join('');
 
-      
-      // Add game button if "game" key exists in JSON
-      const gameHtml = t.game
-        ? `<div class="game-link" style="margin-top:10px">
-             <a href="${t.game}" target="_blank" class="btn ghost">🎮 Joue le jeu!</a>
-           </div>`
-        : '';
+          const gameHtml = task.game
+            ? `<div class="game-link" style="margin-top:10px">
+                 <a href="${task.game}" target="_blank" class="btn ghost">🎮 Joue le jeu!</a>
+               </div>`
+            : '';
 
-      return `
-        <details class="task">
-          <summary class="task-summary">
-            <span class="bubble"><b>${t.title || 'Задача'}</b></span>
-          </summary>
-          <div class="task-body">
-            ${audioHtml}
-            <div class="text">${linesHtml}</div>
-            ${gameHtml}
-          </div>
-        </details>
+          return `
+            <details class="task">
+              <summary class="task-summary">
+                <span class="bubble"><b>${task.title || 'Задача'}</b></span>
+              </summary>
+              <div class="task-body">
+                ${audioHtml}
+                <div class="text">${linesHtml}</div>
+                ${gameHtml}
+              </div>
+            </details>
+          `;
+        })
+        .join('') +
+      `
+        <div class="actions row" style="margin-top:12px">
+          ${tasks
+            .map((task, index) =>
+              task.audio || (task.audios && task.audios.length)
+                ? `<button class="btn" onclick="(function(){
+                     const el = document.getElementById('a${index + 1}');
+                     if (el) el.play();
+                   })()">▶️ Rejouer ${index + 1}</button>`
+                : ''
+            )
+            .join('')}
+          <a class="btn ghost" href="../index.html">⟵ Accueil</a>
+        </div>
       `;
-    }).join('') + `
-      <div class="actions row" style="margin-top:12px">
-        ${tasks.map((t, i) => (t.audio || (t.audios && t.audios.length))
-          ? `<button class="btn" onclick="(function(){
-               const el = document.getElementById('a${i+1}');
-               if(el) el.play();
-             })()">▶️ Rejouer ${i+1}</button>` : ''
-        ).join('')}
-        <a class="btn ghost" href="../index.html">⟵ Accueil</a>
-      </div>
-    `;
-  }catch(err){
-    console.error(err);
-    $tasks.innerHTML = `
-      <div class="bubble">Не удалось загрузить <code>${contentPath}</code>.<br>
-      Проверь файл и пути.</div>`;
+  } catch (error) {
+    console.error(error);
+    tasksEl.innerHTML = `
+      <div class="bubble">Не удалось загрузить данные урока через API.<br>
+      Проверь работу сервера.</div>`;
   }
-}
+};

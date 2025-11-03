@@ -1,0 +1,1122 @@
+/* eslint-disable */
+
+export const pages = [
+  {
+    "slug": "lesson_1",
+    "title": "Page 4 — Les présentations",
+    "description": "Écoute et répète: Bonjour, je m’appelle...",
+    "cover": "/assets/images/book1_unit1_lesson1_img1.png",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_2",
+    "title": "Page 5 — La famille",
+    "description": "Qui est-ce ?",
+    "cover": "/assets/images/book1_unit1_lesson1_img2.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_3",
+    "title": "Page 6 — Il y a combien de doigts?",
+    "description": "Presentation de nombres",
+    "cover": "/assets/images/book1_unit1_lesson2_img1.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_4",
+    "title": "Page 6 — Chanson '1,2,3'",
+    "description": "Chanson à apprendre!",
+    "cover": "/assets/images/book1_unit1_lesson2_img2.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_5",
+    "title": "Page 7 — Comment tu t'appelles?",
+    "description": "Salutations et age",
+    "cover": "/assets/images/book1_unit1_lesson3_img1.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_6",
+    "title": "Page 8 — Ma toupie",
+    "description": "Chanson à apprendre!",
+    "cover": "/assets/images/book1_unit1_lesson4_img1.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_7",
+    "title": "Page 8 — Figures géométriques",
+    "description": "Les couleurs",
+    "cover": "/assets/images/book1_unit1_lesson4_img2.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_8",
+    "title": "Page 9 — Qu'est-ce qu'il fait? Qu'est-ce qu'elle fait?",
+    "description": "Les activités",
+    "cover": "/assets/images/book1_unit1_lesson5_img1.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_9",
+    "title": "Page 9 — Qu'est-ce qu'il fait? Exercise de cahier",
+    "description": "Exercise de cahier",
+    "cover": "/assets/images/book1_unit1_lesson5_C_img1.png",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_10",
+    "title": "Page 10 — La peinture preferée de Léo",
+    "description": "La peinture preferée de Léo",
+    "cover": "/assets/images/book1_unit1_petitdoc_peinture.jpg",
+    "tag": "Petit Doc"
+  },
+  {
+    "slug": "lesson_11",
+    "title": "Page 11 — Le téléphone de Pedro",
+    "description": "Le téléphone de Pedro",
+    "cover": "/assets/images/book1_unit1_projet1.jpg",
+    "tag": "Projet"
+  },
+  {
+    "slug": "lesson_12a",
+    "title": "Page 13 — Qu’est-ce que c’est ? (Les objets de l’école)",
+    "description": "Écoute et montre: une trousse, un cartable, une gomme...",
+    "cover": "/assets/images/book1_unit2_lesson1_img1.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_12b",
+    "title": "Page 12 — Objets de l'école",
+    "description": "Écoute et montre sur la grande image",
+    "cover": "/assets/images/book1_unit2_lesson1_img2.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_13",
+    "title": "Page 14 — Qui fait quoi",
+    "description": "Écoute et montre sur l'image",
+    "cover": "/assets/images/book1_unit2_lesson2_img1.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_14",
+    "title": "Page 15 — Nous sommes quel jour aujourd'hui?",
+    "description": "Jours de la semaine",
+    "cover": "/assets/images/book1_unit2_lesson3_img1.png",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_15",
+    "title": "Page 16 — Tu aimes aller à l'école?",
+    "description": "Les activités",
+    "cover": "/assets/images/book1_unit2_lesson4_img1.png",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_16",
+    "title": "Page 17 — Que'est-ce que tu aimes faire pendant la récréation?",
+    "description": "La récré",
+    "cover": "/assets/images/book1_unit2_lesson5_img1.jpg",
+    "tag": "Débutant"
+  },
+  {
+    "slug": "lesson_17",
+    "title": "Page 18 — Les abécédaires d'Alice",
+    "description": "L'alphabet",
+    "cover": "/assets/images/book1_unit2_petitdoc1_img1.jpg",
+    "tag": "Débutant"
+  }
+];
+
+export const lessons = {
+  "lesson_1": {
+    "title": "Jour 1 — Académie",
+    "breadcrumb": [
+      "Accueil",
+      "Page 1"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson1_img1.png",
+    "tasks": [
+      {
+        "title": "Задача 1: Прослушать и показать пальцем на каждого члена семьи",
+        "audio": "/assets/audio/b1_ch1_audio_1.mp3",
+        "lines": [
+          "Bonjour, je m'appelle Luc Legrand.",
+          "Bonjour, moi, c'est Jeanne Legrand.",
+          "Salut, moi, c'est Alice.",
+          "Moi, c'est Maggie.",
+          "Salut, moi, c'est Léo."
+        ]
+      },
+      {
+        "title": "Задача 2: Прослушать и ответить согласно примеру",
+        "audio": "/assets/audio/b1_ch1_audio_3.mp3",
+        "lines": [
+          "<i>Exemple:</i> Bonjour, moi, c'est monsieur Legrand.",
+          "Bonjour, monsieur Legrand.",
+          "Salut, moi, c'est Alice.",
+          "Bonjour, moi, c'est madame Legrand.",
+          "Moi, c'est Maggie.",
+          "Moi, c'est Léo. Et toi?"
+        ]
+      }
+    ]
+  },
+  "lesson_2": {
+    "title": "Jour 1 — La famille",
+    "breadcrumb": [
+      "Accueil",
+      "Page 2"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson1_img2.jpg",
+    "tasks": [
+      {
+        "title": "<b>Задача 1:</b> Прослушать и показать пальцем на соответствующую картинку</span>",
+        "audio": "/assets/audio/b1_ch1_audio_4.mp3",
+        "lines": [
+          "- Salut, Marie, ça va?",
+          "- Oui, ça va bien.",
+          "- Bonjour, Philippe!",
+          "- Bonjour, Luc!",
+          "- Bonjour, monsieur Dupuis!",
+          "- Bonjour, madame Legrand.",
+          "- Bonjour, madame!"
+        ]
+      },
+      {
+        "title": "<b>Задача 2:</b> Прослушать и спеть песенку 1 2 3</span>",
+        "audio": "/assets/audio/b1_ch1_audio_5.mp3",
+        "lines": [
+          "Je te dis 'bonjour'.",
+          "Tu me dis 'bonjour'.",
+          "On se dit 'bonjour et bonne journée'",
+          "Je te dis 'au revoir'",
+          "Tu me dis 'au revoir'",
+          "On se dit 'au revoir et à bientôt'"
+        ]
+      }
+    ]
+  },
+  "lesson_3": {
+    "title": "Jour 2 — Nombres",
+    "breadcrumb": [
+      "Accueil",
+      "Page 6"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson2_img1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Задача 1:</b> Прослушать и повторять цифры жестами, как на картинке.</span>",
+        "audio": "/assets/audio/b1_ch1_audio_7.mp3",
+        "lines": [
+          "Il y a combien de doigts?",
+          "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
+        ]
+      }
+    ]
+  },
+  "lesson_4": {
+    "title": "Jour 2 — Nombres",
+    "breadcrumb": [
+      "Accueil",
+      "Page 6"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson2_img2.jpg",
+    "tasks": [
+      {
+        "title": "<b>Задача 1:</b> Прослушать, спеть и выучить песню.</span>",
+        "audio": "/assets/audio/b1_ch1_audio_9.mp3",
+        "lines": [
+          "1, 2, 3, je vais dans les bois",
+          "1, 2, 3, je vais dans les bois",
+          "4, 5, ó, cueillir des cerises",
+          "4, 5, ó, cueillir des cerises",
+          "7, 8, 9, dans mon panier neuf",
+          "7, 8, 9, dans mon panier neuf",
+          "10, 11, 12, elles seront toutes rouges",
+          "10, 11, 12, elles seront toutes rouges"
+        ]
+      },
+      {
+        "title": "<b>Задача 2:</b>Повторять движения согласно описанию ниже в процессе пения.</span>",
+        "audio": "/assets/audio/b1_ch1_audio_9.mp3",
+        "lines": [
+          "1, 2, 3, je vais dans les bois",
+          "1. Считать на пальцах по-французски до 3, затем изобразить ходьбу на месте.",
+          "4, 5, 6, cueillir des cerises",
+          "2. Считать на пальцах по-французски до 6, затем изобразить движение сбора вишен среди деревьев.",
+          "7, 8, 9, dans mon panier neuf",
+          "3. Считать на пальцах по-французски до 9, затем изобразить ношение корзинки.",
+          "10, 11, 12, elles seront toutes rouges",
+          "4. Считать на пальцах по-французски до 12, затем показать красный цвет на заранее подготовленной карточке или предмете."
+        ]
+      },
+      {
+        "title": "<b>Задача 3:</b> Научиться писать цифры</span>",
+        "lines": [
+          "0 - zéro",
+          "1 - un",
+          "2 - deux",
+          "3 - trois",
+          "4 - quatre",
+          "5 - cinq",
+          "6 - six",
+          "7 - sept",
+          "8 - huit",
+          "9 - neuf",
+          "10 - dix",
+          "11 - onze",
+          "12 - douze"
+        ]
+      }
+    ]
+  },
+  "lesson_5": {
+    "title": "Comment tu t'appelles?",
+    "breadcrumb": [
+      "Accueil",
+      "Page 7"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson3_img1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Задача 1:</b> Прослушать и повторить и выучить незнакомые слова.</span>",
+        "audio": "/assets/audio/b1_ch1_audio_11.mp3",
+        "lines": [
+          "ALICE: Bonjour, Marie.",
+          "MARIE: Salut, Alice. Bonjour! Comment tu t'appelles?",
+          "LEO: .Je m'appeIIe Léo.",
+          "MARIE:Tu as quel âge?",
+          "LEO: J'ai 7 ans. Et toi?",
+          "MARIE: .J'ai 8 ans",
+          "LEO: Elle, elle s'appelle Maggie. Elle a 3 ans.",
+          "MARIE: Bonjour, Maggie.",
+          "MAGGIE : Je te dis bonjour..."
+        ]
+      },
+      {
+        "title": "<b>Задача 2:</b> Прочитать диалог вслух.</span>",
+        "lines": [
+          "ALICE: Bonjour, Marie.",
+          "MARIE: Salut, Alice. Bonjour! Comment tu t'appelles?",
+          "LEO: .Je m'appeIIe Léo.",
+          "MARIE:Tu as quel âge?",
+          "LEO: J'ai 7 ans. Et toi?",
+          "MARIE: .J'ai 8 ans",
+          "LEO: Elle, elle s'appelle Maggie. Elle a 3 ans.",
+          "MARIE: Bonjour, Maggie.",
+          "MAGGIE : Je te dis bonjour..."
+        ]
+      },
+      {
+        "title": "<b>Задача 3:</b> Прослушать и ответить на вопросы.</span>",
+        "audio": "/assets/audio/b1_ch1_audio_12.mp3",
+        "lines": [
+          "Elle s'appelle Maggie. Elle a quel âge ? 3 ans ? 4 ans?",
+          "Il s'appelle Léo. Il a quel âge ? 6 ans ? 7 ans?",
+          "Elle s'appelle Marie. Elle a quel âge ? 8 ans ? 9 ans ?",
+          "Elle a 9 ans. Comment elle s'appelle ? Marie ?  Alice?"
+        ]
+      },
+      {
+        "title": "<b>Задача 4:</b> Написать, как тебя зовут и сколько тебе лет.</span>",
+        "lines": [
+          "Bonjour, je m'appelle ...",
+          "J'ai ... ans."
+        ]
+      }
+    ]
+  },
+  "lesson_6": {
+    "title": "De quelles couleurs est la toupie?",
+    "breadcrumb": [
+      "Accueil",
+      "Page 8"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson4_img1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Задача 1:</b> Прослушать и показать цвета</span>",
+        "audio": "/assets/audio/b1_ch1_audio_13.mp3",
+        "lines": [
+          "1. Bleu,jaune, vert",
+          "2. Bleu, rouge, violet",
+          "3. Jaune, rouge, orange",
+          "4. Vert",
+          "5. Violet",
+          "1 ó. Orange"
+        ]
+      },
+      {
+        "title": "<b>Задача 2:</b> Прослушать, спеть и выучить песню.</span>",
+        "audio": "/assets/audio/b1_ch1_audio_14.mp3",
+        "lines": [
+          "Bleu, jaune, vert ma toupie.",
+          "Elle tourne, elle tourne,",
+          "Bleu, jaune, vert ma toupie.",
+          "Elle tourne. C’est très joli.",
+          "Bleu, rouge, violet ma toupie.",
+          "Elle tourne, elle tourne,",
+          "Bleu, rouge, violet ma toupie.",
+          "Elle tourne. C’est très joli.",
+          "Jaune, rouge, orange ma toupie.",
+          "Elle tourne, elle tourne,",
+          "Jaune, rouge, orange ma toupie.",
+          "Elle tourne, elle tourne. Elle tourne et c’est fini."
+        ]
+      }
+    ]
+  },
+  "lesson_7": {
+    "title": "Figures géométriques et couleurs",
+    "breadcrumb": [
+      "Accueil",
+      "Page 8"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson4_img2.jpg",
+    "tasks": [
+      {
+        "title": "<b>Задача 1:</b> Прослушать и ответить.</span>",
+        "audio": "/assets/audio/b1_ch1_audio_16.mp3",
+        "lines": [
+          "De quelle couleur est le triangle numéro 3 ? Bleu, orange ou jaune ?",
+          "De quelle couleur est le rond numéro 4 ? Vert, blanc ou rouge ?",
+          "De quelle couleur est le carré numéro 1 ? Rouge, jaune ou bleu ?",
+          "De quelle couleur est le triangle numéro 2 ? Blanc, orange ou jaune ?",
+          "De quelle couleur est le rectangle numéro 5 ? Jaune, rouge ou violet ?",
+          "De quelle couleur est le rond numéro 6 ? Jaune, rouge ou bleu ?",
+          "De quelle couleur est le rectangle numéro 8 ? Rouge, jaune ou noir ?"
+        ]
+      },
+      {
+        "title": "<b>Задача 2:</b> Поиграть в игру 'Соедини цвета'!</span>",
+        "game": "../games/colors-game.html"
+      }
+    ]
+  },
+  "lesson_8": {
+    "title": "Qu'est-ce qu'il fait? Qu'est-ce qu'elle fait?",
+    "breadcrumb": [
+      "Accueil",
+      "Page 9"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson5_img1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Цели урока:</b></span>",
+        "audio": "/assets/audio/b1_ch1_lesson_8_audio_1.mp3",
+        "lines": [
+          "Выучить следующие слова и выражения:",
+          "<b>chanter, peindre, sauter, téléphoner, apprendre (l'anglais, le français), courir</b>",
+          "Распознавать и реагировать на простые указания:",
+          "<b>Chante! Peins! Saute! Téléphone! Cours! Apprends le français!</b>",
+          "Научиться писать следующие слова:",
+          "<b>chanter, peindre, sauter, téléphoner, apprendre (l'anglais, le français), courir, 'Moi, j'apprends le français'</b>",
+          "Уметь задавать следуюшие вопросы и отвечать на них:",
+          "<b>'Qu'est-ce qu'il fait ?', 'Qu'est-ce qu'elle fait?', 'Qu'est-ce que tu fais?'</b>"
+        ]
+      },
+      {
+        "title": "<b>Задача 1:</b> Прослушать (écoute) и имитировать (et mime).</span>",
+        "audio": "/assets/audio/b1_ch1_audio_17.mp3",
+        "lines": [
+          "1. Elle chante. Chante!",
+          "2. ll peint. Peins!",
+          "3. Elle saute. Saute!",
+          "4. Elle téléphone. Téléphone!",
+          "5. Elle apprend l'anglais. Apprends le français!",
+          "6. ll court. Cours!"
+        ]
+      },
+      {
+        "title": "<b>Задача 2:</b> Прослушать (écoute) и назови номер (et dis le numéro).</span>",
+        "audio": "/assets/audio/b1_ch1_audio_19.mp3",
+        "lines": [
+          "Qu’est-ce que tu fais, Alice ?",
+          "ALICE : Je téléphone à Marie. Allô !",
+          "LÉO : Qu’est-ce qu’il fait, papa ?",
+          "ALICE : Il court.",
+          "LÉO : Qu’est-ce qu’elle fait, maman ?",
+          "ALICE : Elle chante.",
+          "LÉO : Qu’est-ce qu’elle fait, Maggie ?",
+          "ALICE : Elle saute.",
+          "ALICE : Qu’est-ce que tu fais, Marie ?",
+          "MARIE : J’apprends l’anglais.",
+          "ALICE : Qu’est-ce que tu fais, Léo ?",
+          "LÉO : Je peins."
+        ]
+      },
+      {
+        "title": "<b>Задача 3:</b> Прослушать (écoute) и ответь (et réponds).</span>",
+        "audio": "/assets/audio/b1_ch1_audio_19.mp3",
+        "lines": [
+          "1. Léo, qu’est-ce qu’il fait ? Il peint ? Il apprend l’anglais ?",
+          "2. Monsieur Legrand, qu’est-ce qu’il fait ? Il téléphone ? Il court ?",
+          "3. Madame Legrand, qu’est-ce qu’elle fait ? Elle chante ? Elle saute ?",
+          "4. Alice, qu’est-ce qu’elle fait ? Elle peint ? Elle téléphone ?",
+          "5. Marie, qu’est-ce qu’elle fait ? Elle court ? Elle apprend l’anglais ?",
+          "6. Maggie, qu’est-ce qu’elle fait ? Elle saute ? Elle chante ?",
+          "-----",
+          "Ответы",
+          "1. Il peint. - 2. Il court. - 3. Elle chante. - 4. Elle téléphone.",
+          "5. Elle apprend l'anglais. - 6. Elle saute."
+        ]
+      }
+    ]
+  },
+  "lesson_9": {
+    "title": "Qu'est-ce qu'il fait? Exercise de cahier",
+    "breadcrumb": [
+      "Accueil",
+      "Page 9"
+    ],
+    "mainImage": "/assets/images/book1_unit1_lesson5_C_img1.png",
+    "tasks": [
+      {
+        "title": "<b>Задача 1:</b> Прослушать (écoute) и найти персонажей (et cherche les personnages).</span>",
+        "audio": "/assets/audio/b1_ch1_cah_audio_38.mp3",
+        "lines": [
+          "Léo court sur le tapis de son père.",
+          "Maggie peint le chien.",
+          "Luc Legrand apprend l’espagnol.",
+          "Marie chante.",
+          "Alice saute.",
+          "Jeanne Legrand téléphone."
+        ]
+      }
+    ]
+  },
+  "lesson_10": {
+    "title": "La peinture preferée de Léo",
+    "breadcrumb": [
+      "Accueil",
+      "Page 10"
+    ],
+    "mainImage": "/assets/images/book1_unit1_petitdoc_peinture.jpg",
+    "tasks": [
+      {
+        "title": "<b>Цели урока:</b></span>",
+        "audio": "/assets/audio/b1_ch1_petitdoc_audio_1.mp3",
+        "lines": [
+          "Познакомиться с французским художником и картиной:",
+          "<b>Robert Delaunais, Tour Eiffel</b>",
+          "Уметь отвечать на следующие вопросы письменно:",
+          "<b>'Qu'est-ce que c'est?', 'Comment s'appelle le peintre?'</b>",
+          "Уметь отвечать на следуюшие вопросы устно:",
+          "<b>'Comment s'appelle la peinture préférée de Léo?', 'll y a combien de triangles noirs?', 'De quelles couleurs est la tour Eiffel de Robert Delaunay ?'</b>"
+        ]
+      },
+      {
+        "title": "<b>Задача 1:</b> Посмотреть (regarde) любимую картину Лео (la peinture preferée de Léo).</span>",
+        "audio": "/assets/audio/b1_ch1_petitdoc_audio_2.mp3",
+        "lines": [
+          "Q: Qu'est-ce que c'est?",
+          "R: C'est une peinture qui s'appelle 'Tour Eiffel'",
+          "Q: Comment s'appelle le peintre?",
+          "R: Il s'appelle Robert Delaunay"
+        ]
+      },
+      {
+        "title": "<b>Задача 2:</b> Покажи (montre) на картине.</span>",
+        "lines": [
+          "Un carré",
+          "Un triangle",
+          "Un rectangle"
+        ]
+      },
+      {
+        "title": "<b>Задача 3:</b> Послушай (écoute) и ответь (et réponds).</span>",
+        "audio": "/assets/audio/b1_ch1_audio_20.mp3",
+        "lines": [
+          "Comment s’appelle la peinture préférée de Léo ?",
+          "---Tour Eiffel",
+          "Il y a combien de triangles noirs ?",
+          "---Un triangle noir",
+          "De quelles couleurs est la tour Eiffel de Robert Delaunay ?",
+          "---rouge, noir, jaune, vert, orange, violet"
+        ]
+      }
+    ]
+  },
+  "lesson_11": {
+    "title": "Le téléphone de Pedro",
+    "breadcrumb": [
+      "Accueil",
+      "Page 11"
+    ],
+    "mainImage": "/assets/images/book1_unit1_projet1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Цель урока:</b>",
+        "lines": [
+          "Научиться понимать короткий диалог по телефону на французском языке."
+        ]
+      },
+      {
+        "title": "<b>Задание 1:</b> Послушай (Écoute).",
+        "audio": "/assets/audio/b1_ch1_audio_21.mp3",
+        "lines": [
+          "Послушай, как Педро и Иса разговаривают по телефону и повтори за ними.",
+          "<i>PEDRO : Allô ? C’est Pedro. Ça va ?<br>ISA : Oui, ça va et toi ?<br>PEDRO : Ça va bien. Qu’est-ce que tu fais ?<br>ISA : J’apprends le français.<br>PEDRO : Le français ? Ah, c’est super !<br>ISA : Oui, c’est super. Au revoir, Pedro.<br>PEDRO : Au revoir, Isa.</i>"
+        ]
+      },
+      {
+        "title": "<b>Задание 2:</b> Поиграй (Joue) — Сделай свой телефон.",
+        "lines": [
+          "Возьми лист бумаги и нарисуй телефон как на картинке.",
+          "Раскрась кнопки разными цветами:",
+          "<i>1 rouge, 2 jaune, 3 blanc, 4 violet, 5 vert, 6 orange, 7 vert, 8 violet, 9 bleu, 0 noir</i>.",
+          "Напиши своё имя и придумай свой номер телефона (не настоящий)."
+        ]
+      },
+      {
+        "title": "<b>Задание 3:</b> Позвони (Appelle).",
+        "lines": [
+          "Скажи вслух как Педро:",
+          "<i>Allô ? C’est [твоё имя]. Ça va ?</i>",
+          "Мама может ответить: <i>Oui, ça va et toi ?</i>",
+          "А ты скажи: <i>Ça va bien ! Au revoir !</i>",
+          "Повторите несколько раз, поменяв роли."
+        ]
+      },
+      {
+        "title": "<b>Проверь себя:</b>",
+        "lines": [
+          "Кто сказал «J’apprends le français»?",
+          "Что значит «Au revoir»?",
+          "Как Педро говорит «Привет» по телефону?"
+        ]
+      },
+      {
+        "title": "<b>Бонус:</b>",
+        "lines": [
+          "Сделай фото или нарисуй, как ты разговариваешь с Иса."
+        ]
+      }
+    ]
+  },
+  "lesson_12a": {
+    "title": "Qu’est-ce que c’est ? — Les objets de l’école",
+    "breadcrumb": [
+      "Accueil",
+      "Page 13"
+    ],
+    "mainImage": "/assets/images/book1_unit2_lesson1_img1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Цель урока:</b>",
+        "lines": [
+          "Познакомиться с названиями школьных предметов по-французски.",
+          "Научиться задавать вопрос <b>“Qu’est-ce que c’est ?”</b> (Что это?).",
+          "Понимать фразы на слух и узнавать предмет по описанию."
+        ]
+      },
+      {
+        "title": "<b>Задание 1:</b> Послушай, что говорят, и покажи нужный предмет на картинке.",
+        "audio": "/assets/audio/b1_ch2_audio_22.mp3",
+        "lines": [
+          "Qu’est-ce que c’est ?",
+          "C’est une trousse. Montre la trousse.",
+          "Qu’est-ce que c’est ?",
+          "C’est un cartable. Montre le cartable.",
+          "Qu’est-ce que c’est ?",
+          "C’est une gomme. Montre la gomme.",
+          "Qu’est-ce que c’est ?",
+          "C’est un livre. Montre le livre.",
+          "Qu’est-ce que c’est ?",
+          "Ce sont des ciseaux. Montre les ciseaux.",
+          "Qu’est-ce que c’est ?",
+          "C’est un stylo. Montre le stylo.",
+          "Qu’est-ce que c’est ?",
+          "C’est une colle. Montre la colle.",
+          "Qu’est-ce que c’est ?",
+          "C’est une règle. Montre la règle."
+        ]
+      },
+      {
+        "title": "<b>Слова урока:</b>",
+        "lines": [
+          "une trousse — пенал",
+          "un cartable — портфель",
+          "des ciseaux — ножницы",
+          "une règle — линейка",
+          "une gomme — ластик",
+          "un livre — книга",
+          "un crayon — карандаш",
+          "un stylo — ручка"
+        ]
+      }
+    ]
+  },
+  "lesson_12b": {
+    "title": "Qu’est-ce que c’est ? — Les objets de l’école",
+    "breadcrumb": [
+      "Accueil",
+      "Page 12"
+    ],
+    "mainImage": "/assets/images/book1_unit2_lesson1_img2.jpg",
+    "tasks": [
+      {
+        "title": "<b>Задание 1:</b> Послушай и покажи на картинке.",
+        "audio": "/assets/audio/b1_ch2_audio_23.mp3",
+        "lines": [
+          "Les ciseaux d’Alice. Ils sont verts.",
+          "La règle d’Alice. Elle est verte.",
+          "Le cartable d’Alice. Il est blanc et bleu.",
+          "La trousse d’Alice. Elle est violette.",
+          "La colle d’Alice. Elle est rouge et blanche.",
+          "La gomme d’Alice. Elle est rose et bleue.",
+          "Le stylo d’Alice. Il est marron."
+        ]
+      },
+      {
+        "title": "<b>Задание 2:</b> Послушай Алису и назови слова, которые ты знаешь.",
+        "audio": "/assets/audio/b1_ch2_audio_24.mp3",
+        "lines": [
+          "ALICE : Alors, mon stylo marron, ma gomme rose et bleue, mes ciseaux verts, ma colle rouge et blanche dans ma trousse violette. Ma trousse violette et mon livre dans mon cartable blanc et bleu. Et mes crayons de couleur ? Où sont mes crayons de couleur ?",
+          "MAGGIE : Bleu, jaune, vert ma toupie, elle tourne, elle tourne...",
+          "ALICE : Oh, Maggie ! Ce sont mes crayons de couleur !"
+        ]
+      },
+      {
+        "title": "<b>Задание 3:</b> Послушай и ответь.",
+        "audio": "/assets/audio/b1_ch2_audio_25.mp3",
+        "lines": [
+          "Elle est rouge et blanche. Qu’est-ce que c’est ? La règle ou la colle ?",
+          "Elle est violette. Qu’est-ce que c’est ? La règle ou la trousse ?",
+          "Ils sont verts. Qu’est-ce que c’est ? Les ciseaux ou le stylo ?",
+          "Il est blanc et bleu. Qu’est-ce que c’est ? Le cartable ou le stylo ?",
+          "Elle est rose et bleue. Qu’est-ce que c’est ? La gomme ou la trousse ?",
+          "Il est marron. Qu’est-ce que c’est ? Le cartable ou le stylo ?"
+        ]
+      }
+    ]
+  },
+  "lesson_13": {
+    "title": "Qui fait quoi?",
+    "breadcrumb": [
+      "Accueil",
+      "Page 14"
+    ],
+    "mainImage": "/assets/images/book1_unit2_lesson2_img1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Цели урока:</b></span>",
+        "audio": "/assets/audio/b1_ch2_lesson2_audio1.mp3",
+        "lines": [
+          "Выучить стихотворение 'S'il te plait'",
+          "Уметь использовать простые правила вежливости (<b>merci, s'il te plait</b>)",
+          "Выучить следующие слова и выражения:",
+          "<b>demander, prêter, prendre, poser, ranger.</b>",
+          "Научиться создавать простые фразы состоящие из нескольких частей:",
+          "<b>Léo range/ la gomme / dans la trousse.</b>",
+          "Научиться писать следующие слова:",
+          "<b>Des ciseaux, un taille-crayon, une gomme, un crayon, une trousse, un cartable.</b>",
+          "Уметь задавать следуюшие вопросы и отвечать на них:",
+          "<b>'Tu fais quoi?', 'Elle fait quoi?'</b>"
+        ]
+      },
+      {
+        "title": "<b>Задание 1:</b> Ecoute (послушай) la poésie (стихотворение) 'S'il te plait' et montre (покажи) le bon (правильное) dessin (изображение).",
+        "audio": "/assets/audio/b1_ch2_audio_26.mp3",
+        "lines": [
+          "S’il te plaît, mon amie Alice,",
+          "Prête-moi ! Prête-moi !",
+          "Des ciseaux, un taille-crayon",
+          "Une gomme et un crayon",
+          "J’ai oublié ma trousse et mon cartable",
+          "Merci, mon amie. Tu es formidable !"
+        ]
+      },
+      {
+        "title": "<b>Задание 2:</b> Послушай (écoute) и покажи (montre).",
+        "audio": "/assets/audio/b1_ch2_audio_27.mp3",
+        "lines": [
+          "Léo pose son cartable",
+          "Madame Legrand range la règle dans la trousse.",
+          "Marie demande des ciseaux à Alice: 'Alice, prête-moi tes ciseaux, s'il te plait!'",
+          "Maggie prend les crayons de couleur.",
+          "Alice prête les ciseaux à Marie : «Tiens! Voilà mes ciseaux."
+        ]
+      },
+      {
+        "title": "<b>Задание 3:</b> Послушай (écoute) и ответь (réponds).",
+        "audio": "/assets/audio/b1_ch2_audio_28.mp3",
+        "lines": [
+          "Qui prete les ciseaux a Marie?",
+          "Qui pose son cartable?",
+          "Qui demande des ciseaux à Alice?",
+          "Qui prend les crayons de couleur?",
+          "Qui range la règle dans la trousse?"
+        ]
+      },
+      {
+        "title": "<b>Задание 4:</b> Сыграй в игру.",
+        "game": "../games/arrange-words-unit2-lesson2.html"
+      }
+    ]
+  },
+  "lesson_14": {
+    "title": "Nous sommes quel jour aujourd'hui?",
+    "breadcrumb": [
+      "Accueil",
+      "Page 15"
+    ],
+    "mainImage": "/assets/images/book1_unit2_lesson3_img1.png",
+    "tasks": [
+      {
+        "title": "<b>Цели урока:</b></span>",
+        "audio": "/assets/audio/b1_ch2_lesson2_audio1.mp3",
+        "lines": [
+          "Выучить следующие слова и выражения:",
+          "<b>dessiner, gommer, tailler, peindre, découper, coller, écrire, donner</b>",
+          "Выучить дни недели",
+          "Научиться понимать и использовать выражения:",
+          "en haut (наверху), en bas (внизу), à gauche (слева), à droite (справа)",
+          "Научиться писать дни недели:",
+          "Научиться писать цифры от 0 до 20:",
+          "Уметь задавать следуюшие вопросы и отвечать на них:",
+          "Спросить какой сегодня день (<b>Nous sommes quel jour aujourd'hui ?</b>)и уметь отвечать на этот вопрос",
+          "Спросить что кто делает и отвечать на него <b>(Qu'est-ce qu'il fait? Qu'est-ce qu'elles font ? Elles dessinent, elles colorient...) </b>",
+          "Задать вопрос сколько ...(<b>il y a combien de..</b>)",
+          "Указать где находится объект"
+        ]
+      },
+      {
+        "title": "<b>Задание 1:</b> Ecoute (послушай) la chanson (песню) 'Mes petits mains' et mime (имитируй).",
+        "audio": "/assets/audio/b1_ch2_audio_29.mp3",
+        "lines": [
+          "Lundi 13",
+          "Mes petites mains dessinent, dessinent",
+          "Elles dessinent en haut, elles dessinent en bas, elles dessinent à gauche, elles dessinent à droite.",
+          "Mardi 14",
+          "Mes petites mains gomment, gomment",
+          "Elles gomment en haut, elles gomment en bas, elles gomment à gauche, elles gomment à droite.",
+          "Mercredi 15",
+          "Mes petites mains taillent, taillent",
+          "Elles taillent en haut, elles taillent en bas, elles taillent à gauche, elles taillent à droite.",
+          "Jeudi 16",
+          "Mes petites mains peignent, peignent",
+          "Elles peignent en haut, elles peignent en bas, elles peignent à gauche, elles peignent à droite.",
+          "Vendredi 17",
+          "Mes petites mains découpent, découpent",
+          "Elles découpent en haut, elles découpent en bas, elles découpent à gauche, elles découpent à droite.",
+          "Samedi 18",
+          "Mes petites mains collent, collent",
+          "Elles collent en haut, elles collent en bas, elles collent à gauche, elles collent à droite.",
+          "Dimanche 19",
+          "Mes petites mains écrivent, écrivent",
+          "Elles écrivent en haut, elles écrivent en bas, elles écrivent à gauche, elles écrivent à droite.",
+          "Lundi 20",
+          "Mes petites mains donnent, donnent",
+          "Elles donnent en haut, elles donnent en bas, elles donnent à gauche, elles donnent à droite."
+        ]
+      },
+      {
+        "title": "<b>Задание 2:</b> Послушай (écoute) и покажи (montre).",
+        "audio": "/assets/audio/b1_ch2_audio_31.mp3",
+        "lines": [
+          "Nous sommes quel jour aujourd’hui ? Nous sommes le lundi 20.",
+          "Mes petites mains donnent, donnent",
+          "Elles donnent en haut, elles donnent en bas, elles donnent à gauche, elles donnent à droite.",
+          "Nous sommes quel jour aujourd’hui ? Nous sommes le jeudi 16.",
+          "Mes petites mains peignent, peignent",
+          "Elles peignent en haut, elles peignent en bas, elles peignent à gauche, elles peignent à droite.",
+          "Nous sommes le mardi 14.",
+          "Mes petites mains gomment, gomment",
+          "Elles gomment en haut, elles gomment en bas, elles gomment à gauche, elles gomment à droite.",
+          "Mercredi 15",
+          "Mes petites mains taillent, taillent",
+          "Elles taillent en haut, elles taillent en bas, elles taillent à gauche, elles taillent à droite.",
+          "Vendredi 17",
+          "Mes petites mains découpent, découpent",
+          "Elles découpent en haut, elles découpent en bas, elles découpent à gauche, elles découpent à droite.",
+          "Lundi 13",
+          "Mes petites mains dessinent, dessinent",
+          "Elles dessinent en haut, elles dessinent en bas, elles dessinent à gauche, elles dessinent à droite."
+        ]
+      },
+      {
+        "title": "<b>Задание 3:</b> Послушай (écoute), повтори (répète) и спой (chante).",
+        "audio": "/assets/audio/b1_ch2_audio_32.mp3",
+        "lines": [
+          "Exemple : Aujourd’hui, nous sommes le lundi 13.",
+          "Aujourd’hui, nous sommes le lundi 13.",
+          "Mes petites mains dessinent, dessinent. Elles dessinent en haut, elles dessinent en bas, elles dessinent à gauche, elles dessinent à droite.",
+          "Aujourd’hui, nous sommes le samedi 18.",
+          "Aujourd’hui, nous sommes le dimanche 19.",
+          "Aujourd’hui, nous sommes le mardi 14.",
+          "Aujourd’hui, nous sommes le vendredi 17."
+        ]
+      }
+    ]
+  },
+  "lesson_15": {
+    "title": "Tu aimes aller à l'école?",
+    "breadcrumb": [
+      "Accueil",
+      "Page 16"
+    ],
+    "mainImage": "/assets/images/book1_unit2_lesson4_img1.png",
+    "tasks": [
+      {
+        "title": "<b>Цели урока:</b></span>",
+        "audio": "/assets/audio/b1_ch2_lesson4_audio1.mp3",
+        "lines": [
+          "Выучить следующие слова и выражения:",
+          "<b>j'aime, je n'aime pas, je compte, je dessine, j'écris, je lis, je chante, je recite une poesie, je fais du sport, tu comptes, tu dessines, tu ecris, tu lis, tu recites une poésie, tu fais du sport.</b>",
+          "Выучить как называются различные занятия в школе",
+          "Научиться писать:",
+          "<b>j'aime / je n'aime pas, compter, lire</b>"
+        ]
+      },
+      {
+        "title": "<b>Задание 1:</b> Regarde (посмотри) le tableau (на таблицу). Ecoute (послушай) et vérifie (проверь).",
+        "audio": "/assets/audio/b1_ch2_audio_33.mp3",
+        "lines": [
+          "JEANNE LEGRAND : Tu aimes aller à l’école, Alice ?",
+          "ALICE : Oh oui, maman ! J’aime lire, j’aime compter.",
+          "JEANNE LEGRAND : C’est tout ?",
+          "ALICE : Non, j’aime aussi réciter des poésies et j’aime être avec mes copines.",
+          "LUC LEGRAND : Et toi, Léo, tu aimes aller à l’école ",
+          "LÉO : Oh oui, papa ! Moi, j’aime chanter, réciter des poésies et dessiner. J’aime faire du sport et être avec mes copains.",
+          "LUC LEGRAND : C’est tout ?",
+          "LÉO : Euh ! C’est tout !",
+          "------------------------",
+          "Тебе нравится идти в школу, Алиса?",
+          "Да, мама! Я люблю читать, люблю считать.",
+          "И всё?",
+          "Нет, я еще люблю читать стихи и я люблю проводить время с подругами",
+          "А ты, Лео, ты любишь идти в школу?",
+          "О да, папа! Я, я люблю петь, читать стихи и рисовать. Я люблю заниматься спортом и проводить время с моими друзьями.",
+          "И всё?",
+          "Нуу, да, всё!"
+        ]
+      },
+      {
+        "title": "<b>Задание 2:</b> Écoute, réponds vrai (правда) ou faux (неправда) et corrige (исправь) si nécessaire (если необходимо).",
+        "audio": "/assets/audio/b1_ch2_audio_34.mp3",
+        "lines": [
+          "Vrai ou faux ? Alice aime lire. → C’est vrai ! Alice aime lire.",
+          "Vrai ou faux ? Léo aime compter. → C’est faux ! Léo n’aime pas compter.",
+          "Vrai ou faux ? Alice aime chanter.",
+          "Vrai ou faux ? Alice et Léo aiment réciter des poésies.",
+          "Vrai ou faux ? Alice aime dessiner.",
+          "Vrai ou faux ? Léo aime faire du sport.",
+          "Vrai ou faux ? Alice et Léo aiment être avec des copains et des copines."
+        ]
+      },
+      {
+        "title": "<b>Задание 3:</b> Послушай (écoute) et complète (дополни).",
+        "audio": "/assets/audio/b1_ch2_audio_35.mp3",
+        "lines": [
+          "Exemple :",
+          "Alice aime lire. Léo…",
+          " … n’aime pas lire.",
+          "Alice aime compter. Léo…",
+          "Alice n’aime pas chanter. Léo…",
+          "Alice n’aime pas dessiner. Léo…",
+          "Alice n’aime pas faire du sport. Léo…"
+        ]
+      }
+    ]
+  },
+  "lesson_16": {
+    "title": "Que'est-ce que tu aimes faire pendant la récréation?",
+    "breadcrumb": [
+      "Accueil",
+      "Page 17"
+    ],
+    "mainImage": "/assets/images/book1_unit2_lesson5_img1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Цели урока:</b></span>",
+        "audio": "/assets/audio/b1_ch2_lesson5_audio1.mp3",
+        "lines": [
+          "Выучить выражения касаемые занятий на перемене",
+          "Уметь использовать эти выражения и игры",
+          "Выучить следующие слова и выражения, а также написать их:",
+          "<b>un livre, un ballon, une bille, une corde à sauter, des craies, une marelle, 'Qu'est-ce que tu aimes... ?'</b>"
+        ]
+      },
+      {
+        "title": "<b>Задание 1:</b> Écoute et dis le numéro.",
+        "audio": "/assets/audio/b1_ch2_audio_36.mp3",
+        "lines": [
+          "Exemple :",
+          "PROFESSEUR : Carole, qu’est-ce que tu aimes faire pendant la récréation ?",
+          "CAROLE : Moi, j’aime lire sur un banc.",
+          "NARRATEUR : C’est le numéro 3.",
+          "PROFESSEUR : Et toi ? Qu’est-ce que tu aimes faire pendant la récréation ?",
+          "GARÇON : Moi, j’aime jouer à cache-cache.",
+          "PROFESSEUR : Et toi ? Qu’est-ce que tu aimes faire ?",
+          "FILLE : Moi, j’aime jouer à la marelle.",
+          "PROFESSEUR : Et toi, Léo ?",
+          "LÉO : Moi, j’aime jouer aux billes.",
+          "PROFESSEUR : Et toi ?",
+          "GARÇON : Moi, j’aime jouer au ballon.",
+          "PROFESSEUR : Et toi ? Qu’est-ce que tu aimes faire pendant la récréation ?",
+          "GARÇON : Moi, j’aime sauter à la corde.",
+          "PROFESSEUR : Rangez-vous les enfants !",
+          "----------------------------------------",
+          "Пример:",
+          "УЧИТЕЛЬ: Кароль, что ты любишь делать на перемене?",
+          "КАРОЛЬ: Я люблю читать на скамейке.",
+          "РАССКАЗЧИК: Это номер 3.",
+          "УЧИТЕЛЬ: А ты? Что ты любишь делать на перемене?",
+          "МАЛЬЧИК: Я люблю играть в прятки.",
+          "УЧИТЕЛЬ: А ты? Что ты любишь делать?",
+          "ДЕВОЧКА: Я люблю играть в классики.",
+          "УЧИТЕЛЬ: А ты, Лео?",
+          "ЛЕО: Я люблю играть в шарики.",
+          "УЧИТЕЛЬ: А ты?",
+          "МАЛЬЧИК: Я люблю играть в мяч.",
+          "УЧИТЕЛЬ: А ты? Что ты любишь делать на перемене?",
+          "МАЛЬЧИК: Я люблю прыгать через скакалку.",
+          "УЧИТЕЛЬ: Постройтесь, дети!"
+        ]
+      },
+      {
+        "title": "<b>Задание 2:</b> Écoute et complète.",
+        "audio": "/assets/audio/b1_ch2_audio_37.mp3",
+        "lines": [
+          "Exemple :",
+          "ADULTE : Numéro 3. Elles lisent un…",
+          "ENFANTS : …livre.",
+          "Numéro 2. Ils jouent à…",
+          "Numéro 6. Ils jouent au…",
+          "Numéro 4. Ils jouent aux…",
+          "Numéro 5. Il saute à la…",
+          "Numéro 1. Ils jouent à la…",
+          "Corrigé : 3. livre – 2. cache-cache – 6. ballon – 4. billes – 5. corde – 1. marelle."
+        ]
+      }
+    ]
+  },
+  "lesson_17": {
+    "title": "Les abécédaires d'Alice",
+    "breadcrumb": [
+      "Accueil",
+      "Page 18"
+    ],
+    "mainImage": "/assets/images/book1_unit2_petitdoc1_img1.jpg",
+    "tasks": [
+      {
+        "title": "<b>Цели урока:</b></span>",
+        "audio": "/assets/audio/b1_ch2_petitdoc1_audio1.mp3",
+        "lines": [
+          "<b>1.</b> Découvrir (открыть для себя) французский, арабский и испанский алфавиты",
+          "<b>2.</b> Découvrir et apprendre à chanter la chanson L'alphabet",
+          "<b>3.</b> Apprendre à compter et écrire jusqu'à 30",
+          "<b>4.</b> Apprendre à épeler (произносить слово на выбор по буквам )",
+          "<b>5.</b> Mémorisent (выучить наизусть) l'ordre (порядок) alphabétique.",
+          "<b>6.</b> Выучить следующие слова и выражения, а также написать их:",
+          "<b>abécédaire, espagnol, arabe, lettres, alphabet, Tu connais ? Oui, je connais. Non, je ne connais pas.</b>"
+        ]
+      },
+      {
+        "title": "<b>Задание 1:</b> Écoute et réponds.",
+        "audio": "/assets/audio/b1_ch2_audio_38.mp3",
+        "lines": [
+          "Voici trois abécédaires : un abécédaire français, un abécédaire arabe et un abécédaire espagnol.",
+          "(Вот три букваря: французский букварь, арабский букварь и испанский букварь.)",
+          "Dans abécédaire, il y a « a, b, c, d » : les quatre premières lettres de l’alphabet.",
+          "(В слове «букварь» есть «a, b, c, d» — четыре первые буквы алфавита.)",
+          "Un abécédaire apprend à lire ou à compter ?",
+          "(Букварь учит читать или считать?)"
+        ]
+      },
+      {
+        "title": "<b>Задание 2:</b> Écoute, réponds et montre",
+        "audio": "/assets/audio/b1_ch2_audio_39.mp3",
+        "lines": [
+          "a. Qui est l’enfant français ? L’enfant 1, 2 ou 3 ? Écoute.",
+          "b. Montre l’abécédaire d’Alice."
+        ]
+      },
+      {
+        "title": "<b>Задание 3:</b> Écoute et montre",
+        "audio": "/assets/audio/b1_ch2_audio_40.mp3",
+        "lines": [
+          "Il y a 27 lettres dans l’alphabet espagnol, 28 lettres dans l’alphabet arabe. Il y a combien de lettres dans l’alphabet français ? Écoute et compte : A B C D E F G H I J K L M N O P Q R S T U V W X Y Z."
+        ]
+      },
+      {
+        "title": "<b>Задание 4:</b> Écoute la chanson 'L'alphabet' et chante.",
+        "audio": "/assets/audio/b1_ch2_audio_41.mp3",
+        "lines": [
+          "Eh Benoît, tu connais ton alphabet ?",
+          "Euh, non...",
+          "Quoi ? Tu ne connais pas ton alphabet ?",
+          "Ben, non...",
+          "Alors écoute !",
+          "A B C D E F G",
+          "H I J K L M N O",
+          "P Q R S T U V",
+          "W",
+          "X Y Z",
+          "C’est l’alphabet !",
+          "A B C D E F G",
+          "H I J K L M N O",
+          "P Q R S T U V",
+          "W",
+          "X Y Z",
+          "C’est l’alphabet !",
+          "Oh-la-la il va drolement vite celui-là!",
+          "Oui, mais nous on chante beaucoup mieux!",
+          "A B C D E F G",
+          "H I J K L M N O",
+          "P Q R S T U V",
+          "W",
+          "X Y Z",
+          "C’est l’alphabet !",
+          "A B C D E F G",
+          "Moi je connais l'alphabet!"
+        ]
+      },
+      {
+        "title": "<b>Задание 5:</b> Написать и произнести по буквам слова:",
+        "lines": [
+          "CISEAUX, CORDE, COMPTER, CHANTER, DIMANCHE, MARELLE, RECITER"
+        ]
+      }
+    ]
+  }
+};
+
+export const reorderGames = [
+  {
+    id: 1,
+    slug: 'reorder_game_1',
+    title: "Remets les mots dans l’ordre",
+    description: "Reconstitue les phrases en replaçant les mots dans le bon ordre.",
+    levels: [
+      {
+        image: "/assets/images/arrange_words_games/arrange_words_game_1_img1.jpg",
+        sentence: ["Léo", "pose", "un", "crayon", "bleu."],
+        audio: "/assets/audio/reorder/leo_pose_crayon_bleu.mp3"
+      },
+      {
+        image: "/assets/images/arrange_words_games/arrange_words_game_1_img2.jpg",
+        sentence: ["Marie", "prend", "sa", "trousse", "violette."],
+        audio: "/assets/audio/reorder/marie_prend_sa_trousse_violette.mp3"
+      },
+      {
+        image: "/assets/images/arrange_words_games/arrange_words_game_1_alice.png",
+        sentence: ["Salut,", "moi", "c'est", "Alice."],
+        audio: "/assets/audio/reorder/moi_cest_alice.mp3"
+      },
+      {
+        image: "/assets/images/arrange_words_games/arrange_words_game_1_peinture.png",
+        sentence: ["La", "peinture", "preferée", "de", "Léo."],
+        audio: "/assets/audio/reorder/peinture_preferee.mp3"
+      },
+      {
+        image: "/assets/images/arrange_words_games/arrange_words_game_1_ecole_alice.png",
+        sentence: ["Tu", "aimes", "aller", "à", "l’école,", "Alice?"],
+        audio: "/assets/audio/reorder/aller_ecole_alice.mp3"
+      }
+    ]
+  }
+];

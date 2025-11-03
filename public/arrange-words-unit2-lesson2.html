@@ -129,10 +129,10 @@
 
 <script>
 /* ============================================================
-   🧠 STEP 1: Load game data (levels) from an external JSON file
+   🧠 STEP 1: Load game data (levels) from the API
    ============================================================ */
 
-const GAME_DATA_URL = "../data/reorder_game_1.json"; // path to JSON
+const GAME_DATA_URL = "/api/games/reorder/1";
 let levels = [];
 let currentLevel = 0;
 
@@ -144,17 +144,18 @@ const checkBtn = document.getElementById("checkBtn");
 window.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch(GAME_DATA_URL);
-    if (!res.ok) throw new Error("Failed to load JSON");
-    const data = await res.json();
-    levels = data.levels || [];
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const payload = await res.json();
+    if (!payload.success) throw new Error("API error");
+    levels = payload.data?.levels || [];
     if (levels.length === 0) {
-      msg.textContent = "Aucun niveau trouvé dans le fichier JSON.";
+      msg.textContent = "Aucun niveau trouvé via l’API.";
       return;
     }
     loadLevel(currentLevel);
   } catch (err) {
     console.error(err);
-    msg.textContent = "Erreur: impossible de charger le fichier de jeu.";
+    msg.textContent = "Erreur: impossible de charger le jeu via l’API.";
   }
 });
 
