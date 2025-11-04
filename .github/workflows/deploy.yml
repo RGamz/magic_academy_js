@@ -21,9 +21,16 @@ jobs:
       - name: Deploy via SSH
         run: |
           ssh -p ${{ secrets.SERVER_PORT }} -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            set -e
             cd ${{ secrets.APP_PATH }}
+            echo "🔄 Pulling latest code..."
             git pull origin main
+            echo "🗃 Running migrations..."
+            docker compose run --rm app npm run migrate || { echo "❌ Migration failed"; exit 1; }
+            echo "🚀 Restarting services..."
             docker compose down
             docker compose up -d --build
+            echo "🧹 Cleaning up unused images..."
             docker system prune -f
+            echo "✅ Deployment completed successfully!"
           EOF
