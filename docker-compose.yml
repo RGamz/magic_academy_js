@@ -7,7 +7,10 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
-
+      - DB_FILE=/app/data/magic_academy.sqlite
+    volumes:
+      - ./data:/app/data  # Persist database file
+  
   nginx:
     image: nginx:latest
     restart: always
