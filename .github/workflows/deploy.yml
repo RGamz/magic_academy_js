@@ -26,7 +26,7 @@ jobs:
             echo "🔄 Pulling latest code..."
             git pull origin main
             echo "🗃 Running migrations..."
-            docker compose run --rm app sh -c 'cd backend && npm run migrate' || { echo '❌ Migration failed'; exit 1; }
+            docker compose run --rm app npm run migrate || { echo '❌ Migration failed'; exit 1; }
             echo "🚀 Restarting services..."
             docker compose down
             docker compose up -d --build
