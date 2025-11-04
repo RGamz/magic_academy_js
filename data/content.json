@@ -125,6 +125,13 @@
       "description": "L'alphabet",
       "cover": "/assets/images/book1_unit2_petitdoc1_img1.jpg",
       "tag": "Débutant"
+    },
+    {
+      "slug": "lesson_18",
+      "title": "Page 23 — Tu habites où ?",
+      "description": "Les paysages",
+      "cover": "/assets/images/book1_unit3_lesson1_img1.jpg",
+      "tag": "Débutant"
     }
   ],
   "lessons": {
@@ -1071,6 +1078,32 @@
           "title": "<b>Задание 5:</b> Написать и произнести по буквам слова:",
           "lines": [     
               "CISEAUX, CORDE, COMPTER, CHANTER, DIMANCHE, MARELLE, RECITER"
+          ]
+        }
+      ]
+    },
+    "lesson_18": {
+      "title": "Tu habites où ?",
+      "breadcrumb": ["Accueil", "Page 23"],
+      "mainImage": "/assets/images/book1_unit3_lesson1_img1.jpg",
+      "tasks": [
+        {
+            "title": "<b>Цели урока:</b></span>",
+            "lines": [
+              "<b>1.</b> Nommer quatre nouveaux paysages : la mer, la campagne, la ville et la montagne",
+              "<b>2.</b> Différencier une maison d'un appartement",
+              "<b>6.</b> Mémoriser et apprendre à écrire:",
+              "<b>la mer, la campagne, la ville, la montagne,  la maison, un appartement, habiter</b>"
+            ]
+            },
+        {
+          "title": "<b>Задание 1:</b> Écoute et montre",
+          "audio": "/assets/audio/b1_ch3_audio_45.mp3", 
+          "lines": [
+              "Écoute. Tu habites où ? Oui, tu habites dans un appartement en ville.",
+              "Écoute. Tu habites où ? Oui, tu habites dans une maison à la campagne.",
+              "Écoute. Tu habites où ? Oui, tu habites dans un appartement à la mer.",
+              "Écoute. Tu habites où ? Oui, tu habites dans une maison à la montagne."
           ]
         }
       ]

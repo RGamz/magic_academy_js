@@ -24,6 +24,11 @@
       "image": "/assets/images/arrange_words_games/arrange_words_game_1_ecole_alice.png",
       "sentence": ["Tu", "aimes", "aller", "à", "l’école,", "Alice?"],
       "audio": "/assets/audio/reorder/aller_ecole_alice.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/arrange_words_game_1_maison_camp.jpg",
+      "sentence": ["Tu", "habites", "où?"],
+      "audio": "/assets/audio/reorder/tu_habites_ou.mp3"
     }
   ]
 }
