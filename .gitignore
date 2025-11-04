@@ -28,3 +28,6 @@ docker-volumes/
 
 # Certbot system path (not in repo)
 etc/letsencrypt/
+
+#databse
+data/magic_academy.sqlite
