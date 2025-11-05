@@ -10,6 +10,7 @@ services:
       - DB_FILE=/app/data/magic_academy.sqlite
     volumes:
       - ./data:/app/data  # Persist database file
+      - ./backend/assets:/app/backend/assets  # Mount assets for immediate availability
   
   nginx:
     image: nginx:latest
