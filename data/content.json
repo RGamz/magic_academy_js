@@ -133,6 +133,14 @@
       "cover": "/assets/images/book1_unit3_lesson1_img1.jpg",
       "tag": "Débutant"
     }
+    ,
+    {
+      "slug": "lesson_19",
+      "title": "Page 22 — Tu habites où ?",
+      "description": "La famille Legrand",
+      "cover": "/assets/images/book1_unit3_lesson1_img2.jpg",
+      "tag": "Débutant"
+    }
   ],
   "lessons": {
     "lesson_1": {
@@ -1092,7 +1100,7 @@
             "lines": [
               "<b>1.</b> Nommer quatre nouveaux paysages : la mer, la campagne, la ville et la montagne",
               "<b>2.</b> Différencier une maison d'un appartement",
-              "<b>6.</b> Mémoriser et apprendre à écrire:",
+              "<b>3.</b> Mémoriser et apprendre à écrire:",
               "<b>la mer, la campagne, la ville, la montagne,  la maison, un appartement, habiter</b>"
             ]
             },
@@ -1104,6 +1112,65 @@
               "Écoute. Tu habites où ? Oui, tu habites dans une maison à la campagne.",
               "Écoute. Tu habites où ? Oui, tu habites dans un appartement à la mer.",
               "Écoute. Tu habites où ? Oui, tu habites dans une maison à la montagne."
+          ]
+        }
+      ]
+    },
+    "lesson_19": {
+      "title": "Tu habites où ?",
+      "breadcrumb": ["Accueil", "Page 22"],
+      "mainImage": "/assets/images/book1_unit3_lesson1_img2.jpg",
+      "tasks": [
+        {
+            "title": "<b>Objet d'apprentissage:</b></span>",
+            "audio": "/assets/audio/b1_ch3_lesson1_audio1.mp3", 
+            "lines": [
+              "<b>1.</b> Nommer quatre nouveaux paysages : la mer, la campagne, la ville et la montagne",
+              "<b>2.</b> Apprendre à utiliser 'son' et 'sa'. Poser la question 'Où est... ?'. Savoir utiliser les expressions 'J'habite à la...(mer, campagne)', 'J'habite en...(ville)', 'Je suis dans...(une chambre)'",
+              "<b>3.</b> Savoir dire où tu habites (paysage, habitation) et savoir le demander à une personne",
+              "<b>4.</b> Mémoriser et apprendre à écrire les pièces de la maison:",
+              "<b>la cuisine, le salon, la salle à manger, la salle de bains, la chambre, le jardin</b>"
+            ]
+            },
+        {
+          "title": "<b>Tâche 1:</b> Écoute et réponds",
+          "audio": "/assets/audio/b1_ch3_audio_46.mp3", 
+          "lines": [
+              "La famille Legrand habite où ?",
+              "a. à la mer – à la campagne – en ville – à la montagne",
+              "b. dans un appartement – dans une maison",
+              "Et toi, tu habites où ?",
+              "a. à la mer – à la campagne – en ville – à la montagne",
+              "b. dans un appartement – dans une maison"
+          ]
+        },
+        {
+          "title": "<b>Tâche 2:</b> Écoute et montre sur la grande image.",
+          "audio": "/assets/audio/b1_ch3_audio_47.mp3", 
+          "lines": [
+               "Où est la famille Legrand ?",
+              "JEANNE LEGRAND : Ouh ! Ouh ! Je suis à la maison. Où êtes-vous ?",
+              "GRAND-PÈRE PIERRE : Je suis dans la cuisine.",
+              "JEANNE LEGRAND : Bonjour, Pierre. Et où est Léo ?",
+              "GRAND-PÈRE PIERRE : Il est dans sa chambre.",
+              "JEANNE LEGRAND : Et Alice ?",
+              "GRAND-PÈRE PIERRE : Elle est dans le salon.",
+              "JEANNE LEGRAND : Et où est Maggie ?",
+              "GRAND-PÈRE PIERRE : Dans la salle à manger.",
+              "JEANNE LEGRAND : Et Luc ? Il n’est pas dans le jardin. Il est où ?",
+              "GRAND-PÈRE PIERRE : Il est dans la salle de bains."
+          ]
+        },
+        {
+          "title": "<b>Tâche 3:</b> Écoute, regarde et réponds.",
+          "audio": "/assets/audio/b1_ch3_audio_48.mp3", 
+          "lines": [
+              "Où est Alice ? Dans sa chambre ? Dans le salon ?",
+              "Où est Léo ? Dans sa chambre ? Dans le jardin ?",
+              "Où est monsieur Legrand ? Dans la salle de bains ? Dans la salle à manger ?",
+              "Où est madame Legrand ? Dans la cuisine ? Dans le jardin ?",
+              "Où est grand-père Pierre ? Dans la chambre de Léo ? Dans la cuisine ?",
+              "Où est grand-mère Colette ? Dans la salle à manger ? Dans le salon ?"
           ]
         }
       ]
