@@ -1,7 +1,9 @@
+// index.js
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import lessonRoutes from './backend/src/routes/lessonRoutes.js';
 
 const env = process.env.NODE_ENV || 'development';
 dotenv.config({ path: `.env.${env}` });
@@ -11,17 +13,23 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve static files from ./backend/public  (adjust path if needed)
+// Middleware
+app.use(express.json());
+
+// API Routes
+app.use('/api/lessons', lessonRoutes);
+
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Serve static JSON data from /data folder
 app.use('/data', express.static(path.join(__dirname, 'data')));
-
-// Serve static files from backend assets (images, audio, lessons, etc.)
 app.use('/assets', express.static(path.join(__dirname, 'backend', 'assets')));
 
+// Root route
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'backend', 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, '0.0.0.0', () => console.log('✅ Listening on http://localhost:3000'));
+app.listen(PORT, '0.0.0.0', () => {
+  console.log('✅ Server running on http://localhost:' + PORT);
+  console.log('📚 API available at http://localhost:' + PORT + '/api/lessons');
+});
