@@ -86,7 +86,7 @@ const migrate = db.transaction(() => {
     const adminResult = db.prepare(`
       INSERT INTO users (nickname, email, password, role) 
       VALUES (?, ?, ?, ?)
-    `).run('Admin', 'rgamzat@live.com', 'admin', 'admin');
+    `).run('Admin', 'admin@academy.fr', 'admin', 'admin');
     adminUserId = adminResult.lastInsertRowid;
   }
   console.log(`✓ Admin user ready (id: ${adminUserId})\n`);
