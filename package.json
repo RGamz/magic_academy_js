@@ -8,6 +8,8 @@
     "dev": "nodemon index.js",
     "migrate": "node backend/src/db/migrate.js",
     "migrate:content": "node backend/src/db/migrations/migrate-content.js",
+    "lesson:add":"node scripts/bulk-add-lessons.js",
+    "lesson:status": "node scripts/lesson-status.js"
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

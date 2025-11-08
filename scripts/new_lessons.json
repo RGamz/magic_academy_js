@@ -1,0 +1,63 @@
+{
+  "lessons": [
+    {
+      "title": "Page 24 — Les animaux",
+      "previewImage": "/assets/images/book1_unit3_lesson2_preview.jpg",
+      "mainImage": "/assets/images/book1_unit3_lesson2_main.jpg",
+      "tasks": [
+        {
+          "title": "Tâche 1: Écoute et montre les animaux",
+          "lines": [
+            "Un chien",
+            "Un chat",
+            "Un oiseau",
+            "Un poisson"
+          ],
+          "audio": "/assets/audio/b1_ch3_audio_50.mp3",
+          "image": null,
+          "game": null
+        },
+        {
+          "title": "Tâche 2: Répète après moi",
+          "lines": [
+            "Exemple: Le chien dit 'Ouaf ouaf'",
+            "Le chat dit 'Miaou'",
+            "L'oiseau dit 'Cui cui'",
+            "Le poisson ne dit rien!"
+          ],
+          "audio": "/assets/audio/b1_ch3_audio_51.mp3",
+          "image": "/assets/images/book1_unit3_lesson2_task2.jpg",
+          "game": null
+        },
+        {
+          "title": "Tâche 3: Jeu - Trouve l'animal",
+          "lines": [
+            "Clique sur l'animal que tu entends!"
+          ],
+          "audio": null,
+          "image": null,
+          "game": "../games/animals-game.html"
+        }
+      ]
+    },
+    {
+      "title": "Page 25 — Les couleurs des animaux",
+      "previewImage": "/assets/images/book1_unit3_lesson3_preview.jpg",
+      "mainImage": "/assets/images/book1_unit3_lesson3_main.jpg",
+      "tasks": [
+        {
+          "title": "Tâche 1: De quelle couleur est...?",
+          "lines": [
+            "De quelle couleur est le chien?",
+            "Il est marron.",
+            "De quelle couleur est le chat?",
+            "Il est gris."
+          ],
+          "audio": "/assets/audio/b1_ch3_audio_52.mp3",
+          "image": null,
+          "game": null
+        }
+      ]
+    }
+  ]
+}
