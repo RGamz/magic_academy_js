@@ -30,5 +30,4 @@ docker-volumes/
 etc/letsencrypt/
 
 #databse
-data/magic_academy.sqlite
-data/content.json
+
