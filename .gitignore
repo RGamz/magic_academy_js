@@ -30,4 +30,5 @@ docker-volumes/
 etc/letsencrypt/
 
 #database
-data/magic_academy.sqlite
+data/*.sqlite
+data/*.sqlite-*
