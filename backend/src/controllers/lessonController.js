@@ -8,18 +8,24 @@ db.pragma('foreign_keys = ON');
 
 /**
  * Get all lessons with preview data (for home page)
+ * Returns format compatible with content.json pages array
  */
 export function getAllLessons(req, res) {
   try {
     const lessons = db.prepare(`
-      SELECT 
+      SELECT
         l.id,
+        l.slug,
         tt.content as title,
+        tt_desc.content as description,
         img_preview.file_path as cover,
+        l.tag,
         l.created_at
       FROM lessons l
       LEFT JOIN text_translations tt ON l.title_id = tt.id
+      LEFT JOIN text_translations tt_desc ON l.description_id = tt_desc.id
       LEFT JOIN images img_preview ON l.preview_image_id = img_preview.id
+      WHERE l.slug IS NOT NULL
       ORDER BY l.id ASC
     `).all();
 
@@ -32,6 +38,7 @@ export function getAllLessons(req, res) {
 
 /**
  * Get lesson by ID with all tasks
+ * Returns format compatible with content.json lesson structure
  */
 export function getLessonById(req, res) {
   try {
@@ -39,7 +46,7 @@ export function getLessonById(req, res) {
 
     // Get lesson basic info
     const lesson = db.prepare(`
-      SELECT 
+      SELECT
         l.id,
         tt.content as title,
         img_main.file_path as mainImage,
@@ -57,7 +64,7 @@ export function getLessonById(req, res) {
 
     // Get all tasks for this lesson
     const tasks = db.prepare(`
-      SELECT 
+      SELECT
         lt.id,
         tt_title.content as title,
         tt_desc.content as description,
@@ -75,15 +82,35 @@ export function getLessonById(req, res) {
       ORDER BY lt.id ASC
     `).all(lessonId);
 
-    // Split description back into lines array
-    const tasksWithLines = tasks.map(task => ({
-      ...task,
-      lines: task.description ? task.description.split('\n') : [],
-      description: undefined // remove the raw description field
-    }));
+    // Split description back into lines array and format for frontend
+    const tasksWithLines = tasks.map(task => {
+      const result = {
+        title: task.title,
+        lines: task.description ? task.description.split('\n') : []
+      };
+
+      // Add audio if present
+      if (task.audio) {
+        result.audio = task.audio;
+      }
+
+      // Add image if present
+      if (task.image) {
+        result.image = task.image;
+      }
+
+      // Add game if present
+      if (task.game) {
+        result.game = task.game;
+      }
+
+      return result;
+    });
 
     const result = {
-      ...lesson,
+      title: lesson.title,
+      mainImage: lesson.mainImage,
+      breadcrumb: [lesson.title], // Simple breadcrumb for now
       tasks: tasksWithLines
     };
 
@@ -96,22 +123,21 @@ export function getLessonById(req, res) {
 
 /**
  * Get lesson by slug (for backward compatibility with ?id=lesson_1)
- * We'll store slug in a new column or use a mapping table
- * For now, using ID-based approach
+ * Looks up lesson by slug field in database
  */
 export function getLessonBySlug(req, res) {
   try {
     const slug = req.params.slug;
-    
-    // Simple mapping: extract number from slug (lesson_1 -> 1)
-    const match = slug.match(/lesson_(\d+)/);
-    if (!match) {
-      return res.status(400).json({ success: false, message: 'Invalid slug format' });
+
+    // Get lesson ID from slug
+    const lessonRecord = db.prepare('SELECT id FROM lessons WHERE slug = ?').get(slug);
+
+    if (!lessonRecord) {
+      return res.status(404).json({ success: false, message: 'Lesson not found' });
     }
 
-    const lessonId = parseInt(match[1]);
-    req.params.id = lessonId;
-    
+    // Use the ID to get full lesson data
+    req.params.id = lessonRecord.id;
     return getLessonById(req, res);
   } catch (error) {
     console.error('Error fetching lesson by slug:', error);

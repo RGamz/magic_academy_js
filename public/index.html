@@ -36,8 +36,8 @@
     <script>
       const cards = document.getElementById('cards');
 
-      function renderPages(content){
-        cards.innerHTML = (content.pages || []).map(p => `
+      function renderPages(lessons){
+        cards.innerHTML = lessons.map(p => `
           <article class="card" role="listitem">
             <a class="card-link" href="./lesson.html?id=${encodeURIComponent(p.slug)}">
               <div class="card-media">
@@ -61,14 +61,21 @@
         </article>
       `).join('');
 
-      fetch('../data/content.json', {cache: 'no-store'})
+      fetch('/api/lessons', {cache: 'no-store'})
         .then(r => r.json())
-        .then(renderPages)
-        .catch(() => {
+        .then(response => {
+          if (response.success && response.data) {
+            renderPages(response.data);
+          } else {
+            throw new Error('Invalid API response');
+          }
+        })
+        .catch((err) => {
+          console.error('Error loading lessons:', err);
           cards.innerHTML = `
             <div class="card"><div class="card-body">
               <h4>Impossible de charger la liste</h4>
-              <p class="muted">Проверь <code>data/content.json</code> и пути.</p>
+              <p class="muted">Erreur de chargement des leçons depuis l'API.</p>
             </div></div>`;
         });
     </script>

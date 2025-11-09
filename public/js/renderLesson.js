@@ -1,4 +1,4 @@
-window.renderLessonFromContent = async function(contentPath, slug){
+window.renderLessonFromContent = async function(apiPath, slug){
   const $title = document.getElementById('lesson-title');
   const $leaf  = document.getElementById('crumb-leaf');
   const $img   = document.getElementById('lesson-image');
@@ -10,15 +10,16 @@ window.renderLessonFromContent = async function(contentPath, slug){
   }
 
   try{
-    const res = await fetch(contentPath, {cache: 'no-store'});
+    const res = await fetch(apiPath, {cache: 'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
-    const content = await res.json();
+    const response = await res.json();
 
-    const data = content.lessons && content.lessons[slug];
-    if(!data){
-      $tasks.innerHTML = `<div class="bubble">Урок <code>${slug}</code> не найден в <code>${contentPath}</code>.</div>`;
+    if(!response.success || !response.data){
+      $tasks.innerHTML = `<div class="bubble">Урок <code>${slug}</code> не найден.</div>`;
       return;
     }
+
+    const data = response.data;
 
     // Заголовки/крошки
     if (data.title) { document.title = data.title; $title.textContent = data.title; }
@@ -78,7 +79,7 @@ window.renderLessonFromContent = async function(contentPath, slug){
   }catch(err){
     console.error(err);
     $tasks.innerHTML = `
-      <div class="bubble">Не удалось загрузить <code>${contentPath}</code>.<br>
-      Проверь файл и пути.</div>`;
+      <div class="bubble">Не удалось загрузить урок <code>${slug}</code>.<br>
+      Erreur de chargement de la leçon depuis l'API.</div>`;
   }
 }
