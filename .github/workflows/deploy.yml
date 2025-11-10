@@ -28,7 +28,7 @@ jobs:
             echo "🗃 Running migrations..."
             docker compose run --rm -e DB_FILE=/app/data/magic_academy.sqlite app npm run migrate || { echo '❌ Migration failed'; exit 1; }
             echo "🚀 Restarting services..."
-            docker compose down
+            docker compose down --volumes --remove-orphans
             docker compose up -d --build
             echo "🧹 Cleaning up unused images..."
             docker system prune -f
