@@ -1,64 +1,64 @@
 {
   "lessons": [
     {
-      "title": "Qu'est-ce qu”il y a dans ta chambre ?",
-      "previewImage": "/assets/images/book1_unit3_lesson2_img1.jpg",
-      "mainImage": "/assets/images/book1_unit3_lesson2_img1.jpg",
+      "title": "Tu as des frères et des soeurs?",
+      "previewImage": "/assets/images/book1_unit3_lesson3_img1.jpg",
+      "mainImage": "/assets/images/book1_unit3_lesson3_img1.jpg",
       "tasks": [
         {
           "title": "Objectifs",
           "lines": [
-            "1. Découvrir et apprendre à localiser un objet (sur, sous, dans)",
-            "2. Découvrir et apprendre à utiliser il y a, il n'y a pas",
-            "3. Découvrir et apprendre la poésie « Tut ! Tut !",
-            "4. Apprendre à lire et à écrire les prépositions 'sur', 'sous', 'dans', les quatre objets de la chambre : le lit, la chaise, le bureau, le coffre et les mots suivants : des jouets, un lit, une voiture.",
-            "5. Introduction de la question : 'Qu'est-ce qu'il y a dans... sur... sous... ?'"
+            "1. Apprendre à dire si tu as des frères et des soeurs."
           ],
-          "audio": "/assets/audio/b1_ch3_lesson2_audio1.mp3",
+          "audio": null,
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 1: Écoute et montre",
+          "title": "Tâche 1: Écoute et trouve l'enfant.",
           "lines": [
-            "Dans la chambre, il y a des livres. Les livres sont sur le lit. Montre le lit !",
-            "Dans la chambre, il y a un cartable. Le cartable est sur la chaise. Montre la chaise !",
-            "Il y a un coffre marron. Les jouets sont dans le coffre marron. Montre les jouets !",
-            "Il y a la peinture préférée de Léo. La peinture préférée de Léo est sur le mur. Montre le mur !",
-            "Il y a une gomme. La gomme est sous le bureau. Montre le bureau !"
+            "Exemple : Bonjour, moi, c’est Pedro. Je suis un garçon. J’ai une sœur et un frère. Je suis la lettre E.",
+            "Bonjour, je suis une fille et je m’appelle Aïcha. J’ai trois sœurs. Je n’ai pas de frère. Je suis la lettre…",
+            "Salut, moi, je n’ai pas de frère et je n’ai pas de sœur. Je m’appelle Minami et je suis une fille. Je suis la lettre…",
+            "Moi, je suis Hugo. Je n’ai pas de sœur. J’ai deux frères. Je suis la lettre…",
+            "Bonjour, je m’appelle Maty. J’ai deux sœurs et deux frères. Je suis la lettre…"
           ],
-          "audio": "/assets/audio/b1_ch3_audio_49.mp3",
+          "audio": "/assets/audio/b1_ch3_audio_52.mp3",
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 2: Écoute et réponds",
+          "title": "Tâche 2: Écoute et présente les enfants.",
           "lines": [
-            "Exemple : Elle est sur le mur. Qu’est-ce que c’est ? La peinture préférée de Léo.",
-            "Elle est sur le bureau. Qu’est-ce que c’est ?",
-            "Ils sont dans le coffre marron. Qu’est-ce que c’est ?",
-            "Elle est sous le bureau. Qu’est-ce que c’est ?",
-            "Il est sur la chaise. Qu’est-ce que c’est ?",
-            "Ils sont sur le lit. Qu’est-ce que c’est ?"
+            "Exemple :",
+            "D. Présente Aïcha.",
+            "Elle s’appelle Aïcha. Elle a trois sœurs. Elle n’a pas de frère.",
+            "A. Présente Maty.",
+            "C. Présente Hugo.",
+            "E. Présente Pedro.",
+            "B. Présente Minami."
           ],
-          "audio": "/assets/audio/b1_ch3_audio_50.mp3",
+          "audio": "/assets/audio/b1_ch3_audio_53.mp3",
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 3: Écoute la poésie 'Tut! Tut!' et répète",
+          "title": "Tâche 3: Écoute",
           "lines": [
-            "Tut ! Tut !",
-            "Une petite voiture roule à toute allure",
-            "Mmmmmmmmmmmmmmmmmmmmmmm",
-            "Paf ! Dans un grand mur.",
-            "Oh, plus de petite voiture !",
-            "Une grande voiture roule à toute allure",
-            "Mmmmmmmmmmmmmmmmmmmmmmm",
-            "Paf ! Dans un petit mur.",
-            "Oh, plus de petit mur !"
+            "Bonjour. Moi, c’est Jean. J’ai 8 ans. J’ai deux frères. Mon petit frère a 2 ans. Il s’appelle Max. Mon grand frère a 15 ans. Il s’appelle Paul. J’ai une sœur. Elle a 6 ans. Elle s’appelle Maude."
           ],
-          "audio": "/assets/audio/b1_ch3_audio_51.mp3",
+          "audio": "/assets/audio/b1_ch3_cah_audio_50.mp3",
+          "image": null,
+          "game": null
+        },
+        {
+          "title": "Tâche 4: Réponds :'Et toi, tu as des frères et des soeurs?'",
+          "lines": [
+            "Par exemple : ",
+            "Oui, j'ai une sœur et un frère",
+            "Non, je n'ai pas de sœur et je n'ai pas de frère."
+          ],
+          "audio": null,
           "image": null,
           "game": null
         }
