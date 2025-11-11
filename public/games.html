@@ -1,41 +1,433 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Académie — Leçon</title>
-  <link rel="stylesheet" href="./css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="L'Académie des Mots Magiques - Jeux Éducatifs">
+  <title>Jeux - L'Académie des Mots Magiques</title>
+  
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="./css/styles-modern.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+  
+  <!-- Additional Game Styles -->
+  <style>
+    .games-hero {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-xl);
+      margin-top: var(--spacing-xl);
+    }
+    
+    .game-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: all var(--transition-base);
+      position: relative;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      animation: slideUp 0.5s ease backwards;
+    }
+    
+    .game-card:nth-child(1) { animation-delay: 0.1s; }
+    .game-card:nth-child(2) { animation-delay: 0.2s; }
+    .game-card:nth-child(3) { animation-delay: 0.3s; }
+    .game-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    .game-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .game-card-header {
+      height: 200px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-card-header.colors {
+      background: linear-gradient(135deg, #ff0080, #ff8c00, #ffd700, #00ff00, #00ffff, #0080ff, #8000ff);
+    }
+    
+    .game-card-header.words {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+    
+    .game-card-header img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+    
+    .game-card:hover .game-card-header img {
+      transform: scale(1.1);
+    }
+    
+    .game-icon {
+      font-size: 5rem;
+      color: rgba(255, 255, 255, 0.9);
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .game-card-body {
+      padding: var(--spacing-md);
+    }
+    
+    .game-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .game-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .game-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--spacing-sm);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .game-difficulty {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .game-play-btn {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+    
+    .game-play-btn:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .coming-soon {
+      opacity: 0.6;
+      cursor: not-allowed;
+      position: relative;
+    }
+    
+    .coming-soon::after {
+      content: 'Bientôt disponible';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
+    .stats-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-lg);
+      margin: var(--spacing-xl) 0;
+      animation: fadeIn 1s ease 0.5s backwards;
+    }
+    
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-md);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .stat-label {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#content">Aller au contenu</a>
+  <!-- Skip to content for accessibility -->
+  <a class="skip-link" href="#main">Aller au contenu principal</a>
 
-  <header class="site-header">
-    <div class="container">
-      <h1 class="brand" id="lesson-title">L’Académie</h1>
-      <nav class="site-nav" aria-label="Fil d’Ariane">
-        <a href="./index.html">Accueil</a>
-        <span aria-hidden="true">›</span>
-        <span aria-current="page" id="crumb-leaf">Page</span>
+  <!-- Modern Header -->
+  <header class="site-header" id="header">
+    <div class="header-container">
+      <a href="/" class="brand">
+        <span class="brand-icon">✨</span>
+        <span class="brand-text">L'Académie des Mots Magiques</span>
+      </a>
+      
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="./index.html" class="nav-link">
+          <span>📚</span> Leçons
+        </a>
+        <a href="./games.html" class="nav-link" aria-current="page">
+          <span>🎮</span> Jeux
+        </a>
+        <a href="#progress" class="nav-link">
+          <span>📊</span> Progrès
+        </a>
       </nav>
     </div>
   </header>
 
-  <main id="content" class="container">
-    <h1>Jeux à jouer!</h1>
-    <section class="card-grid">
-        <div class="card-media">
-            <a href="./colors-game.html">
-                <img src="/assets//images/game_wallpapers/color_game_wallpaper.png"></img>
-            </a>
-        </div>
-        <div class="card-media" style="height: auto;">
-            <a href="./arrange-words-unit2-lesson2.html">
-                <img src="/assets/images/game_wallpapers/arrange_words_game_1_wallpaper.png"></img>
-            </a>
-        </div>
+  <!-- Main Content -->
+  <main id="main" class="container">
+    <!-- Hero Section -->
+    <section class="games-hero">
+      <h1 class="hero-title">🎮 Zone de Jeux Magiques</h1>
+      <p class="hero-subtitle">Apprends en t'amusant avec nos jeux interactifs!</p>
     </section>
 
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="stat-card">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Jeux disponibles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Niveaux de difficulté</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Heures de plaisir</div>
+      </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section aria-labelledby="games-title">
+      <h2 id="games-title" class="sr-only">Nos Jeux</h2>
+      <div class="games-grid">
+        
+        <!-- Colors Game -->
+        <a href="./colors-game.html" class="game-card">
+          <div class="game-card-header colors">
+            <div class="game-icon">🎨</div>
+          </div>
+          <div class="game-card-body">
+            <h3 class="game-title">Jeu des Couleurs</h3>
+            <p class="game-description">
+              Associe les noms des couleurs en français avec leurs couleurs correspondantes. 
+              Parfait pour apprendre le vocabulaire des couleurs!
+            </p>
+            <div class="game-meta">
+              <span class="game-difficulty">
+                <span>🌱</span> Débutant
+              </span>
+              <span class="game-play-btn">
+                Jouer <span>→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Word Arrangement Game -->
+        <a href="./arrange-words-unit2-lesson2.html" class="game-card">
+          <div class="game-card-header words">
+            <div class="game-icon">📝</div>
+          </div>
+          <div class="game-card-body">
+            <h3 class="game-title">Remets les Mots dans l'Ordre</h3>
+            <p class="game-description">
+              Réorganise les mots pour former des phrases correctes. 
+              Améliore ta grammaire et ta structure de phrase!
+            </p>
+            <div class="game-meta">
+              <span class="game-difficulty">
+                <span>🌿</span> Intermédiaire
+              </span>
+              <span class="game-play-btn">
+                Jouer <span>→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Memory Game (Coming Soon) -->
+        <div class="game-card coming-soon">
+          <div class="game-card-header" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+            <div class="game-icon">🧠</div>
+          </div>
+          <div class="game-card-body">
+            <h3 class="game-title">Jeu de Mémoire</h3>
+            <p class="game-description">
+              Trouve les paires de mots et d'images correspondantes. 
+              Entraîne ta mémoire tout en apprenant!
+            </p>
+            <div class="game-meta">
+              <span class="game-difficulty">
+                <span>🌱</span> Débutant
+              </span>
+              <span class="game-play-btn">
+                Bientôt <span>⏳</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Game (Coming Soon) -->
+        <div class="game-card coming-soon">
+          <div class="game-card-header" style="background: linear-gradient(135deg, #fa709a, #fee140);">
+            <div class="game-icon">❓</div>
+          </div>
+          <div class="game-card-body">
+            <h3 class="game-title">Quiz Magique</h3>
+            <p class="game-description">
+              Teste tes connaissances avec des questions amusantes. 
+              Gagne des points et débloques des niveaux!
+            </p>
+            <div class="game-meta">
+              <span class="game-difficulty">
+                <span>🌳</span> Avancé
+              </span>
+              <span class="game-play-btn">
+                Bientôt <span>⏳</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pronunciation Game (Coming Soon) -->
+        <div class="game-card coming-soon">
+          <div class="game-card-header" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+            <div class="game-icon">🎤</div>
+          </div>
+          <div class="game-card-body">
+            <h3 class="game-title">Prononciation Parfaite</h3>
+            <p class="game-description">
+              Pratique ta prononciation avec notre système de reconnaissance vocale. 
+              Parle comme un vrai français!
+            </p>
+            <div class="game-meta">
+              <span class="game-difficulty">
+                <span>🌿</span> Intermédiaire
+              </span>
+              <span class="game-play-btn">
+                Bientôt <span>⏳</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story Builder (Coming Soon) -->
+        <div class="game-card coming-soon">
+          <div class="game-card-header" style="background: linear-gradient(135deg, #f77062, #fe5196);">
+            <div class="game-icon">📖</div>
+          </div>
+          <div class="game-card-body">
+            <h3 class="game-title">Créateur d'Histoires</h3>
+            <p class="game-description">
+              Crée tes propres histoires en français avec des mots et images magiques. 
+              Laisse libre cours à ton imagination!
+            </p>
+            <div class="game-meta">
+              <span class="game-difficulty">
+                <span>🏆</span> Expert
+              </span>
+              <span class="game-play-btn">
+                Bientôt <span>⏳</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
   </main>
 
+  <!-- JavaScript -->
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Add particle effect for fun
+    function createParticle(x, y) {
+      const particle = document.createElement('div');
+      particle.style.position = 'fixed';
+      particle.style.left = x + 'px';
+      particle.style.top = y + 'px';
+      particle.style.pointerEvents = 'none';
+      particle.style.fontSize = '20px';
+      particle.style.zIndex = '9999';
+      particle.textContent = ['✨', '⭐', '🌟', '💫'][Math.floor(Math.random() * 4)];
+      document.body.appendChild(particle);
+      
+      const animation = particle.animate([
+        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+        { transform: `translate(${Math.random() * 200 - 100}px, -100px) scale(0)`, opacity: 0 }
+      ], {
+        duration: 1000,
+        easing: 'ease-out'
+      });
+      
+      animation.onfinish = () => particle.remove();
+    }
+
+    // Add particles on game card click
+    document.querySelectorAll('.game-card:not(.coming-soon)').forEach(card => {
+      card.addEventListener('click', (e) => {
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            createParticle(e.clientX + Math.random() * 50 - 25, e.clientY + Math.random() * 50 - 25);
+          }, i * 50);
+        }
+      });
+    });
+  </script>
 </body>
 </html>

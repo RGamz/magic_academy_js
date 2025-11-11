@@ -1,51 +1,423 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Académie — Leçon</title>
-  <link rel="stylesheet" href="./css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="L'Académie des Mots Magiques - Leçon Interactive">
+  <title>Leçon - L'Académie des Mots Magiques</title>
+  
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="./css/styles-modern.css">
+  <link rel="stylesheet" href="./css/lesson-styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 </head>
 <body>
-  <a class="skip-link" href="#content">Aller au contenu</a>
+  <!-- Skip to content for accessibility -->
+  <a class="skip-link" href="#main">Aller au contenu principal</a>
 
-  <header class="site-header">
-    <div class="container">
-      <h1 class="brand" id="lesson-title">L’Académie</h1>
-      <nav class="site-nav" aria-label="Fil d’Ariane">
-        <a href="./index.html">Accueil</a>
-        <span aria-hidden="true">›</span>
-        <span aria-current="page" id="crumb-leaf">Page</span>
+  <!-- Modern Header -->
+  <header class="site-header" id="header">
+    <div class="header-container">
+      <a href="/" class="brand">
+        <span class="brand-icon">✨</span>
+        <span class="brand-text">L'Académie des Mots Magiques</span>
+      </a>
+      
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="./index.html" class="nav-link">
+          <span>←</span> Retour
+        </a>
+        <a href="./games.html" class="nav-link">
+          <span>🎮</span> Jeux
+        </a>
       </nav>
     </div>
   </header>
 
-  <main id="content" class="container">
-    <div class="lesson-layout">
-      <section class="lesson-media">
-        <figure class="media-wrap">
-          <img id="lesson-image" alt="" class="media-large">
-        </figure>
+  <!-- Progress Bar -->
+  <div class="lesson-progress" id="progress-bar">
+    <div class="progress-fill" style="width: 0%"></div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main" class="lesson-container">
+    <!-- Lesson Header -->
+    <div class="lesson-header">
+      <div class="lesson-breadcrumb">
+        <a href="./index.html">Accueil</a>
+        <span>/</span>
+        <span id="lesson-category">Leçon</span>
+        <span>/</span>
+        <span id="lesson-title">Chargement...</span>
+      </div>
+    </div>
+
+    <!-- Lesson Content -->
+    <div class="lesson-content">
+      <!-- Main Image/Media Section -->
+      <section class="lesson-media-section">
+        <div class="media-container">
+          <img id="lesson-main-image" src="" alt="Illustration principale" class="lesson-main-image">
+          <div class="media-controls">
+            <button class="media-btn" id="zoom-btn" aria-label="Agrandir l'image">
+              <span>🔍</span>
+            </button>
+          </div>
+        </div>
       </section>
 
-      <aside class="lesson-side">
-        <div class="panel" id="tasks">
-          <!-- рендер задач -->
+      <!-- Tasks Section -->
+      <section class="lesson-tasks-section">
+        <div class="tasks-header">
+          <h2 class="tasks-title">Activités de la leçon</h2>
+          <div class="tasks-progress">
+            <span id="completed-count">0</span> / <span id="total-count">0</span> complétées
+          </div>
         </div>
-      </aside>
+
+        <div id="tasks-container" class="tasks-container">
+          <!-- Tasks will be loaded here -->
+          <div class="loading-tasks">
+            <div class="spinner"></div>
+            <p>Chargement des activités...</p>
+          </div>
+        </div>
+
+        <!-- Lesson Actions -->
+        <div class="lesson-actions">
+          <button class="btn btn-secondary" id="prev-lesson" style="display: none;">
+            <span>←</span> Leçon précédente
+          </button>
+          <button class="btn btn-primary" id="complete-lesson">
+            Terminer la leçon <span>✓</span>
+          </button>
+          <button class="btn btn-secondary" id="next-lesson" style="display: none;">
+            Leçon suivante <span>→</span>
+          </button>
+        </div>
+      </section>
     </div>
   </main>
 
-  <script src="./js/app.js"></script>
-  <script src="./js/renderLesson.js"></script>
+  <!-- Image Zoom Modal -->
+  <div id="image-modal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modal-image">
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="success-modal" style="display: none;">
+    <div class="success-content">
+      <div class="success-icon">🎉</div>
+      <h2>Bravo!</h2>
+      <p>Tu as terminé cette leçon avec succès!</p>
+      <div class="success-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
+      <button class="btn btn-primary" onclick="closeSuccessModal()">Continuer</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
   <script>
-    const params = new URLSearchParams(location.search);
-    const slug = params.get('id'); // например lesson_1
-    if (slug) {
-      window.renderLessonFromContent(`/api/lessons/slug/${slug}`, slug);
-    } else {
-      document.getElementById('tasks').innerHTML = `<div class="bubble">Aucune leçon spécifiée.</div>`;
+    // Global variables
+    let currentLesson = null;
+    let completedTasks = new Set();
+    let totalTasks = 0;
+
+    // Get lesson ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const lessonSlug = params.get('id');
+
+    // Progress tracking
+    function updateProgress() {
+      const percentage = (completedTasks.size / totalTasks) * 100;
+      document.querySelector('.progress-fill').style.width = `${percentage}%`;
+      document.getElementById('completed-count').textContent = completedTasks.size;
+      document.getElementById('total-count').textContent = totalTasks;
+      
+      // Save progress to localStorage
+      if (lessonSlug) {
+        localStorage.setItem(`lesson_progress_${lessonSlug}`, JSON.stringify([...completedTasks]));
+      }
     }
+
+    // Load saved progress
+    function loadProgress() {
+      if (lessonSlug) {
+        const saved = localStorage.getItem(`lesson_progress_${lessonSlug}`);
+        if (saved) {
+          completedTasks = new Set(JSON.parse(saved));
+        }
+      }
+    }
+
+    // Task rendering
+    function renderTasks(tasks) {
+      const container = document.getElementById('tasks-container');
+      totalTasks = tasks.length;
+      
+      container.innerHTML = tasks.map((task, index) => {
+        const taskId = `task-${index}`;
+        const isCompleted = completedTasks.has(taskId);
+        const hasAudio = task.audio || (task.audios && task.audios.length > 0);
+        const hasGame = task.game;
+        const hasImage = task.image;
+        
+        return `
+          <div class="task-card ${isCompleted ? 'completed' : ''}" data-task-id="${taskId}">
+            <div class="task-header">
+              <div class="task-info">
+                <span class="task-number">${index + 1}</span>
+                <h3 class="task-title">${task.title || `Activité ${index + 1}`}</h3>
+              </div>
+              <div class="task-status">
+                ${isCompleted ? '<span class="status-badge completed">✓ Complété</span>' : '<span class="status-badge">À faire</span>'}
+              </div>
+            </div>
+            
+            <div class="task-content">
+              ${hasAudio ? `
+                <div class="task-audio">
+                  <audio id="audio-${index}" src="${task.audio || task.audios[0]}" controls preload="metadata"></audio>
+                  <button class="audio-replay-btn" onclick="replayAudio('audio-${index}')">
+                    🔄 Rejouer
+                  </button>
+                </div>
+              ` : ''}
+              
+              ${task.lines && task.lines.length > 0 ? `
+                <div class="task-text">
+                  ${task.lines.map(line => `<p>${line}</p>`).join('')}
+                </div>
+              ` : ''}
+              
+              ${hasImage ? `
+                <div class="task-image">
+                  <img src="${task.image}" alt="Illustration de l'activité" loading="lazy">
+                </div>
+              ` : ''}
+              
+              ${hasGame ? `
+                <div class="task-game">
+                  <a href="${task.game}" target="_blank" class="btn btn-primary">
+                    🎮 Jouer au jeu
+                  </a>
+                </div>
+              ` : ''}
+              
+              <button class="task-complete-btn ${isCompleted ? 'completed' : ''}" 
+                      onclick="toggleTaskComplete('${taskId}')"
+                      aria-label="${isCompleted ? 'Marquer comme non complété' : 'Marquer comme complété'}">
+                ${isCompleted ? '✓ Complété' : 'Marquer comme complété'}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      updateProgress();
+    }
+
+    // Toggle task completion
+    function toggleTaskComplete(taskId) {
+      const taskCard = document.querySelector(`[data-task-id="${taskId}"]`);
+      const button = taskCard.querySelector('.task-complete-btn');
+      
+      if (completedTasks.has(taskId)) {
+        completedTasks.delete(taskId);
+        taskCard.classList.remove('completed');
+        button.classList.remove('completed');
+        button.textContent = 'Marquer comme complété';
+        taskCard.querySelector('.status-badge').textContent = 'À faire';
+        taskCard.querySelector('.status-badge').classList.remove('completed');
+      } else {
+        completedTasks.add(taskId);
+        taskCard.classList.add('completed');
+        button.classList.add('completed');
+        button.textContent = '✓ Complété';
+        taskCard.querySelector('.status-badge').textContent = '✓ Complété';
+        taskCard.querySelector('.status-badge').classList.add('completed');
+        
+        // Celebrate completion
+        celebrateCompletion();
+      }
+      
+      updateProgress();
+      
+      // Check if all tasks are completed
+      if (completedTasks.size === totalTasks && totalTasks > 0) {
+        setTimeout(showSuccessModal, 500);
+      }
+    }
+
+    // Replay audio
+    function replayAudio(audioId) {
+      const audio = document.getElementById(audioId);
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play();
+      }
+    }
+
+    // Celebration animation
+    function celebrateCompletion() {
+      // Create confetti or animation
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.innerHTML = '🎉';
+      document.body.appendChild(celebration);
+      
+      setTimeout(() => celebration.remove(), 1000);
+    }
+
+    // Success modal
+    function showSuccessModal() {
+      document.getElementById('success-modal').style.display = 'flex';
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('success-modal').style.display = 'none';
+      // Optionally redirect to next lesson or home
+    }
+
+    // Load lesson data
+    async function loadLesson() {
+      if (!lessonSlug) {
+        document.getElementById('tasks-container').innerHTML = `
+          <div class="error-message">
+            <p>Aucune leçon spécifiée</p>
+            <a href="./index.html" class="btn btn-primary">Retour à l'accueil</a>
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/lessons/slug/${lessonSlug}`, { cache: 'no-store' });
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          currentLesson = data.data;
+          
+          // Update page content
+          document.title = `${currentLesson.title} - L'Académie des Mots Magiques`;
+          document.getElementById('lesson-title').textContent = currentLesson.title;
+          
+          if (currentLesson.mainImage) {
+            document.getElementById('lesson-main-image').src = currentLesson.mainImage;
+          }
+          
+          // Load saved progress before rendering tasks
+          loadProgress();
+          
+          // Render tasks
+          if (currentLesson.tasks && currentLesson.tasks.length > 0) {
+            renderTasks(currentLesson.tasks);
+          } else {
+            document.getElementById('tasks-container').innerHTML = `
+              <p class="no-tasks">Aucune activité disponible pour cette leçon.</p>
+            `;
+          }
+        } else {
+          throw new Error('Lesson not found');
+        }
+      } catch (error) {
+        console.error('Error loading lesson:', error);
+        document.getElementById('tasks-container').innerHTML = `
+          <div class="error-message">
+            <p>😕 Impossible de charger la leçon</p>
+            <button class="btn btn-primary" onclick="location.reload()">Réessayer</button>
+          </div>
+        `;
+      }
+    }
+
+    // Image zoom functionality
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-image');
+
+    document.getElementById('zoom-btn')?.addEventListener('click', function() {
+      const mainImage = document.getElementById('lesson-main-image');
+      if (mainImage && mainImage.src) {
+        modal.style.display = 'block';
+        modalImg.src = mainImage.src;
+      }
+    });
+
+    document.querySelector('.modal-close')?.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    // Complete lesson button
+    document.getElementById('complete-lesson')?.addEventListener('click', function() {
+      // Mark all tasks as completed
+      const allTaskIds = Array.from({ length: totalTasks }, (_, i) => `task-${i}`);
+      allTaskIds.forEach(id => {
+        if (!completedTasks.has(id)) {
+          completedTasks.add(id);
+        }
+      });
+      updateProgress();
+      showSuccessModal();
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadLesson();
+    });
   </script>
+
+  <!-- Additional Styles -->
+  <style>
+    /* Loading spinner */
+    .loading-tasks {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(107, 70, 193, 0.2);
+      border-top-color: var(--accent-purple);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Celebration animation */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      animation: celebrate 1s ease-out;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    @keyframes celebrate {
+      0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </body>
 </html>

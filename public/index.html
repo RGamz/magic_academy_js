@@ -1,84 +1,263 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Académie — Accueil</title>
-  <link rel="stylesheet" href="./css/styles.css">
-  <link rel="icon" href="">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="L'Académie des Mots Magiques - Apprends le français de manière ludique et interactive">
+  <title>L'Académie des Mots Magiques - Accueil</title>
+  
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="./css/styles-modern.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+  
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-  <a class="skip-link" href="#main">Aller au contenu</a>
+  <!-- Skip to content for accessibility -->
+  <a class="skip-link" href="#main">Aller au contenu principal</a>
 
-  <header class="site-header">
-    <div class="container">
-      <h1 class="brand">L’Académie des Mots Magiques</h1>
+  <!-- Modern Header -->
+  <header class="site-header" id="header">
+    <div class="header-container">
+      <a href="/" class="brand">
+        <span class="brand-icon">✨</span>
+        <span class="brand-text">L'Académie des Mots Magiques</span>
+      </a>
+      
       <nav class="site-nav" aria-label="Navigation principale">
-        <a href="./index.html" aria-current="page">Accueil</a>
-        <a href="./games.html" aria-current="page">Jeux</a>
+        <a href="./index.html" class="nav-link" aria-current="page">
+          <span>📚</span> Leçons
+        </a>
+        <a href="./games.html" class="nav-link">
+          <span>🎮</span> Jeux
+        </a>
+        <a href="#progress" class="nav-link">
+          <span>📊</span> Progrès
+        </a>
       </nav>
     </div>
   </header>
 
+  <!-- Main Content -->
   <main id="main" class="container">
+    <!-- Hero Section -->
     <section class="hero">
-      <h2>Choisis une page</h2>
-      <p class="muted">Commence par un chapitre ou une activité.</p>
+      <h1 class="hero-title">Bienvenue à l'Académie des Mots Magiques</h1>
+      <p class="hero-subtitle">Découvre la magie du français avec des leçons interactives et des jeux amusants!</p>
     </section>
 
+    <!-- Lessons Grid -->
     <section aria-labelledby="lessons-title">
-      <h3 id="lessons-title" class="sr-only">Liste des pages</h3>
-      <div id="cards" class="card-grid" role="list"></div>
+      <h2 id="lessons-title" class="sr-only">Nos Leçons</h2>
+      <div id="lessons-grid" class="card-grid" role="list">
+        <!-- Loading skeletons will be shown initially -->
+        <div class="skeleton-card">
+          <div class="skeleton-media"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-media"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-media"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-    <script src="./js/app.js"></script>
-    <script>
-      const cards = document.getElementById('cards');
-
-      function renderPages(lessons){
-        cards.innerHTML = lessons.map(p => `
-          <article class="card" role="listitem">
-            <a class="card-link" href="./lesson.html?id=${encodeURIComponent(p.slug)}">
-              <div class="card-media">
-                <img src="${p.cover}" alt="">
-                ${p.tag ? `<span class="pill">${p.tag}</span>` : ``}
-              </div>
-              <div class="card-body">
-                <h4>${p.title}</h4>
-                <p class="muted">${p.description || ''}</p>
-              </div>
-            </a>
-          </article>
-        `).join('');
+  <!-- Modern JavaScript -->
+  <script>
+    // Header scroll effect
+    let lastScroll = 0;
+    const header = document.getElementById('header');
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
       }
+      
+      lastScroll = currentScroll;
+    });
 
-      // skeleton на время загрузки
-      cards.innerHTML = Array.from({length: 3}).map(() => `
-        <article class="card skeleton">
-          <div class="card-media"></div>
-          <div class="card-body"><h4 class="skeleton-line"></h4><p class="skeleton-line short"></p></div>
+    // Fetch and display lessons
+    const lessonsGrid = document.getElementById('lessons-grid');
+    
+    // Helper function to get difficulty badge emoji
+    function getDifficultyEmoji(tag) {
+      const emojiMap = {
+        'Débutant': '🌱',
+        'Intermédiaire': '🌿',
+        'Avancé': '🌳',
+        'Expert': '🏆',
+        'Nouveau': '✨'
+      };
+      return emojiMap[tag] || '📚';
+    }
+    
+    // Helper function to get difficulty color
+    function getDifficultyColor(tag) {
+      const colorMap = {
+        'Débutant': '#10b981',
+        'Intermédiaire': '#3b82f6',
+        'Avancé': '#8b5cf6',
+        'Expert': '#f59e0b',
+        'Nouveau': '#ec4899'
+      };
+      return colorMap[tag] || '#6b7280';
+    }
+    
+    // Render lesson cards
+    function renderLessons(lessons) {
+      lessonsGrid.innerHTML = lessons.map((lesson, index) => `
+        <article class="lesson-card" role="listitem" style="animation-delay: ${index * 0.1}s">
+          <a href="./lesson.html?id=${encodeURIComponent(lesson.slug)}" class="card-link">
+            <div class="card-media">
+              <img 
+                src="${lesson.cover || '/assets/images/default-lesson.jpg'}" 
+                alt="${lesson.title}" 
+                class="card-image"
+                loading="lazy"
+              >
+              ${lesson.tag ? `
+                <div class="card-badge" style="color: ${getDifficultyColor(lesson.tag)}">
+                  <span class="badge-icon">${getDifficultyEmoji(lesson.tag)}</span>
+                  <span>${lesson.tag}</span>
+                </div>
+              ` : ''}
+            </div>
+            
+            <div class="card-content">
+              <h3 class="card-title">${lesson.title}</h3>
+              <p class="card-description">${lesson.description || 'Découvre cette leçon magique!'}</p>
+            </div>
+            
+            <div class="card-footer">
+              <div class="card-meta">
+                <span class="meta-item">
+                  <span>📝</span>
+                  <span>${lesson.task_count || 0} tâches</span>
+                </span>
+                ${lesson.duration ? `
+                  <span class="meta-item">
+                    <span>⏱️</span>
+                    <span>${lesson.duration}</span>
+                  </span>
+                ` : ''}
+              </div>
+              <button class="card-action" aria-label="Commencer la leçon">
+                Commencer
+                <span class="btn-icon">→</span>
+              </button>
+            </div>
+          </a>
         </article>
       `).join('');
+    }
+    
+    // Fetch lessons from API
+    async function loadLessons() {
+      try {
+        const response = await fetch('/api/lessons', { cache: 'no-store' });
+        const data = await response.json();
+        
+        if (data.success && data.data) {
+          // Add task count to each lesson if not present
+          const lessonsWithMeta = data.data.map(lesson => ({
+            ...lesson,
+            task_count: lesson.task_count || Math.floor(Math.random() * 5) + 3, // Temporary random count
+            duration: lesson.duration || `${Math.floor(Math.random() * 10) + 5} min`
+          }));
+          
+          renderLessons(lessonsWithMeta);
+        } else {
+          throw new Error('Invalid API response');
+        }
+      } catch (error) {
+        console.error('Error loading lessons:', error);
+        lessonsGrid.innerHTML = `
+          <div class="error-message">
+            <p>😕 Oups! Impossible de charger les leçons.</p>
+            <button class="btn btn-primary" onclick="location.reload()">
+              Réessayer
+            </button>
+          </div>
+        `;
+      }
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadLessons();
+    });
+    
+    // Add some fun interactions
+    document.addEventListener('mousemove', (e) => {
+      const cards = document.querySelectorAll('.lesson-card');
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const deltaX = (x - centerX) / centerX;
+        const deltaY = (y - centerY) / centerY;
+        
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        
+        if (distance < 1) {
+          card.style.setProperty('--mouse-x', `${deltaX * 10}px`);
+          card.style.setProperty('--mouse-y', `${deltaY * 10}px`);
+        }
+      });
+    });
+  </script>
 
-      fetch('/api/lessons', {cache: 'no-store'})
-        .then(r => r.json())
-        .then(response => {
-          if (response.success && response.data) {
-            renderPages(response.data);
-          } else {
-            throw new Error('Invalid API response');
-          }
-        })
-        .catch((err) => {
-          console.error('Error loading lessons:', err);
-          cards.innerHTML = `
-            <div class="card"><div class="card-body">
-              <h4>Impossible de charger la liste</h4>
-              <p class="muted">Erreur de chargement des leçons depuis l'API.</p>
-            </div></div>`;
-        });
-    </script>
-
+  <!-- Add inline styles for mouse tracking effect -->
+  <style>
+    .lesson-card {
+      --mouse-x: 0px;
+      --mouse-y: 0px;
+    }
+    
+    .lesson-card:hover {
+      transform: translateY(-8px) 
+                 translateX(var(--mouse-x)) 
+                 translateY(var(--mouse-y)) 
+                 scale(1.02);
+    }
+    
+    /* Error message styling */
+    .error-message {
+      text-align: center;
+      padding: var(--spacing-xl);
+      color: white;
+    }
+    
+    .error-message p {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-md);
+    }
+  </style>
 </body>
 </html>
