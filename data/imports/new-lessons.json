@@ -1,65 +1,88 @@
 {
   "lessons": [
     {
-      "title": "Tu as des frères et des soeurs?",
-      "previewImage": "/assets/images/book1_unit3_lesson3_img1.jpg",
-      "mainImage": "/assets/images/book1_unit3_lesson3_img1.jpg",
+      "title": "Tu habites avec qui?",
+      "previewImage": "/assets/images/book1_unit3_lesson4_img1.jpg",
+      "mainImage": "/assets/images/book1_unit3_lesson4_img1.jpg",
       "tasks": [
         {
           "title": "Objectifs",
           "lines": [
-            "1. Apprendre à dire si tu as des frères et des soeurs."
+            "1. Comprendre quelqu'un qui parle de sa famille proche et pouvoir parler de la sienne (Понимать человека, который говорит о своей близкой семье, и уметь рассказать о своей собственной)",
+            "2. Pouvoir placer une personne par rapport à une autre (Уметь расположить одного человека по отношению к другому)",
+            "3. Pouvoir dire où est placée une personne par rapport à une autre (Уметь сказать, где находится человек по отношению к другому)",
+            "4. Découvrir et apprennendre à chanter la chanson 'Quand Fanny était un bébé'.(Познакомиться и выучить песню 'Когда Фанни была младенцем')",
+            "5. Apprendre à lire, écrire et à utiliser les mots 'entre', 'devant', 'derrière', 'la famille', 'elle', 'frère','soeur','père','mère','mamie','grand-mère','grand-père'(Научиться читать, писать и использовать слова"
           ],
-          "audio": null,
+          "audio": "/assets/audio/b1_ch3_lesson4_audio1.mp3",
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 1: Écoute et trouve l'enfant.",
+          "title": "Tâche 1: Écoute et réponds 'Léo habite avec qui?'",
           "lines": [
-            "Exemple : Bonjour, moi, c’est Pedro. Je suis un garçon. J’ai une sœur et un frère. Je suis la lettre E.",
-            "Bonjour, je suis une fille et je m’appelle Aïcha. J’ai trois sœurs. Je n’ai pas de frère. Je suis la lettre…",
-            "Salut, moi, je n’ai pas de frère et je n’ai pas de sœur. Je m’appelle Minami et je suis une fille. Je suis la lettre…",
-            "Moi, je suis Hugo. Je n’ai pas de sœur. J’ai deux frères. Je suis la lettre…",
-            "Bonjour, je m’appelle Maty. J’ai deux sœurs et deux frères. Je suis la lettre…"
+            "Voici ma famille. Je suis devant ma maman. Entre mon père et ma mère, il y a ma mamie Anna : c’est la mère de ma mère.",
+            "Derrière elle, il y a ma grand-mère Colette et mon grand-père Pierre : ce sont les parents de mon père.",
+            "Tu vois mes deux sœurs Alice et Maggie ? Tu vois Marie ?",
+            "Je n’habite pas avec Marie. Je n’habite pas avec mon grand-père et mes grands-mères.",
+            "J’habite avec qui ?"
           ],
-          "audio": "/assets/audio/b1_ch3_audio_52.mp3",
+          "audio": "/assets/audio/b1_ch3_audio_54.mp3",
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 2: Écoute et présente les enfants.",
+          "title": "Tâche 2: Écoute, montre et réponds.",
           "lines": [
+            "Qui est-ce ?",
             "Exemple :",
-            "D. Présente Aïcha.",
-            "Elle s’appelle Aïcha. Elle a trois sœurs. Elle n’a pas de frère.",
-            "A. Présente Maty.",
-            "C. Présente Hugo.",
-            "E. Présente Pedro.",
-            "B. Présente Minami."
+            "ADULTE : C’est une fille. C’est la fille de monsieur et madame Legrand. Elle est entre Maggie et Marie.",
+            "ENFANT : C’est Alice.",
+            "1. C’est un garçon. C’est le fils de monsieur et madame Legrand. Il est devant sa mère.",
+            "2. C’est un monsieur. Ce n’est pas le grand-père de Maggie. Il est derrière Alice.",
+            "3. C’est une fille. C’est la sœur de Maggie. Elle est devant monsieur Legrand.",
+            "4. C’est une dame. C’est la mamie de Léo. Elle est entre madame et monsieur Legrand.",
+            "5. C’est une dame. C’est la mère de monsieur Legrand. Elle est derrière mamie Anna."
           ],
-          "audio": "/assets/audio/b1_ch3_audio_53.mp3",
+          "audio": "/assets/audio/b1_ch3_audio_55.mp3",
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 3: Écoute",
+          "title": "Tâche 3: Écoute. Chante la chanson 'Quand Fanny était un bébé' et présente Fanny.",
           "lines": [
-            "Bonjour. Moi, c’est Jean. J’ai 8 ans. J’ai deux frères. Mon petit frère a 2 ans. Il s’appelle Max. Mon grand frère a 15 ans. Il s’appelle Paul. J’ai une sœur. Elle a 6 ans. Elle s’appelle Maude."
+            "Quand Fanny était un bébé, un bébé, un bébé",
+            "Quand Fanny était un bébé",
+            "Elle faisait comme ça :",
+            "- Areuh ! Areuh ! Areuh !",
+
+            "Quand Fanny était une petite fille, une petite fille, une petite fille",
+            "Quand Fanny était une petite fille",
+            "Elle faisait comme ça :",
+            "- Nananananère !",
+
+            "Quand Fanny était une jeune fille, une jeune fille, une jeune fille",
+            "Quand Fanny était une jeune fille",
+            "Elle faisait comme ça :",
+            "- Ah, que je suis belle…",
+
+            "Quand Fanny était une maman, une maman, une maman",
+            "Quand Fanny était une maman",
+            "Elle faisait comme ça :",
+            "- Chut, mon bébé dort !",
+
+            "Quand Fanny était une grand-mère, une grand-mère, une grand-mère",
+            "Quand Fanny était une grand-mère",
+            "Elle faisait comme ça :",
+            "- Ah, j’ai mal au dos !",
+
+            "Quand Fanny était un squelette, un squelette, un squelette",
+            "Quand Fanny était un squelette",
+            "Elle faisait comme ça :",
+            "- Je claque des doigts !"
           ],
-          "audio": "/assets/audio/b1_ch3_cah_audio_50.mp3",
-          "image": null,
-          "game": null
-        },
-        {
-          "title": "Tâche 4: Réponds :'Et toi, tu as des frères et des soeurs?'",
-          "lines": [
-            "Par exemple : ",
-            "Oui, j'ai une sœur et un frère",
-            "Non, je n'ai pas de sœur et je n'ai pas de frère."
-          ],
-          "audio": null,
-          "image": null,
+          "audio": "/assets/audio/b1_ch3_audio_56.mp3",
+          "image": "/assets/images/book1_unit3_lesson4_img1",
           "game": null
         }
       ]
