@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="L'Académie des Mots Magiques - Leçon Interactive">
+    <title>Leçon - L'Académie des Mots Magiques</title>
+    
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="./css/styles-modern.css">
+    <link rel="stylesheet" href="./css/lesson-styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    </head>
+
+    <body>
+
+    <!-- Modern Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+        <a href="/" class="brand">
+            <span class="brand-icon">✨</span>
+            <span class="brand-text">L'Académie des Mots Magiques</span>
+        </a>
+        
+        <nav class="site-nav" aria-label="Navigation principale">
+            <a href="./index.html" class="nav-link" aria-current="page">
+                <span>📚</span> Leçons
+            </a>
+            <a href="./games.html" class="nav-link">
+                <span>🎮</spa> Jeux
+            </a>
+            <a href="./speech_tests.html" class="nav-link">
+                <span>🔬</span> Tests
+            </a>
+            <a href="#progress" class="nav-link">
+                <span>📊</span> Progrès
+            </a>
+        </nav>
+        </div>
+    </header>
+
+      <!-- Main Content -->
+    <main id="main" class="container">
+    <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">Bienvenue à la laboratoire!🔬</h1>
+            <p class="hero-subtitle">C'est l'heure de se tester!</p>
+        </section>
+
+        <section class="test-section">
+            <button id="start" class="card-action">🎙️ Parle!</button>
+            <p id="result" class="recongnized-result"></p>
+            <p id="feedback" class="recognized-feedback"></p>
+        </section>
+        
+    </main>
+
+    <script>
+        const expected = "j'ai un frère et une sœur";
+
+        const startBtn = document.getElementById("start");
+        const resultEl = document.getElementById("result");
+        const feedbackEl = document.getElementById("feedback");
+
+        let recognition;
+
+        if ("webkitSpeechRecognition" in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.lang = "fr-FR"; // язык урока
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+        } else {
+            alert("Speech recognition is not supported in this browser.");
+        }
+
+        startBtn.onclick = () => {
+            recognition.start();
+            resultEl.textContent = "J'écoute...";
+        };
+
+        recognition.onresult = (event) => {
+            const userText = event.results[0][0].transcript.toLowerCase();
+            resultEl.textContent = userText;
+            const fb = comparePhrases(userText, expected);
+            feedbackEl.innerHTML = fb;
+        };
+
+        function removeAccents(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function comparePhrases(user, expected) {
+        const u = removeAccents(user).split(/\s+/);
+        const e = removeAccents(expected).split(/\s+/);
+
+        let missing = [];
+        let extra = [];
+
+        e.forEach(word => {
+            if (!u.includes(word)) missing.push(word);
+        });
+
+        u.forEach(word => {
+            if (!e.includes(word)) extra.push(word);
+        });
+
+        let html = "";
+
+        if (missing.length === 0 && extra.length === 0) {
+            html += "<p style='color:green'>✔ Правильно! Смысл передан верно.</p>";
+        } else {
+            html += "<p style='color:orange'>⚠ Фраза понята, но есть ошибки.</p>";
+            if (missing.length > 0)
+            html += "<p>Не хватает слов: <b>" + missing.join(", ") + "</b></p>";
+            if (extra.length > 0)
+            html += "<p>Лишние слова: <b>" + extra.join(", ") + "</b></p>";
+        }
+
+        html += "<p>Правильный вариант: <i>" + expected + "</i></p>";
+
+        return html;
+        }
+    </script>
+
+    <style>
+        .test-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .recongnized-result {
+            color: purple;
+            background-color: beige;
+            border-color: purple;
+            border: 2px;
+            border-style: solid;
+            border-radius: 10px;
+            min-height: 40px;
+            min-width: 200px;
+            padding: 10px 40px 10px 40px;
+        }
+
+        .recognized-feedback {
+            background-color: beige;
+            border: 2px;
+            border-style: solid;
+            border-radius: 10px;
+            min-height: 40px;
+            min-width: 200px;
+            padding: 10px 40px 10px 40px;
+        }
+    </style>
+
+    </body>
+</html>
