@@ -91,19 +91,19 @@ function bulkAddLessons(jsonFilePath) {
         ? insertTextTranslation(lessonData.description) 
         : null;
 
-      // ✅ FIXED: Insert the lesson and get its ID first
+      // Insert the lesson and get its ID first
       const lessonResult = db.prepare(`
-        INSERT INTO lessons (title_id, preview_image_id, main_image_id, description_id) 
-        VALUES (?, ?, ?, ?)
-      `).run(titleId, previewImageId, mainImageId, descriptionId);
+        INSERT INTO lessons (title_id, preview_image_id, main_image_id, description_id, tag) 
+        VALUES (?, ?, ?, ?, ?)
+      `).run(titleId, previewImageId, mainImageId, descriptionId, lessonData.tag || 'Débutant');
 
       const lessonId = lessonResult.lastInsertRowid;
       
-      // ✅ FIXED: Generate slug using the actual lesson ID
+      // Generate slug using the actual lesson ID
       const slug = lessonData.slug || generateSlug(lessonData.title, null, lessonId);
       const tag = lessonData.tag || 'Nouveau';
       
-      // ✅ FIXED: Update the lesson with slug and tag
+      // Update the lesson with slug and tag
       db.prepare(`
         UPDATE lessons 
         SET slug = ?, tag = ?
