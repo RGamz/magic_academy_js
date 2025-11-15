@@ -20,16 +20,25 @@ export function getAllLessons(req, res) {
         tt_desc.content as description,
         img_preview.file_path as cover,
         l.tag,
-        l.created_at
+        l.created_at,
+        COUNT(lt.id) as task_count
       FROM lessons l
       LEFT JOIN text_translations tt ON l.title_id = tt.id
       LEFT JOIN text_translations tt_desc ON l.description_id = tt_desc.id
       LEFT JOIN images img_preview ON l.preview_image_id = img_preview.id
+      LEFT JOIN lesson_tasks lt ON l.id = lt.lesson_id
       WHERE l.slug IS NOT NULL
+      GROUP BY l.id
       ORDER BY l.id ASC
     `).all();
 
-    res.json({ success: true, data: lessons });
+    // Add calculated duration based on task_count * 4 min
+    const lessonsWithDuration = lessons.map(lesson => ({
+      ...lesson,
+      duration: `${lesson.task_count * 4} min`
+    }));
+
+    res.json({ success: true, data: lessonsWithDuration });
   } catch (error) {
     console.error('Error fetching all lessons:', error);
     res.status(500).json({ success: false, message: 'Failed to fetch lessons' });

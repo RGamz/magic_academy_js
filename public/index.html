@@ -17,8 +17,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-  <!-- Skip to content for accessibility -->
-  <a class="skip-link" href="#main">Aller au contenu principal</a>
 
   <!-- Modern Header -->
   <header class="site-header" id="header">
@@ -183,14 +181,7 @@
         const data = await response.json();
         
         if (data.success && data.data) {
-          // Add task count to each lesson if not present
-          const lessonsWithMeta = data.data.map(lesson => ({
-            ...lesson,
-            task_count: lesson.task_count || Math.floor(Math.random() * 5) + 3, // Temporary random count
-            duration: lesson.duration || `${Math.floor(Math.random() * 10) + 5} min`
-          }));
-          
-          renderLessons(lessonsWithMeta);
+          renderLessons(data.data);
         } else {
           throw new Error('Invalid API response');
         }

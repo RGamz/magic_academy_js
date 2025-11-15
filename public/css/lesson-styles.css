@@ -187,15 +187,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--spacing-md);
   padding: var(--spacing-md);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   background: linear-gradient(135deg, rgba(107, 70, 193, 0.05), rgba(236, 100, 166, 0.05));
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--transition-fast);
+  position: relative;
+}
+
+.task-header:hover {
+  background: linear-gradient(135deg, rgba(107, 70, 193, 0.08), rgba(236, 100, 166, 0.08));
+}
+
+.task-header::after {
+  content: '▼';
+  font-size: 0.875rem;
+  color: var(--accent-purple);
+  transition: transform var(--transition-base);
+  margin-left: var(--spacing-sm);
+}
+
+.task-card.collapsed .task-header::after {
+  transform: rotate(-90deg);
 }
 
 .task-info {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+  flex: 1;
+  min-width: 0;
 }
 
 .task-number {
@@ -209,6 +232,7 @@
   justify-content: center;
   font-weight: bold;
   font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 .task-title {
@@ -226,6 +250,8 @@
   background: rgba(107, 70, 193, 0.1);
   color: var(--accent-purple);
   transition: all var(--transition-fast);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .status-badge.completed {
@@ -236,6 +262,17 @@
 /* Task Content */
 .task-content {
   padding: var(--spacing-md);
+  max-height: 2000px;
+  overflow: hidden;
+  transition: all 0.5s ease-out;
+  opacity: 1;
+}
+
+.task-card.collapsed .task-content {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
 }
 
 .task-audio {
