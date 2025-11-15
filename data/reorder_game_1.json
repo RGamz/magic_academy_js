@@ -29,6 +29,27 @@
       "image": "/assets/images/arrange_words_games/arrange_words_game_1_maison_camp.jpg",
       "sentence": ["Tu", "habites", "où?"],
       "audio": "/assets/audio/reorder/tu_habites_ou.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/arrange_words_game_1_salle_de_bain.jpg",
+      "sentence": ["Il", "est", "dans", "la", "salle", "de", "bains."],
+      "audio": "/assets/audio/reorder/salle_de_bain.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/arrange_words_game_1_dans_ta_chambre.jpg",
+      "sentence": ["Qu'est-ce", "qu'il", "y", "a", "dans", "ta", "chambre?"],
+      "audio": "/assets/audio/reorder/il_y_a_dans_ta_chambre.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/petite_voiture_allure.jpg",
+      "sentence": ["Une", "petite", "voiture", "roule", "à", "toute", "allure"],
+      "audio": "/assets/audio/reorder/petite_voiture_allure.mp3"
+    },
+    {
+      "image": "/assets/images/arrange_words_games/frere_soeur.jpg",
+      "sentence": ["Salut,", "moi,", "je", "n’ai pas de", "frère", "et", "je", "n’ai pas de", "sœur"],
+      "audio": "/assets/audio/reorder/frere_soeur.mp3"
     }
+       
   ]
 }
