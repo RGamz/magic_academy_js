@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Pratique Orale Avancé</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .mode-btn {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .lesson-selector {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .dialog-area {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            min-height: 200px;
+            display: none;
+        }
+
+        .dialog-area.active {
+            display: block;
+        }
+
+        .dialog-message {
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ai-message {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-right: 20%;
+        }
+
+        .user-message {
+            background: #e8f5e9;
+            color: #333;
+            margin-left: 20%;
+            border: 2px solid #4caf50;
+        }
+
+        .user-message.error {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+
+        .speaker-label {
+            font-size: 0.8em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .control-panel {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .primary-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .secondary-btn {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .secondary-btn:hover:not(:disabled) {
+            background: #e0e0e0;
+        }
+
+        .danger-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .recording {
+            background: #f44336 !important;
+            color: white !important;
+            animation: recordPulse 1s infinite;
+        }
+
+        @keyframes recordPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #7c6d8a;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.active {
+            background: #4caf50;
+        }
+
+        .status-dot.recording {
+            background: #f44336;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .feedback.success {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            color: #2e7d32;
+            display: block;
+        }
+
+        .feedback.error {
+            background: #ffebee;
+            border: 2px solid #f44336;
+            color: #c62828;
+            display: block;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .score-display .score {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .instructions {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .instructions h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .interim-text {
+            color: #999;
+            font-style: italic;
+            padding: 10px;
+            /* background: #f5f5f5; */
+            border: 2px solid #ff9800;
+            border-radius: 5px;
+            margin-top: 10px;
+            min-height: 40px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .interim-text.active {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .mode-selector {
+                flex-direction: column;
+            }
+
+            .control-panel {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Pratique Orale Avancée</h1>
+        
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="response">Mode Réponse au Dialogue</button>
+            <button class="mode-btn" data-mode="question">Mode Poser des Questions</button>
+        </div>
+
+        <div class="lesson-selector">
+            <label for="lesson">Sélectionner la Leçon :</label>
+            <select id="lesson">
+                <option value="salutations">Salutations et Présentations</option>
+                <option value="restaurant">Au Restaurant</option>
+                <option value="shopping">Conversation Shopping</option>
+                <option value="directions">Demander son Chemin</option>
+                <option value="hotel">Enregistrement à l'Hôtel</option>
+            </select>
+        </div>
+
+        <div class="instructions" id="instructions">
+            <h3>📝 Instructions</h3>
+            <p id="instruction-text">Dans ce mode, nous allons vous poser des questions et vous devrez répondre de manière appropriée. Cliquez sur "Commencer la Pratique" pour débuter.</p>
+        </div>
+
+        <div class="status-indicator">
+            <span class="status-dot" id="status-dot"></span>
+            <span id="status-text">Prêt à commencer</span>
+        </div>
+
+        <div class="dialog-area" id="dialog-area">
+            <!-- Les messages de dialogue apparaîtront ici -->
+        </div>
+
+        <div class="interim-text" id="interim-text">
+            <!-- Texte en cours de reconnaissance -->
+        </div>
+
+        <div class="control-panel">
+            <div>
+                <button class="primary-btn" id="start-btn">Commencer la Pratique</button>
+                <button class="secondary-btn" id="record-btn" disabled>🎤 Maintenir pour Parler</button>
+            </div>
+            <div>
+                <button class="danger-btn" id="skip-btn" disabled>Passer</button>
+                <button class="secondary-btn" id="replay-btn" disabled>🔊 Rejouer</button>
+                <button class="secondary-btn" id="reset-btn">Réinitialiser</button>
+            </div>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="score-display" id="score-display" style="display: none;">
+            <div>Votre Score : <span class="score" id="score">0</span>%</div>
+            <div id="attempts">Tentatives : <span id="attempt-count">0</span></div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <script>
+        // Base de données de dialogues en français
+        const dialogDatabase = {
+            salutations: {
+                responseMode: [
+                    {
+                        ai: "Bonjour ! Comment allez-vous aujourd'hui ?",
+                        expectedResponses: ["Je vais bien merci", "Très bien merci", "Ça va bien", "Je vais très bien", "Bien merci et vous"],
+                        hint: "Répondez comment vous allez"
+                    },
+                    {
+                        ai: "Comment vous appelez-vous ?",
+                        expectedResponses: ["Je m'appelle", "Mon nom est", "Je suis", "Moi c'est"],
+                        hint: "Dites votre nom"
+                    },
+                    {
+                        ai: "D'où venez-vous ?",
+                        expectedResponses: ["Je viens de", "Je suis de", "J'habite à", "Je viens d'", "J'habite en"],
+                        hint: "Dites d'où vous venez"
+                    },
+                    {
+                        ai: "Enchanté de faire votre connaissance !",
+                        expectedResponses: ["Enchanté", "Moi aussi", "De même", "Ravi de vous rencontrer", "Le plaisir est pour moi"],
+                        hint: "Répondez poliment"
+                    }
+                ],
+                questionMode: [
+                    {
+                        ai: "Je m'appelle Jean et je viens de Paris.",
+                        expectedQuestions: ["Comment vous appelez-vous", "D'où venez-vous", "Comment allez-vous", "Quel est votre nom", "Vous venez d'où"],
+                        hint: "Demandez son nom ou son origine"
+                    },
+                    {
+                        ai: "Je travaille comme développeur informatique.",
+                        expectedQuestions: ["Qu'est-ce que vous faites", "Où travaillez-vous", "Aimez-vous votre travail", "Depuis combien de temps", "Quel est votre métier"],
+                        hint: "Demandez à propos de son travail"
+                    },
+                    {
+                        ai: "J'adore voyager et la photographie.",
+                        expectedQuestions: ["Quels sont vos loisirs", "Où avez-vous voyagé", "Quel type de photos", "Qu'est-ce que vous aimez", "Vos passions"],
+                        hint: "Demandez à propos de ses intérêts"
+                    }
+                ]
+            },
+            restaurant: {
+                responseMode: [
+                    {
+                        ai: "Bonsoir ! Bienvenue dans notre restaurant. Avez-vous une réservation ?",
+                        expectedResponses: ["Oui j'ai une réservation", "Non je n'ai pas", "J'aimerais une table", "Une table pour deux", "J'ai réservé"],
+                        hint: "Répondez à propos de votre réservation"
+                    },
+                    {
+                        ai: "Que souhaitez-vous boire ?",
+                        expectedResponses: ["Je voudrais", "Je prendrai", "Je vais prendre", "De l'eau s'il vous plaît", "Un café"],
+                        hint: "Commandez une boisson"
+                    },
+                    {
+                        ai: "Êtes-vous prêt à commander ?",
+                        expectedResponses: ["Oui je suis prêt", "J'ai besoin de plus de temps", "Qu'est-ce que vous recommandez", "Je vais prendre", "Pas encore"],
+                        hint: "Répondez à propos de la commande"
+                    },
+                    {
+                        ai: "Comment trouvez-vous votre plat ?",
+                        expectedResponses: ["C'est délicieux", "Très bon", "Excellent", "C'est parfait", "Vraiment bon"],
+                        hint: "Donnez votre avis sur la nourriture"
+                    }
+                ],
+                questionMode: [
+                    {
+                        ai: "Nous avons des tables disponibles.",
+                        expectedQuestions: ["Puis-je voir le menu", "Quel est le plat du jour", "Avez-vous des options végétariennes", "Combien de temps d'attente", "La carte s'il vous plaît"],
+                        hint: "Demandez le menu ou le temps d'attente"
+                    },
+                    {
+                        ai: "Notre spécialité aujourd'hui est le saumon grillé.",
+                        expectedQuestions: ["Combien ça coûte", "Qu'est-ce qui vient avec", "C'est frais", "Y a-t-il autre chose", "Quel est le prix"],
+                        hint: "Demandez à propos du plat"
+                    },
+                    {
+                        ai: "Votre total est de 45 euros.",
+                        expectedQuestions: ["Puis-je payer par carte", "Le service est inclus", "L'addition s'il vous plaît", "Acceptez-vous les espèces", "Je peux payer comment"],
+                        hint: "Demandez à propos du paiement"
+                    }
+                ]
+            },
+            shopping: {
+                responseMode: [
+                    {
+                        ai: "Puis-je vous aider à trouver quelque chose ?",
+                        expectedResponses: ["Oui s'il vous plaît", "Je cherche", "J'ai besoin de", "Non merci je regarde", "Je voudrais"],
+                        hint: "Dites ce dont vous avez besoin"
+                    },
+                    {
+                        ai: "Quelle taille cherchez-vous ?",
+                        expectedResponses: ["Taille petite", "Moyen s'il vous plaît", "Grande", "Je ne suis pas sûr", "Quelles tailles avez-vous"],
+                        hint: "Donnez votre taille"
+                    },
+                    {
+                        ai: "Voulez-vous l'essayer ?",
+                        expectedResponses: ["Oui s'il vous plaît", "Où sont les cabines", "Non merci", "Peut-être plus tard", "Je vais l'essayer"],
+                        hint: "Répondez à propos de l'essayage"
+                    },
+                    {
+                        ai: "Comment souhaitez-vous payer ?",
+                        expectedResponses: ["Par carte", "En espèces", "Carte de crédit", "Je peux utiliser Apple Pay", "En liquide"],
+                        hint: "Indiquez votre moyen de paiement"
+                    }
+                ],
+                questionMode: [
+                    {
+                        ai: "Cette chemise est en promotion.",
+                        expectedQuestions: ["Combien ça coûte", "Quelle est la réduction", "Avez-vous d'autres couleurs", "C'est le prix final", "Quel est le prix"],
+                        hint: "Demandez le prix ou les options"
+                    },
+                    {
+                        ai: "Nous l'avons en bleu et en rouge.",
+                        expectedQuestions: ["Puis-je voir le bleu", "L'avez-vous en noir", "Lequel est populaire", "Je peux voir les deux", "D'autres couleurs"],
+                        hint: "Demandez vos préférences de couleur"
+                    },
+                    {
+                        ai: "Les cabines d'essayage sont là-bas.",
+                        expectedQuestions: ["Puis-je essayer ceci", "Combien d'articles", "Y a-t-il un miroir", "Où exactement", "Je peux prendre combien"],
+                        hint: "Demandez à propos de l'essayage"
+                    }
+                ]
+            },
+            directions: {
+                responseMode: [
+                    {
+                        ai: "Excusez-moi, êtes-vous perdu ?",
+                        expectedResponses: ["Oui je cherche", "Pouvez-vous m'aider", "J'ai besoin de directions", "Où se trouve", "Je suis perdu"],
+                        hint: "Demandez de l'aide"
+                    },
+                    {
+                        ai: "Où essayez-vous d'aller ?",
+                        expectedResponses: ["Je vais à", "Je dois trouver", "Je cherche", "La gare", "Je voudrais aller"],
+                        hint: "Donnez votre destination"
+                    },
+                    {
+                        ai: "C'est à environ 10 minutes d'ici.",
+                        expectedResponses: ["C'est loin à pied", "Je devrais prendre le bus", "Merci", "Je peux y aller à pied", "C'est proche"],
+                        hint: "Demandez à propos de la distance"
+                    },
+                    {
+                        ai: "Allez tout droit et tournez à gauche au feu.",
+                        expectedResponses: ["Merci", "Pouvez-vous répéter", "À gauche au feu", "D'accord merci", "J'ai compris"],
+                        hint: "Confirmez les directions"
+                    }
+                ],
+                questionMode: [
+                    {
+                        ai: "Je suis à la gare centrale.",
+                        expectedQuestions: ["Comment aller à", "Où est le plus proche", "Y a-t-il un bus", "Par où pour", "Comment je vais"],
+                        hint: "Demandez des directions"
+                    },
+                    {
+                        ai: "Il y a une pharmacie à proximité.",
+                        expectedQuestions: ["C'est à quelle distance", "Dans quelle direction", "C'est ouvert maintenant", "Pouvez-vous me montrer", "C'est loin"],
+                        hint: "Demandez les détails de localisation"
+                    },
+                    {
+                        ai: "Le musée est fermé aujourd'hui.",
+                        expectedQuestions: ["Quand ça ouvre", "Et demain", "Y a-t-il d'autres musées", "Pourquoi c'est fermé", "Les horaires"],
+                        hint: "Demandez des alternatives ou les horaires"
+                    }
+                ]
+            },
+            hotel: {
+                responseMode: [
+                    {
+                        ai: "Bonjour ! Bienvenue dans notre hôtel. Avez-vous une réservation ?",
+                        expectedResponses: ["Oui j'ai une réservation", "C'est au nom de", "J'ai réservé en ligne", "Voici ma confirmation", "J'ai réservé"],
+                        hint: "Confirmez votre réservation"
+                    },
+                    {
+                        ai: "Combien de nuits resterez-vous ?",
+                        expectedResponses: ["Trois nuits", "Jusqu'à dimanche", "Une seule nuit", "Une semaine", "Deux nuits"],
+                        hint: "Donnez la durée de votre séjour"
+                    },
+                    {
+                        ai: "Voulez-vous de l'aide avec vos bagages ?",
+                        expectedResponses: ["Oui s'il vous plaît", "Non merci", "Je peux gérer", "Ce serait gentil", "Avec plaisir"],
+                        hint: "Répondez à propos de l'aide pour les bagages"
+                    },
+                    {
+                        ai: "Le petit-déjeuner est servi de 7h à 10h. Des questions ?",
+                        expectedResponses: ["À quelle heure le check-out", "Le wifi est gratuit", "Où est la salle de sport", "Non merci", "Y a-t-il une piscine"],
+                        hint: "Demandez à propos des services de l'hôtel"
+                    }
+                ],
+                questionMode: [
+                    {
+                        ai: "Votre chambre est au troisième étage.",
+                        expectedQuestions: ["Où est l'ascenseur", "Quel est le numéro", "Y a-t-il une vue", "Puis-je changer", "C'est quelle chambre"],
+                        hint: "Demandez les détails de la chambre"
+                    },
+                    {
+                        ai: "Nous avons une piscine et une salle de sport.",
+                        expectedQuestions: ["Quels sont les horaires", "Où sont-elles", "C'est gratuit", "Faut-il réserver", "C'est ouvert maintenant"],
+                        hint: "Demandez à propos des installations"
+                    },
+                    {
+                        ai: "Le check-out est à 11h.",
+                        expectedQuestions: ["Puis-je avoir un check-out tardif", "Quel est le tarif", "Puis-je laisser mes bagages", "C'est flexible", "Jusqu'à quelle heure"],
+                        hint: "Demandez les options de check-out"
+                    }
+                ]
+            }
+        };
+
+        // Configuration de la reconnaissance vocale
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;  // Changed to true to capture during recording
+        recognition.interimResults = true;
+        recognition.lang = 'fr-FR';  // Français
+        recognition.maxAlternatives = 3;
+
+        // État de l'application
+        let currentMode = 'response';
+        let currentLesson = 'salutations';
+        let currentDialogIndex = 0;
+        let isRecording = false;
+        let score = 0;
+        let attempts = 0;
+        let totalQuestions = 0;
+        let dialogHistory = [];
+        let isPracticing = false;
+        let finalTranscript = '';
+        let interimTranscript = '';
+
+        // Éléments DOM
+        const modeButtons = document.querySelectorAll('.mode-btn');
+        const lessonSelect = document.getElementById('lesson');
+        const dialogArea = document.getElementById('dialog-area');
+        const startBtn = document.getElementById('start-btn');
+        const recordBtn = document.getElementById('record-btn');
+        const skipBtn = document.getElementById('skip-btn');
+        const replayBtn = document.getElementById('replay-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const feedback = document.getElementById('feedback');
+        const scoreDisplay = document.getElementById('score-display');
+        const progressBar = document.getElementById('progress');
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+        const instructionText = document.getElementById('instruction-text');
+        const interimText = document.getElementById('interim-text');
+
+        // Initialisation
+        modeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (isPracticing) {
+                    if (!confirm('Changer de mode réinitialisera votre progression. Continuer ?')) {
+                        return;
+                    }
+                    resetPractice();
+                }
+                
+                modeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMode = btn.dataset.mode;
+                updateInstructions();
+            });
+        });
+
+        lessonSelect.addEventListener('change', (e) => {
+            if (isPracticing) {
+                if (!confirm('Changer de leçon réinitialisera votre progression. Continuer ?')) {
+                    lessonSelect.value = currentLesson;
+                    return;
+                }
+                resetPractice();
+            }
+            currentLesson = e.target.value;
+        });
+
+        startBtn.addEventListener('click', startPractice);
+        
+        // Gestion du bouton d'enregistrement pour desktop et mobile
+        recordBtn.addEventListener('mousedown', handleRecordStart);
+        recordBtn.addEventListener('mouseup', handleRecordStop);
+        recordBtn.addEventListener('mouseleave', handleRecordStop);
+        
+        // Pour les appareils tactiles
+        recordBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleRecordStart();
+        });
+        recordBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            handleRecordStop();
+        });
+        recordBtn.addEventListener('touchcancel', handleRecordStop);
+        
+        skipBtn.addEventListener('click', skipQuestion);
+        replayBtn.addEventListener('click', replayAudio);
+        resetBtn.addEventListener('click', resetPractice);
+
+        function updateInstructions() {
+            if (currentMode === 'response') {
+                instructionText.textContent = 'Dans ce mode, ous allons vous poser des questions et vous devrez répondre de manière appropriée. Cliquez sur "Commencer la Pratique" pour débuter.';
+            } else {
+                instructionText.textContent = 'Dans ce mode, nous allons faire des déclarations et vous devrez poser des questions pertinentes. Cliquez sur "Commencer la Pratique" pour débuter.';
+            }
+        }
+
+        function startPractice() {
+            isPracticing = true;
+            currentDialogIndex = 0;
+            score = 0;
+            attempts = 0;
+            dialogHistory = [];
+            
+            const dialogData = dialogDatabase[currentLesson][currentMode + 'Mode'];
+            totalQuestions = dialogData.length;
+            
+            dialogArea.classList.add('active');
+            dialogArea.innerHTML = '';
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            scoreDisplay.style.display = 'none';
+            
+            startBtn.disabled = true;
+            recordBtn.disabled = false;
+            skipBtn.disabled = false;
+            replayBtn.disabled = false;
+            
+            statusText.textContent = 'Pratique commencée';
+            statusDot.classList.add('active');
+            
+            // Commencer le premier dialogue
+            presentDialog();
+        }
+
+        function presentDialog() {
+            const dialogData = dialogDatabase[currentLesson][currentMode + 'Mode'];
+            
+            if (currentDialogIndex >= dialogData.length) {
+                endPractice();
+                return;
+            }
+            
+            const currentDialog = dialogData[currentDialogIndex];
+            
+            // Ajouter le message IA à la zone de dialogue
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'dialog-message ai-message';
+            aiMessage.innerHTML = `
+                <div class="speaker-label">IA :</div>
+                <div>${currentDialog.ai}</div>
+            `;
+            dialogArea.appendChild(aiMessage);
+            
+            // Faire parler l'IA
+            speakText(currentDialog.ai);
+            
+            // Afficher l'indice
+            feedback.className = 'feedback';
+            feedback.innerHTML = `<strong>Indice :</strong> ${currentDialog.hint}`;
+            feedback.style.display = 'block';
+            
+            // Mettre à jour la progression
+            updateProgress();
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                // Annuler toute parole en cours
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'fr-FR';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                // Essayer d'utiliser une voix française
+                const voices = speechSynthesis.getVoices();
+                const frenchVoice = voices.find(voice => voice.lang.startsWith('fr-'));
+                if (frenchVoice) {
+                    utterance.voice = frenchVoice;
+                }
+                
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function handleRecordStart() {
+            if (!isPracticing || isRecording) return;
+            
+            isRecording = true;
+            finalTranscript = '';
+            interimTranscript = '';
+            
+            recordBtn.classList.add('recording');
+            recordBtn.textContent = '🔴 Enregistrement...';
+            statusDot.classList.add('recording');
+            statusText.textContent = 'Écoute en cours...';
+            
+            interimText.classList.add('active');
+            interimText.textContent = 'Parlez maintenant...';
+            
+            recognition.start();
+        }
+
+        function handleRecordStop() {
+            if (!isRecording) return;
+            
+            isRecording = false;
+            recordBtn.classList.remove('recording');
+            recordBtn.textContent = '🎤 Maintenir pour Parler';
+            statusDot.classList.remove('recording');
+            statusText.textContent = 'Traitement...';
+            
+            recognition.stop();
+            
+            // Traiter le résultat final après un court délai
+            setTimeout(() => {
+                if (finalTranscript) {
+                    processUserResponse(finalTranscript);
+                } else if (interimTranscript) {
+                    processUserResponse(interimTranscript);
+                }
+                interimText.classList.remove('active');
+                interimText.textContent = '';
+            }, 500);
+        }
+
+        recognition.onresult = (event) => {
+            interimTranscript = '';
+            
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalTranscript += transcript + ' ';
+                } else {
+                    interimTranscript += transcript;
+                }
+            }
+            
+            // Afficher le texte en cours de reconnaissance
+            if (interimText.classList.contains('active')) {
+                interimText.textContent = finalTranscript + interimTranscript;
+            }
+        };
+
+        function processUserResponse(transcript) {
+            if (!transcript || transcript.trim() === '') {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Aucune parole détectée. Essayez encore !';
+                statusText.textContent = 'Prêt';
+                return;
+            }
+            
+            // Ajouter le message utilisateur au dialogue
+            const userMessage = document.createElement('div');
+            userMessage.className = 'dialog-message user-message';
+            userMessage.innerHTML = `
+                <div class="speaker-label">Vous :</div>
+                <div>${transcript.trim()}</div>
+            `;
+            dialogArea.appendChild(userMessage);
+            dialogArea.scrollTop = dialogArea.scrollHeight;
+            
+            // Vérifier la réponse
+            checkResponse(transcript.trim(), userMessage);
+        }
+
+        function checkResponse(transcript, messageElement) {
+            const dialogData = dialogDatabase[currentLesson][currentMode + 'Mode'];
+            const currentDialog = dialogData[currentDialogIndex];
+            
+            const expectedArray = currentMode === 'response' ? 
+                currentDialog.expectedResponses : currentDialog.expectedQuestions;
+            
+            attempts++;
+            
+            // Normaliser le transcript
+            const normalizedTranscript = transcript.toLowerCase().trim();
+            
+            // Vérifier si la réponse correspond à un modèle attendu
+            const isCorrect = expectedArray.some(expected => 
+                normalizedTranscript.includes(expected.toLowerCase())
+            );
+            
+            if (isCorrect) {
+                score++;
+                messageElement.classList.remove('error');
+                feedback.className = 'feedback success';
+                feedback.innerHTML = '✅ Excellent ! Votre réponse était correcte.';
+                
+                // Passer au dialogue suivant après un délai
+                setTimeout(() => {
+                    currentDialogIndex++;
+                    presentDialog();
+                }, 2000);
+            } else {
+                messageElement.classList.add('error');
+                feedback.className = 'feedback error';
+                feedback.innerHTML = `❌ Pas tout à fait. Attendu quelque chose comme : "${expectedArray[0]}"<br>Réessayez !`;
+            }
+            
+            statusText.textContent = 'Prêt';
+            updateScore();
+        }
+
+        function skipQuestion() {
+            if (!isPracticing) return;
+            
+            attempts++;
+            currentDialogIndex++;
+            
+            feedback.className = 'feedback';
+            feedback.textContent = 'Question passée.';
+            
+            presentDialog();
+        }
+
+        function replayAudio() {
+            if (!isPracticing) return;
+            
+            const dialogData = dialogDatabase[currentLesson][currentMode + 'Mode'];
+            if (currentDialogIndex < dialogData.length) {
+                speakText(dialogData[currentDialogIndex].ai);
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentDialogIndex / totalQuestions) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        function updateScore() {
+            const accuracy = attempts > 0 ? Math.round((score / attempts) * 100) : 0;
+            document.getElementById('score').textContent = accuracy;
+            document.getElementById('attempt-count').textContent = attempts;
+        }
+
+        function endPractice() {
+            isPracticing = false;
+            
+            startBtn.disabled = false;
+            recordBtn.disabled = true;
+            skipBtn.disabled = true;
+            replayBtn.disabled = true;
+            
+            statusDot.classList.remove('active', 'recording');
+            statusText.textContent = 'Pratique terminée !';
+            
+            // Afficher le score final
+            scoreDisplay.style.display = 'block';
+            updateScore();
+            
+            const accuracy = attempts > 0 ? Math.round((score / attempts) * 100) : 0;
+            
+            if (accuracy >= 80) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = `🎉 Excellent travail ! Vous avez obtenu ${accuracy}% avec ${score} bonnes réponses sur ${attempts} tentatives.`;
+            } else if (accuracy >= 60) {
+                feedback.className = 'feedback success';
+                feedback.innerHTML = `👍 Bon travail ! Vous avez obtenu ${accuracy}% avec ${score} bonnes réponses sur ${attempts} tentatives. Continuez à pratiquer !`;
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerHTML = `📚 Vous avez obtenu ${accuracy}% avec ${score} bonnes réponses sur ${attempts} tentatives. Réessayez pour de meilleurs résultats !`;
+            }
+            
+            progressBar.style.width = '100%';
+        }
+
+        function resetPractice() {
+            isPracticing = false;
+            isRecording = false;
+            currentDialogIndex = 0;
+            score = 0;
+            attempts = 0;
+            finalTranscript = '';
+            interimTranscript = '';
+            
+            if (recognition && isRecording) {
+                recognition.stop();
+            }
+            
+            dialogArea.classList.remove('active');
+            dialogArea.innerHTML = '';
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            feedback.style.display = 'none';
+            scoreDisplay.style.display = 'none';
+            interimText.classList.remove('active');
+            interimText.textContent = '';
+            
+            startBtn.disabled = false;
+            recordBtn.disabled = true;
+            recordBtn.classList.remove('recording');
+            recordBtn.textContent = '🎤 Maintenir pour Parler';
+            skipBtn.disabled = true;
+            replayBtn.disabled = true;
+            
+            statusDot.classList.remove('active', 'recording');
+            statusText.textContent = 'Prêt à commencer';
+            progressBar.style.width = '0%';
+        }
+
+        recognition.onerror = (event) => {
+            console.error('Erreur de reconnaissance vocale :', event.error);
+            isRecording = false;
+            recordBtn.classList.remove('recording');
+            recordBtn.textContent = '🎤 Maintenir pour Parler';
+            statusDot.classList.remove('recording');
+            statusText.textContent = 'Erreur survenue. Réessayez.';
+            interimText.classList.remove('active');
+            
+            feedback.className = 'feedback error';
+            
+            if (event.error === 'no-speech') {
+                feedback.textContent = 'Aucune parole détectée. Assurez-vous de parler clairement.';
+            } else if (event.error === 'network') {
+                feedback.textContent = 'Erreur réseau. Vérifiez votre connexion internet.';
+            } else if (event.error === 'not-allowed') {
+                feedback.textContent = 'Microphone non autorisé. Veuillez autoriser l\'accès au microphone.';
+            } else {
+                feedback.textContent = 'Erreur de reconnaissance vocale. Veuillez réessayer.';
+            }
+        };
+
+        recognition.onend = () => {
+            // La reconnaissance s'est arrêtée
+            if (isRecording) {
+                // Si on est toujours censé enregistrer, c'est une fin inattendue
+                isRecording = false;
+                recordBtn.classList.remove('recording');
+                recordBtn.textContent = '🎤 Maintenir pour Parler';
+                statusDot.classList.remove('recording');
+            }
+        };
+
+        // Charger les voix disponibles
+        if ('speechSynthesis' in window) {
+            speechSynthesis.onvoiceschanged = () => {
+                const voices = speechSynthesis.getVoices();
+                console.log('Voix disponibles chargées :', voices.filter(v => v.lang.startsWith('fr-')).length, 'voix françaises');
+            };
+        }
+
+        // Gérer le déchargement de la page
+        window.addEventListener('beforeunload', (e) => {
+            if (isPracticing) {
+                e.preventDefault();
+                e.returnValue = 'Vous avez une session de pratique en cours. Êtes-vous sûr de vouloir quitter ?';
+            }
+        });
+
+        // Empêcher le comportement par défaut du menu contextuel sur mobile
+        recordBtn.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
