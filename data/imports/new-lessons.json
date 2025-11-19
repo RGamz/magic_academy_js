@@ -1,76 +1,86 @@
 {
   "lessons": [
     {
-      "title": "Tu as des animaux?",
-      "previewImage": "/assets/images/book1_unit3_lesson5_img1.jpg",
-      "mainImage": "/assets/images/book1_unit3_lesson5_img1.jpg",
+      "title": "Comment est ton visage?",
+      "previewImage": "/assets/images/book1_unit4_lesson1_img1.jpg",
+      "mainImage": "/assets/images/book1_unit4_lesson1_img1.jpg",
       "tasks": [
         {
           "title": "Objectifs",
           "lines": [
-            "1. Comprendre quelqu'un qui parle de son animal et pouvoir parler du leur (Понимать человека, который говорит о своём домашнем животном, и уметь рассказать о своём)",
-            "2. Découvrir et apprendre à chanter la chanson 'La famille tortue'. (Познакомиться и выучить песню «Семейство Черепах»)",
-            "5. Apprendre à lire, écrire et à utiliser les mots: un chat, un chien, un oiseau, un poisson, une souris, une tortue, 'Tu as des animaux ?'(Научиться читать, писать и использовать слова)"
+            "1. Découvrir et pouvoir nommer les parties du visage et la main  (Познакомиться и уметь использовать слова связанные с описанием лица и рук)",
+            "2. Décrire Bastien le Martien. (Познакомиться и уметь описать Бастьена Марсианина)",
+            "3. Apprendre à lire, écrire et à utiliser les mots: une bouche, des cheveux, une main, un nez, une oreille, des yeux"
           ],
           "audio": null,
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 1: Écoute et réponds",
+          "title": "Tâche 1: Écoute et dis qui parle",
           "lines": [
             "Exemple :",
-            "ADULTE : Elle a des poissons. Qui est-ce ?",
-            "ENFANT : C’est Alice.",
-            "ALICE : Oui, c’est moi, Alice. J’ai deux poissons rouges.",
-
-            "1. Elle a un oiseau. Qui est-ce ?",
-            "GRAND-MÈRE COLETTE : Oui, c’est moi, grand-mère Colette. J’ai un oiseau.",
-
-            "2. Elle n’a pas d’animaux. Qui est-ce ?",
-            "MARIE : Oui, c’est moi, Marie. Je n’ai pas d’animaux.",
-
-            "3. Il a une souris blanche. Qui est-ce ?",
-            "GRAND-PÈRE PIERRE : Oui, c’est moi, grand-père Pierre. J’ai une souris blanche.",
-
-            "4. Il a un chat et un chien. Qui est-ce ?",
-            "LÉO : Oui, c’est moi, Léo. J’ai un chat et un chien.",
-
-            "5. Elle a une tortue. Qui est-ce ?",
-            "MAGGIE : Oui, c’est moi, Maggie. J’ai une tortue."
+            "Luc Legrand : Avec mes mains, je touche mon visage.",
+            "Enfant : C’est monsieur Legrand.",
+            "1. Jeanne Legrand : Avec mon nez, je sens les roses.",
+            "2. Maggie : Avec mes oreilles, j’écoute une chanson.",
+            "3. Marie : Avec ma bouche, je mange une barbe à papa.",
+            "4. Léo : Avec mes yeux, je regarde mon chien.",
+            "5. Alice : Je brosse mes cheveux. Aïe ! Ouille !"
           ],
-          "audio": "/assets/audio/b1_ch3_audio_58.mp3",
+          "audio": "/assets/audio/b1_ch4_audio_2.mp3",
+          "image": "/assets/images/book1_unit4_lesson1_img2.jpg",
+          "game": null
+        },
+        {
+          "title": "Tâche 2: Écoute et réponds.",
+          "lines": [
+            "Exemple :",
+            "Adulte : Aïe ! Ouille ! Alice brosse ses yeux ou ses cheveux ?",
+            "Enfant : Ses cheveux.",
+            "1. Léo regarde son chien avec ses oreilles ou ses yeux ?",
+            "2. Madame Legrand sent les roses avec ses cheveux ou son nez ?",
+            "3. Maggie écoute une chanson avec ses oreilles ou sa bouche ?",
+            "4. Maggie mange une barbe à papa avec sa bouche ou ses yeux ?",
+            "5. Monsieur Legrand touche son visage avec ses mains ou son nez ?",
+            "-----",
+            "Corrigé : 1. Ses yeux 2. Son nez 3. Ses oreilles 4. Sa bouche 5. Ses mains."
+          ],
+          "audio": "/assets/audio/b1_ch4_audio_3.mp3",
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 2: Écoute, répète et montre.",
+          "title": "Tâche 3a: Regarde la grande image et écoute.",
           "lines": [
-            "J’ai un oiseau.",
-            "J’ai un chien et un chat.",
-            "Je n’ai pas d’animaux.",
-            "J’ai une tortue.",
-            "J’ai une souris blanche.",
-            "J’ai des poissons rouges."
+            "Léo : Chut ! C’est Bastien le Martien ! C’est mon programme préféré.",
+            "Bastien : Bonjour. Je m’appelle Bastien le Martien. Je suis grand. Je suis vert.",
+            "Maggie : Je n’aime pas Bastien. Il n’a pas de cheveux. Je ne regarde pas.",
+            "Léo : Chut !",
+            "Bastien : Regarde mon visage. J’ai trois yeux : deux grands yeux bleus et un petit œil vert. J’ai deux oreilles et une bouche. Mais je n’ai pas de cheveux et je n’ai pas de nez.",
+            "La main : Voilà Bastien, des cheveux et un nez !",
+            "Maggie : Chut !"
           ],
-          "audio": "/assets/audio/b1_ch3_audio_59.mp3",
+          "audio": "/assets/audio/b1_ch4_audio_4.mp3",
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 3: Écoute. Chante la chanson 'La famille tortue'. Montre la bonne photo et chante.",
+          "title": "Tâche 3b: Écoute, réponds vrai ou faux et corrige si nécessaire.",
           "lines": [
-            "Jamais on n’a vu",
-            "Jamais on ne verra",
-            "La famille tortue",
-            "Courir après les rats",
-            "Le papa tortue",
-            "Et la maman tortue",
-            "Et les enfants tortues",
-            "Iront toujours au pas"
+            "Exemple :",
+            "Adulte : Bastien est un chien.",
+            "Enfant : Faux. Bastien est un Martien.",
+            "1. Bastien a trois yeux.",
+            "2. Bastien a un œil rouge.",
+            "3. Bastien a trois nez.",
+            "4. Bastien n’a pas de bouche.",
+            "5. Bastien n’a pas de cheveux",
+            "-----",
+            "Corrigé : 1 vrai 2. faux 3. faux 4. faux 5. vrai."
           ],
-          "audio": "/assets/audio/b1_ch3_audio_60.mp3",
-          "image": "/assets/images/book1_unit3_lesson5_img2.jpg",
+          "audio": "/assets/audio/b1_ch4_audio_5.mp3",
+          "image": null,
           "game": null
         }
       ]
