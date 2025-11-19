@@ -62,10 +62,6 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .lesson-selector {
-            margin-bottom: 30px;
-        }
-
         label {
             display: block;
             margin-bottom: 10px;
@@ -414,214 +410,9 @@
     </div>
 
     <script>
-        // Base de données de dialogues en français
-        const dialogDatabase = {
-            salutations: {
-                responseMode: [
-                    {
-                        ai: "Bonjour ! Comment allez-vous aujourd'hui ?",
-                        expectedResponses: ["Je vais bien merci", "Très bien merci", "Ça va bien", "Je vais très bien", "Bien merci et vous"],
-                        hint: "Répondez comment vous allez"
-                    },
-                    {
-                        ai: "Comment vous appelez-vous ?",
-                        expectedResponses: ["Je m'appelle", "Mon nom est", "Je suis", "Moi c'est"],
-                        hint: "Dites votre nom"
-                    },
-                    {
-                        ai: "D'où venez-vous ?",
-                        expectedResponses: ["Je viens de", "Je suis de", "J'habite à", "Je viens d'", "J'habite en"],
-                        hint: "Dites d'où vous venez"
-                    },
-                    {
-                        ai: "Enchanté de faire votre connaissance !",
-                        expectedResponses: ["Enchanté", "Moi aussi", "De même", "Ravi de vous rencontrer", "Le plaisir est pour moi"],
-                        hint: "Répondez poliment"
-                    }
-                ],
-                questionMode: [
-                    {
-                        ai: "Je m'appelle Jean et je viens de Paris.",
-                        expectedQuestions: ["Comment vous appelez-vous", "D'où venez-vous", "Comment allez-vous", "Quel est votre nom", "Vous venez d'où"],
-                        hint: "Demandez son nom ou son origine"
-                    },
-                    {
-                        ai: "Je travaille comme développeur informatique.",
-                        expectedQuestions: ["Qu'est-ce que vous faites", "Où travaillez-vous", "Aimez-vous votre travail", "Depuis combien de temps", "Quel est votre métier"],
-                        hint: "Demandez à propos de son travail"
-                    },
-                    {
-                        ai: "J'adore voyager et la photographie.",
-                        expectedQuestions: ["Quels sont vos loisirs", "Où avez-vous voyagé", "Quel type de photos", "Qu'est-ce que vous aimez", "Vos passions"],
-                        hint: "Demandez à propos de ses intérêts"
-                    }
-                ]
-            },
-            restaurant: {
-                responseMode: [
-                    {
-                        ai: "Bonsoir ! Bienvenue dans notre restaurant. Avez-vous une réservation ?",
-                        expectedResponses: ["Oui j'ai une réservation", "Non je n'ai pas", "J'aimerais une table", "Une table pour deux", "J'ai réservé"],
-                        hint: "Répondez à propos de votre réservation"
-                    },
-                    {
-                        ai: "Que souhaitez-vous boire ?",
-                        expectedResponses: ["Je voudrais", "Je prendrai", "Je vais prendre", "De l'eau s'il vous plaît", "Un café"],
-                        hint: "Commandez une boisson"
-                    },
-                    {
-                        ai: "Êtes-vous prêt à commander ?",
-                        expectedResponses: ["Oui je suis prêt", "J'ai besoin de plus de temps", "Qu'est-ce que vous recommandez", "Je vais prendre", "Pas encore"],
-                        hint: "Répondez à propos de la commande"
-                    },
-                    {
-                        ai: "Comment trouvez-vous votre plat ?",
-                        expectedResponses: ["C'est délicieux", "Très bon", "Excellent", "C'est parfait", "Vraiment bon"],
-                        hint: "Donnez votre avis sur la nourriture"
-                    }
-                ],
-                questionMode: [
-                    {
-                        ai: "Nous avons des tables disponibles.",
-                        expectedQuestions: ["Puis-je voir le menu", "Quel est le plat du jour", "Avez-vous des options végétariennes", "Combien de temps d'attente", "La carte s'il vous plaît"],
-                        hint: "Demandez le menu ou le temps d'attente"
-                    },
-                    {
-                        ai: "Notre spécialité aujourd'hui est le saumon grillé.",
-                        expectedQuestions: ["Combien ça coûte", "Qu'est-ce qui vient avec", "C'est frais", "Y a-t-il autre chose", "Quel est le prix"],
-                        hint: "Demandez à propos du plat"
-                    },
-                    {
-                        ai: "Votre total est de 45 euros.",
-                        expectedQuestions: ["Puis-je payer par carte", "Le service est inclus", "L'addition s'il vous plaît", "Acceptez-vous les espèces", "Je peux payer comment"],
-                        hint: "Demandez à propos du paiement"
-                    }
-                ]
-            },
-            shopping: {
-                responseMode: [
-                    {
-                        ai: "Puis-je vous aider à trouver quelque chose ?",
-                        expectedResponses: ["Oui s'il vous plaît", "Je cherche", "J'ai besoin de", "Non merci je regarde", "Je voudrais"],
-                        hint: "Dites ce dont vous avez besoin"
-                    },
-                    {
-                        ai: "Quelle taille cherchez-vous ?",
-                        expectedResponses: ["Taille petite", "Moyen s'il vous plaît", "Grande", "Je ne suis pas sûr", "Quelles tailles avez-vous"],
-                        hint: "Donnez votre taille"
-                    },
-                    {
-                        ai: "Voulez-vous l'essayer ?",
-                        expectedResponses: ["Oui s'il vous plaît", "Où sont les cabines", "Non merci", "Peut-être plus tard", "Je vais l'essayer"],
-                        hint: "Répondez à propos de l'essayage"
-                    },
-                    {
-                        ai: "Comment souhaitez-vous payer ?",
-                        expectedResponses: ["Par carte", "En espèces", "Carte de crédit", "Je peux utiliser Apple Pay", "En liquide"],
-                        hint: "Indiquez votre moyen de paiement"
-                    }
-                ],
-                questionMode: [
-                    {
-                        ai: "Cette chemise est en promotion.",
-                        expectedQuestions: ["Combien ça coûte", "Quelle est la réduction", "Avez-vous d'autres couleurs", "C'est le prix final", "Quel est le prix"],
-                        hint: "Demandez le prix ou les options"
-                    },
-                    {
-                        ai: "Nous l'avons en bleu et en rouge.",
-                        expectedQuestions: ["Puis-je voir le bleu", "L'avez-vous en noir", "Lequel est populaire", "Je peux voir les deux", "D'autres couleurs"],
-                        hint: "Demandez vos préférences de couleur"
-                    },
-                    {
-                        ai: "Les cabines d'essayage sont là-bas.",
-                        expectedQuestions: ["Puis-je essayer ceci", "Combien d'articles", "Y a-t-il un miroir", "Où exactement", "Je peux prendre combien"],
-                        hint: "Demandez à propos de l'essayage"
-                    }
-                ]
-            },
-            directions: {
-                responseMode: [
-                    {
-                        ai: "Excusez-moi, êtes-vous perdu ?",
-                        expectedResponses: ["Oui je cherche", "Pouvez-vous m'aider", "J'ai besoin de directions", "Où se trouve", "Je suis perdu"],
-                        hint: "Demandez de l'aide"
-                    },
-                    {
-                        ai: "Où essayez-vous d'aller ?",
-                        expectedResponses: ["Je vais à", "Je dois trouver", "Je cherche", "La gare", "Je voudrais aller"],
-                        hint: "Donnez votre destination"
-                    },
-                    {
-                        ai: "C'est à environ 10 minutes d'ici.",
-                        expectedResponses: ["C'est loin à pied", "Je devrais prendre le bus", "Merci", "Je peux y aller à pied", "C'est proche"],
-                        hint: "Demandez à propos de la distance"
-                    },
-                    {
-                        ai: "Allez tout droit et tournez à gauche au feu.",
-                        expectedResponses: ["Merci", "Pouvez-vous répéter", "À gauche au feu", "D'accord merci", "J'ai compris"],
-                        hint: "Confirmez les directions"
-                    }
-                ],
-                questionMode: [
-                    {
-                        ai: "Je suis à la gare centrale.",
-                        expectedQuestions: ["Comment aller à", "Où est le plus proche", "Y a-t-il un bus", "Par où pour", "Comment je vais"],
-                        hint: "Demandez des directions"
-                    },
-                    {
-                        ai: "Il y a une pharmacie à proximité.",
-                        expectedQuestions: ["C'est à quelle distance", "Dans quelle direction", "C'est ouvert maintenant", "Pouvez-vous me montrer", "C'est loin"],
-                        hint: "Demandez les détails de localisation"
-                    },
-                    {
-                        ai: "Le musée est fermé aujourd'hui.",
-                        expectedQuestions: ["Quand ça ouvre", "Et demain", "Y a-t-il d'autres musées", "Pourquoi c'est fermé", "Les horaires"],
-                        hint: "Demandez des alternatives ou les horaires"
-                    }
-                ]
-            },
-            hotel: {
-                responseMode: [
-                    {
-                        ai: "Bonjour ! Bienvenue dans notre hôtel. Avez-vous une réservation ?",
-                        expectedResponses: ["Oui j'ai une réservation", "C'est au nom de", "J'ai réservé en ligne", "Voici ma confirmation", "J'ai réservé"],
-                        hint: "Confirmez votre réservation"
-                    },
-                    {
-                        ai: "Combien de nuits resterez-vous ?",
-                        expectedResponses: ["Trois nuits", "Jusqu'à dimanche", "Une seule nuit", "Une semaine", "Deux nuits"],
-                        hint: "Donnez la durée de votre séjour"
-                    },
-                    {
-                        ai: "Voulez-vous de l'aide avec vos bagages ?",
-                        expectedResponses: ["Oui s'il vous plaît", "Non merci", "Je peux gérer", "Ce serait gentil", "Avec plaisir"],
-                        hint: "Répondez à propos de l'aide pour les bagages"
-                    },
-                    {
-                        ai: "Le petit-déjeuner est servi de 7h à 10h. Des questions ?",
-                        expectedResponses: ["À quelle heure le check-out", "Le wifi est gratuit", "Où est la salle de sport", "Non merci", "Y a-t-il une piscine"],
-                        hint: "Demandez à propos des services de l'hôtel"
-                    }
-                ],
-                questionMode: [
-                    {
-                        ai: "Votre chambre est au troisième étage.",
-                        expectedQuestions: ["Où est l'ascenseur", "Quel est le numéro", "Y a-t-il une vue", "Puis-je changer", "C'est quelle chambre"],
-                        hint: "Demandez les détails de la chambre"
-                    },
-                    {
-                        ai: "Nous avons une piscine et une salle de sport.",
-                        expectedQuestions: ["Quels sont les horaires", "Où sont-elles", "C'est gratuit", "Faut-il réserver", "C'est ouvert maintenant"],
-                        hint: "Demandez à propos des installations"
-                    },
-                    {
-                        ai: "Le check-out est à 11h.",
-                        expectedQuestions: ["Puis-je avoir un check-out tardif", "Quel est le tarif", "Puis-je laisser mes bagages", "C'est flexible", "Jusqu'à quelle heure"],
-                        hint: "Demandez les options de check-out"
-                    }
-                ]
-            }
-        };
+        // Dialog database will be loaded from external JSON
+        let dialogDatabase = {};
+        let availableLessons = [];
 
         // Configuration de la reconnaissance vocale
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1070,6 +861,36 @@
             e.preventDefault();
             return false;
         });
+
+        // Load dialog data from JSON file
+        async function loadDialogData() {
+            try {
+                const response = await fetch('/js/speech-dialog-data.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load dialog data');
+                }
+                const data = await response.json();
+
+                // Transform the data into the expected format
+                data.lessons.forEach(lesson => {
+                    dialogDatabase[lesson.id] = {
+                        responseMode: lesson.responseMode || [],
+                        questionMode: lesson.questionMode || []
+                    };
+                });
+
+                console.log('Dialog data loaded successfully', dialogDatabase);
+            } catch (error) {
+                console.error('Error loading dialog data:', error);
+                statusText.textContent = 'Erreur de chargement des données';
+                feedback.className = 'feedback error';
+                feedback.innerHTML = '❌ Erreur de chargement des dialogues. Veuillez recharger la page.';
+                feedback.style.display = 'block';
+            }
+        }
+
+        // Load data when page loads
+        loadDialogData();
     </script>
 </body>
 </html>

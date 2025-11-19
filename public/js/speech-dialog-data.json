@@ -1,0 +1,48 @@
+{
+  "lessons": [
+    {
+      "id": "salutations",
+      "title": "Salutations et Présentations",
+      "description": "Apprenez à vous présenter et à saluer en français",
+      "responseMode": [
+        {
+          "ai": "Bonjour ! Comment allez-vous aujourd'hui ?",
+          "expectedResponses": ["Je vais bien merci", "Très bien merci", "Ça va bien", "Je vais très bien", "Bien merci et vous"],
+          "hint": "Répondez comment vous allez"
+        },
+        {
+          "ai": "Comment vous appelez-vous ?",
+          "expectedResponses": ["Je m'appelle", "Mon nom est", "Je suis", "Moi c'est"],
+          "hint": "Dites votre nom"
+        },
+        {
+          "ai": "D'où venez-vous ?",
+          "expectedResponses": ["Je viens de", "Je suis de", "J'habite à", "Je viens d'", "J'habite en"],
+          "hint": "Dites d'où vous venez"
+        },
+        {
+          "ai": "Enchanté de faire votre connaissance !",
+          "expectedResponses": ["Enchanté", "Moi aussi", "De même", "Ravi de vous rencontrer", "Le plaisir est pour moi"],
+          "hint": "Répondez poliment"
+        }
+      ],
+      "questionMode": [
+        {
+          "ai": "Je m'appelle Jean et je viens de Paris.",
+          "expectedQuestions": ["Comment vous appelez-vous", "D'où venez-vous", "Comment allez-vous", "Quel est votre nom", "Vous venez d'où"],
+          "hint": "Demandez son nom ou son origine"
+        },
+        {
+          "ai": "Je travaille comme développeur informatique.",
+          "expectedQuestions": ["Qu'est-ce que vous faites", "Où travaillez-vous", "Aimez-vous votre travail", "Depuis combien de temps", "Quel est votre métier"],
+          "hint": "Demandez à propos de son travail"
+        },
+        {
+          "ai": "J'adore voyager et la photographie.",
+          "expectedQuestions": ["Quels sont vos loisirs", "Où avez-vous voyagé", "Quel type de photos", "Qu'est-ce que vous aimez", "Vos passions"],
+          "hint": "Demandez à propos de ses intérêts"
+        }
+      ]
+    }
+  ]
+}
