@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pratique de Vocabulaire - L'Académie des Mots Magiques</title>
+
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="./css/styles-modern.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+
+  <style>
+    /* Game-specific styles */
+    .game-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: var(--spacing-xs);
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-md);
+      box-shadow: var(--shadow-xl);
+      animation: slideUp 0.5s ease;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: var(--spacing-sm);
+      min-height: 600px;
+    }
+
+    /* Progress Bar Section */
+    .progress-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: rgba(102, 126, 234, 0.2);
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+      transition: width 0.5s ease;
+      border-radius: 999px;
+      box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+    }
+
+    .progress-text {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* Score Board Section */
+    .score-board {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    .score-item {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(236, 72, 153, 0.1));
+      padding: var(--spacing-md);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast);
+    }
+
+    .score-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .score-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .score-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      font-family: var(--font-display);
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Word Display Section */
+    .word-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-xs);
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(236, 72, 153, 0.05));
+      border-radius: var(--radius-xl);
+      border: 3px dashed rgba(102, 126, 234, 0.3);
+      min-height: 280px;
+      position: relative;
+    }
+
+    .language-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding: var(--spacing-sm) var(--spacing-lg);
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+      border-radius: var(--radius-xl);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-md);
+      box-shadow: var(--shadow-md);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .word-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xs);
+      margin: var(--spacing-xs) 0;
+    }
+
+    .word-text {
+      font-size: 4rem;
+      font-weight: 700;
+      font-family: var(--font-display);
+      color: var(--text-primary);
+      animation: bounceIn 0.6s ease;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      line-height: 1.2;
+      text-align: center;
+      padding: var(--spacing-xs);
+      border-radius: var(--radius-lg);
+    }
+
+    .word-text:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--accent-purple);
+    }
+
+    .word-text:active {
+      transform: scale(0.95);
+    }
+
+    .audio-button {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 1.75rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      flex-shrink: 0;
+    }
+
+    .audio-button:hover {
+      transform: scale(1.15) rotate(15deg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .audio-button:active {
+      transform: scale(0.9);
+    }
+
+    .instruction-text {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-align: center;
+      margin-top: var(--spacing-xs);
+    }
+
+    /* Controls Section */
+    .controls-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .game-btn {
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: 1.125rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .game-btn:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-speak {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+      font-size: 1.25rem;
+    }
+
+    .btn-speak:hover:not(:disabled) {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-speak:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-speak.listening {
+      animation: pulse 1.5s infinite;
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+    }
+
+    .btn-help {
+      background: white;
+      color: var(--accent-purple);
+      border: 2px solid var(--accent-purple);
+    }
+
+    .btn-help:hover {
+      background: var(--accent-purple);
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    .btn-skip {
+      background: linear-gradient(135deg, #64748b, #94a3b8);
+      color: white;
+    }
+
+    .btn-skip:hover {
+      background: linear-gradient(135deg, #475569, #64748b);
+      transform: translateY(-4px);
+    }
+
+    .status-message {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 500;
+      padding: var(--spacing-sm);
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: var(--radius-md);
+      min-height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Feedback Section */
+    .feedback-section {
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs)
+    }
+
+    .feedback {
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-lg);
+      font-size: 1.25rem;
+      font-weight: 600;
+      animation: slideUp 0.3s ease;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+    }
+
+    .feedback.correct {
+      background: linear-gradient(135deg, #10b981, #34d399);
+      color: white;
+    }
+
+    .feedback.incorrect {
+      background: linear-gradient(135deg, #ef4444, #f87171);
+      color: white;
+    }
+
+    .feedback.hint {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      color: white;
+    }
+
+    .help-content {
+      padding: var(--spacing-lg);
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: var(--radius-lg);
+      font-size: 1,25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 2px solid var(--accent-purple);
+    }
+
+    .loading {
+      text-align: center;
+      padding: var(--spacing-xl);
+      color: white;
+      font-size: 1.25rem;
+    }
+
+    .error {
+      background: linear-gradient(135deg, #ef4444, #f87171);
+      color: white;
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--accent-pink);
+      position: absolute;
+      animation: confetti-fall 3s linear;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .game-container {
+        padding: var(--spacing-md);
+      }
+
+      .game-card {
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+        min-height: 500px;
+      }
+
+      .word-text {
+        font-size: 2.5rem;
+      }
+
+      .word-container {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+      }
+
+      .audio-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+      }
+
+      .game-btn {
+        font-size: 1rem;
+        padding: var(--spacing-md);
+      }
+
+      .btn-speak {
+        font-size: 1.125rem;
+      }
+
+      .score-value {
+        font-size: 2rem;
+      }
+
+      .score-item {
+        padding: var(--spacing-md);
+      }
+
+      .instruction-text {
+        font-size: 1rem;
+      }
+
+      .help-content {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .word-text {
+        font-size: 2rem;
+      }
+
+      .score-board {
+        gap: var(--spacing-sm);
+      }
+
+      .score-value {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Modern Header -->
+  <header class="site-header" id="header">
+    <div class="header-container">
+      <a href="/" class="brand">
+        <span class="brand-icon">✨</span>
+        <span class="brand-text">L'Académie des Mots Magiques</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="./index.html" class="nav-link">
+          <span>📚</span> Leçons
+        </a>
+        <a href="./games.html" class="nav-link">
+          <span>🎮</span> Jeux
+        </a>
+        <a href="./vocabulary-practice.html" class="nav-link" aria-current="page">
+          <span>🗣️</span> Vocabulaire
+        </a>
+        <a href="./speech_tests.html" class="nav-link">
+          <span>🔬</span> Tests
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <section class="hero">
+      <h1 class="hero-title">Pratique de Vocabulaire</h1>
+      <p class="hero-subtitle">Améliorez votre vocabulaire français-russe avec la reconnaissance vocale!</p>
+    </section>
+
+    <div class="game-container" id="gameContainer">
+      <div class="loading" id="loading">Chargement du vocabulaire...</div>
+    </div>
+  </main>
+
+  <script>
+    // Header scroll effect
+    let lastScroll = 0;
+    const header = document.getElementById('header');
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+
+      if (currentScroll > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      lastScroll = currentScroll;
+    });
+
+    // ===== VOCABULARY PRACTICE GAME =====
+
+    let vocabulary = [];
+    let currentWord = null;
+    let score = 0;
+    let attempts = 0;
+    let currentIndex = 0;
+    let shuffledVocabulary = [];
+    let recognition = null;
+    let isListening = false;
+    let showingHelp = false;
+
+    // Speech Recognition Setup
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+    }
+
+    // Load vocabulary from JSON
+    async function loadVocabulary() {
+      try {
+        const response = await fetch('/data/vocabulary-fr-ru.json');
+        if (!response.ok) throw new Error('Failed to load vocabulary');
+        vocabulary = await response.json();
+        initGame();
+      } catch (error) {
+        console.error('Error loading vocabulary:', error);
+        document.getElementById('gameContainer').innerHTML = `
+          <div class="error">
+            <h2>Erreur de chargement</h2>
+            <p>Impossible de charger le vocabulaire. Veuillez réessayer.</p>
+            <button class="btn-primary" onclick="location.reload()">Réessayer</button>
+          </div>
+        `;
+      }
+    }
+
+    // Initialize the game
+    function initGame() {
+      shuffledVocabulary = shuffleArray([...vocabulary]);
+      currentIndex = 0;
+      score = 0;
+      attempts = 0;
+      renderGame();
+      nextWord();
+    }
+
+    // Shuffle array using Fisher-Yates algorithm
+    function shuffleArray(array) {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
+    // Render the game UI
+    function renderGame() {
+      const container = document.getElementById('gameContainer');
+      container.innerHTML = `
+        <div class="game-card">
+          <!-- Progress Section -->
+          <div class="progress-section">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressValue">0/${vocabulary.length}</div>
+          </div>
+
+          <!-- Score Board Section -->
+          <div class="score-board">
+            <div class="score-item">
+              <div class="score-label">🏆 Score</div>
+              <div class="score-value" id="scoreValue">0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-label">✅ Réussis</div>
+              <div class="score-value" id="successRate">0%</div>
+            </div>
+          </div>
+
+          <!-- Word Display Section -->
+          <div class="word-display" id="wordDisplay">
+            <!-- Word will be inserted here -->
+          </div>
+
+          <!-- Controls Section -->
+          <div class="controls-section">
+            <div class="controls">
+              <button class="game-btn btn-speak" id="speakBtn" ${!SpeechRecognition ? 'disabled' : ''}>
+                <span id="micIcon">🎤</span>
+                <span id="btnText">Parler</span>
+              </button>
+              <button class="game-btn btn-help" id="helpBtn">
+                <span>💡</span>
+                <span>Aide</span>
+              </button>
+              <button class="game-btn btn-skip" id="skipBtn">
+                <span>⏭️</span>
+                <span>Suivant</span>
+              </button>
+            </div>
+            <div class="status-message" id="statusMessage">
+              ${!SpeechRecognition ? 'La reconnaissance vocale n\'est pas disponible dans ce navigateur.' : 'Cliquez sur "Parler" et prononcez la traduction'}
+            </div>
+          </div>
+
+          <!-- Feedback Section -->
+          <div class="feedback-section" id="feedbackArea"></div>
+        </div>
+      `;
+
+      // Add event listeners
+      document.getElementById('speakBtn').addEventListener('click', startListening);
+      document.getElementById('helpBtn').addEventListener('click', showHelp);
+      document.getElementById('skipBtn').addEventListener('click', skipWord);
+    }
+
+    // Get next word
+    function nextWord() {
+      if (currentIndex >= shuffledVocabulary.length) {
+        showFinalScore();
+        return;
+      }
+
+      showingHelp = false;
+      const wordData = shuffledVocabulary[currentIndex];
+
+      // Randomly decide whether to show French or Russian
+      const showFrench = Math.random() > 0.5;
+
+      currentWord = {
+        display: showFrench ? wordData.french : wordData.russian,
+        answer: showFrench ? wordData.russian : wordData.french,
+        language: showFrench ? 'french' : 'russian',
+        targetLanguage: showFrench ? 'russian' : 'french',
+        audio: wordData.audio
+      };
+
+      // Set recognition language
+      if (recognition) {
+        recognition.lang = currentWord.targetLanguage === 'french' ? 'fr-FR' : 'ru-RU';
+      }
+
+      displayWord();
+      updateProgress();
+      clearFeedback();
+    }
+
+    // Display the current word
+    function displayWord() {
+      const wordDisplay = document.getElementById('wordDisplay');
+      const languageLabel = currentWord.language === 'french' ? '🇫🇷 Français' : '🇷🇺 Русский';
+      const targetLabel = currentWord.targetLanguage === 'french' ? 'en Français' : 'en Russe';
+
+      wordDisplay.innerHTML = `
+        <div class="language-badge">${languageLabel}</div>
+        <div class="word-container">
+          <div class="word-text" onclick="playAudio()" title="${currentWord.language === 'french' ? 'Cliquez pour écouter' : ''}">
+            ${currentWord.display}
+          </div>
+          ${currentWord.language === 'french' ? '<button class="audio-button" onclick="playAudio()">🔊</button>' : ''}
+        </div>
+        <div class="instruction-text">Traduisez ${targetLabel}</div>
+      `;
+    }
+
+    // Play audio for French words
+    function playAudio() {
+      if (currentWord.language === 'french' && currentWord.audio) {
+        const audio = new Audio(currentWord.audio);
+        audio.play().catch(err => console.warn('Audio play error:', err));
+      }
+    }
+
+    // Start listening for speech
+    function startListening() {
+      if (!recognition || isListening) return;
+
+      isListening = true;
+      const speakBtn = document.getElementById('speakBtn');
+      const btnText = document.getElementById('btnText');
+      const micIcon = document.getElementById('micIcon');
+
+      speakBtn.classList.add('listening');
+      btnText.textContent = 'Écoute...';
+      micIcon.textContent = '🔴';
+
+      updateStatus('Parlez maintenant...');
+      clearFeedback();
+
+      recognition.start();
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        console.log('Recognized:', transcript);
+        checkAnswer(transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        updateStatus('Erreur de reconnaissance. Réessayez.');
+        resetListeningButton();
+      };
+
+      recognition.onend = () => {
+        resetListeningButton();
+      };
+    }
+
+    // Reset listening button
+    function resetListeningButton() {
+      isListening = false;
+      const speakBtn = document.getElementById('speakBtn');
+      const btnText = document.getElementById('btnText');
+      const micIcon = document.getElementById('micIcon');
+
+      speakBtn.classList.remove('listening');
+      btnText.textContent = 'Parler';
+      micIcon.textContent = '🎤';
+    }
+
+    // Check if the spoken answer is correct
+    function checkAnswer(spokenText) {
+      attempts++;
+      const correctAnswer = currentWord.answer.toLowerCase();
+
+      // Fuzzy matching: check if the answer is similar enough
+      const similarity = calculateSimilarity(spokenText, correctAnswer);
+      const isCorrect = similarity > 0.7; // 70% similarity threshold
+
+      if (isCorrect) {
+        score++;
+        showFeedback('correct', `Excellent! ${spokenText} ✓`);
+        createConfetti();
+        updateScore();
+
+        setTimeout(() => {
+          currentIndex++;
+          nextWord();
+        }, 2000);
+      } else {
+        showFeedback('incorrect', `Pas tout à fait... Vous avez dit: "${spokenText}"`);
+        updateStatus('Réessayez ou utilisez le bouton Aide');
+      }
+    }
+
+    // Calculate similarity between two strings (Levenshtein distance)
+    function calculateSimilarity(str1, str2) {
+      const longer = str1.length > str2.length ? str1 : str2;
+      const shorter = str1.length > str2.length ? str2 : str1;
+
+      if (longer.length === 0) return 1.0;
+
+      const editDistance = levenshteinDistance(longer, shorter);
+      return (longer.length - editDistance) / longer.length;
+    }
+
+    // Levenshtein distance algorithm
+    function levenshteinDistance(str1, str2) {
+      const matrix = [];
+
+      for (let i = 0; i <= str2.length; i++) {
+        matrix[i] = [i];
+      }
+
+      for (let j = 0; j <= str1.length; j++) {
+        matrix[0][j] = j;
+      }
+
+      for (let i = 1; i <= str2.length; i++) {
+        for (let j = 1; j <= str1.length; j++) {
+          if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(
+              matrix[i - 1][j - 1] + 1,
+              matrix[i][j - 1] + 1,
+              matrix[i - 1][j] + 1
+            );
+          }
+        }
+      }
+
+      return matrix[str2.length][str1.length];
+    }
+
+    // Show help (correct answer)
+    function showHelp() {
+      if (showingHelp) return;
+
+      showingHelp = true;
+      showFeedback('hint', `La réponse correcte est:`);
+
+      const feedbackArea = document.getElementById('feedbackArea');
+      feedbackArea.innerHTML += `
+        <div class="help-content">
+          ${currentWord.answer}
+        </div>
+      `;
+
+      updateStatus('Essayez de le prononcer maintenant!');
+    }
+
+    // Skip to next word
+    function skipWord() {
+      attempts++;
+      currentIndex++;
+      nextWord();
+    }
+
+    // Show feedback message
+    function showFeedback(type, message) {
+      const feedbackArea = document.getElementById('feedbackArea');
+      feedbackArea.innerHTML = `
+        <div class="feedback ${type}">
+          ${message}
+        </div>
+      `;
+    }
+
+    // Clear feedback
+    function clearFeedback() {
+      document.getElementById('feedbackArea').innerHTML = '';
+    }
+
+    // Update status message
+    function updateStatus(message) {
+      document.getElementById('statusMessage').textContent = message;
+    }
+
+    // Update score display
+    function updateScore() {
+      document.getElementById('scoreValue').textContent = score;
+      const successRate = attempts > 0 ? Math.round((score / attempts) * 100) : 0;
+      document.getElementById('successRate').textContent = `${successRate}%`;
+    }
+
+    // Update progress
+    function updateProgress() {
+      const progress = (currentIndex / vocabulary.length) * 100;
+      document.getElementById('progressFill').style.width = `${progress}%`;
+      document.getElementById('progressValue').textContent = `${currentIndex}/${vocabulary.length}`;
+    }
+
+    // Create confetti effect
+    function createConfetti() {
+      const colors = ['#667eea', '#764ba2', '#ec4899', '#f59e0b', '#10b981'];
+      const container = document.querySelector('.game-card');
+
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.style.position = 'absolute';
+          confetti.style.width = '10px';
+          confetti.style.height = '10px';
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.left = Math.random() * 100 + '%';
+          confetti.style.top = '0';
+          confetti.style.borderRadius = '50%';
+          confetti.style.animation = 'confetti-fall 3s linear';
+          confetti.style.pointerEvents = 'none';
+
+          container.appendChild(confetti);
+
+          setTimeout(() => confetti.remove(), 3000);
+        }, i * 50);
+      }
+    }
+
+    // Show final score
+    function showFinalScore() {
+      const percentage = Math.round((score / vocabulary.length) * 100);
+      const emoji = percentage >= 80 ? '🎉' : percentage >= 60 ? '👍' : '💪';
+
+      document.getElementById('gameContainer').innerHTML = `
+        <div class="game-card" style="text-align: center;">
+          <h2 style="font-size: 3rem; margin-bottom: var(--spacing-lg);">${emoji}</h2>
+          <h2 style="font-family: var(--font-display); font-size: 2.5rem; margin-bottom: var(--spacing-md);">
+            Bravo!
+          </h2>
+          <p style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+            Vous avez terminé!
+          </p>
+
+          <div class="score-board" style="margin: var(--spacing-xl) 0;">
+            <div class="score-item">
+              <div class="score-label">Score Final</div>
+              <div class="score-value">${score}/${vocabulary.length}</div>
+            </div>
+            <div class="score-item">
+              <div class="score-label">Pourcentage</div>
+              <div class="score-value">${percentage}%</div>
+            </div>
+          </div>
+
+          <button class="btn-primary" onclick="initGame()" style="padding: var(--spacing-md) var(--spacing-xl); font-size: 1.25rem;">
+            Recommencer
+          </button>
+        </div>
+      `;
+
+      createConfetti();
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', loadVocabulary);
+
+    // Make playAudio available globally
+    window.playAudio = playAudio;
+  </script>
+
+</body>
+</html>
