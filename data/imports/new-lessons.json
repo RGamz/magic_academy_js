@@ -1,85 +1,66 @@
 {
   "lessons": [
     {
-      "title": "Comment est ton visage?",
-      "previewImage": "/assets/images/book1_unit4_lesson1_img1.jpg",
-      "mainImage": "/assets/images/book1_unit4_lesson1_img1.jpg",
+      "title": "Tu peux te décrire?",
+      "previewImage": "/assets/images/book1_unit4_lesson2_img1.jpg",
+      "mainImage": "/assets/images/book1_unit4_lesson2_img1.jpg",
       "tasks": [
         {
           "title": "Objectifs",
           "lines": [
-            "1. Découvrir et pouvoir nommer les parties du visage et la main  (Познакомиться и уметь использовать слова связанные с описанием лица и рук)",
-            "2. Décrire Bastien le Martien. (Познакомиться и уметь описать Бастьена Марсианина)",
-            "3. Apprendre à lire, écrire et à utiliser les mots: une bouche, des cheveux, une main, un nez, une oreille, des yeux"
+            "1. Apprendre à décrire des visages (Уметь описывать лица)",
+            "2. Apprendre à lire, écrire et à utiliser les mots: une barbe, un chapeau, des lunettes, une moustache, des cheveux, un nez, une barbe à papa, des boucles d'oreilles, une perruque, se brosser, 'Tu peux te décrire ?', 'Il n'a pas de...', 'Est-ce qu'il a... ?'"
           ],
-          "audio": null,
+          "audio": "/assets/images/b1_ch4_lesson2_audio1.mp3",
           "image": null,
           "game": null
         },
         {
-          "title": "Tâche 1: Écoute et dis qui parle",
+          "title": "Tâche 1: Écoute la poésie 'Qui a un chapeau ?' Répète et montre",
           "lines": [
-            "Exemple :",
-            "Luc Legrand : Avec mes mains, je touche mon visage.",
-            "Enfant : C’est monsieur Legrand.",
-            "1. Jeanne Legrand : Avec mon nez, je sens les roses.",
-            "2. Maggie : Avec mes oreilles, j’écoute une chanson.",
-            "3. Marie : Avec ma bouche, je mange une barbe à papa.",
-            "4. Léo : Avec mes yeux, je regarde mon chien.",
-            "5. Alice : Je brosse mes cheveux. Aïe ! Ouille !"
+            "Qui a un chapeau ?",
+            "Qui a un chapeau ?",
+            "C’est mon ami Mario.",
+            "Qui a des lunettes ?",
+            "C’est grand-mère Lisette.",
+            "Qui a une moustache ?",
+            "C’est grand-père Eustache.",
+            "Qui a des boucles d’oreilles ?",
+            "C’est la petite Mireille.",
+            "Qui a une barbe ?",
+            "Ce n’est pas papa !",
+            "Il n’en a pas !",
+            "C’est ma copine Maria",
+            "Qui a une barbe",
+            "Une barbe à papa",
+            "Ça va de soi !"
           ],
-          "audio": "/assets/audio/b1_ch4_audio_2.mp3",
-          "image": "/assets/images/book1_unit4_lesson1_img2.jpg",
+          "audio": "/assets/audio/b1_ch4_audio_6.mp3",
+          "image": "/assets/images/book1_unit4_lesson2_img1.jpg",
           "game": null
         },
         {
-          "title": "Tâche 2: Écoute et réponds.",
+          "title": "Tâche 2: Écoute et montre.",
           "lines": [
-            "Exemple :",
-            "Adulte : Aïe ! Ouille ! Alice brosse ses yeux ou ses cheveux ?",
-            "Enfant : Ses cheveux.",
-            "1. Léo regarde son chien avec ses oreilles ou ses yeux ?",
-            "2. Madame Legrand sent les roses avec ses cheveux ou son nez ?",
-            "3. Maggie écoute une chanson avec ses oreilles ou sa bouche ?",
-            "4. Maggie mange une barbe à papa avec sa bouche ou ses yeux ?",
-            "5. Monsieur Legrand touche son visage avec ses mains ou son nez ?",
-            "-----",
-            "Corrigé : 1. Ses yeux 2. Son nez 3. Ses oreilles 4. Sa bouche 5. Ses mains."
+            "Léo a des cheveux roux.",
+            "Les cheveux de monsieur Legrand sont bruns.",
+            "Bastien a des cheveux blonds.",
+            "Alice a des cheveux bruns.",
+            "Les cheveux de Maggie sont blonds.",
+            "Les cheveux de madame Legrand sont roux."
           ],
-          "audio": "/assets/audio/b1_ch4_audio_3.mp3",
-          "image": null,
+          "audio": "/assets/audio/b1_ch4_audio_7.mp3",
+          "image": "/assets/images/book1_unit4_lesson2_img2.jpg",
           "game": null
         },
         {
-          "title": "Tâche 3a: Regarde la grande image et écoute.",
+          "title": "Tâche 3: Ecoute et trouve la bonne personne.",
           "lines": [
-            "Léo : Chut ! C’est Bastien le Martien ! C’est mon programme préféré.",
-            "Bastien : Bonjour. Je m’appelle Bastien le Martien. Je suis grand. Je suis vert.",
-            "Maggie : Je n’aime pas Bastien. Il n’a pas de cheveux. Je ne regarde pas.",
-            "Léo : Chut !",
-            "Bastien : Regarde mon visage. J’ai trois yeux : deux grands yeux bleus et un petit œil vert. J’ai deux oreilles et une bouche. Mais je n’ai pas de cheveux et je n’ai pas de nez.",
-            "La main : Voilà Bastien, des cheveux et un nez !",
-            "Maggie : Chut !"
+            "1. Il ou elle a un chapeau. Ce n’est pas une fille. Ses cheveux sont bruns. Qui est-ce ?",
+            "2. C’est une fille. Elle n’a pas de chapeau. Elle a des boucles d’oreilles. Qui est-ce ?",
+            "3. Il ou elle n’a pas de chapeau. Ses cheveux ne sont pas roux. Ce n’est pas une fille. Qui est-ce ?"
           ],
-          "audio": "/assets/audio/b1_ch4_audio_4.mp3",
-          "image": null,
-          "game": null
-        },
-        {
-          "title": "Tâche 3b: Écoute, réponds vrai ou faux et corrige si nécessaire.",
-          "lines": [
-            "Exemple :",
-            "Adulte : Bastien est un chien.",
-            "Enfant : Faux. Bastien est un Martien.",
-            "1. Bastien a trois yeux.",
-            "2. Bastien a un œil rouge.",
-            "3. Bastien a trois nez.",
-            "4. Bastien n’a pas de bouche.",
-            "5. Bastien n’a pas de cheveux",
-            "-----",
-            "Corrigé : 1 vrai 2. faux 3. faux 4. faux 5. vrai."
-          ],
-          "audio": "/assets/audio/b1_ch4_audio_5.mp3",
+          "audio": "/assets/audio/b1_ch4_audio_8.mp3",
           "image": null,
           "game": null
         }
