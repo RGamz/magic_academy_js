@@ -1,0 +1,32 @@
+{
+  "levelName": "Level 1 - Couleurs",
+  "tileQuantity": 15,
+  "backgroundImage": "/assets/images/match_tiles/level_1/miraculous.jpg",
+  "pairs": [
+    {
+      "image": "/assets/images/match_tiles/level_1/cat.jpg",
+      "text": "un chat",
+      "audio": "/assets/audio/games/match_tiles/level_1/chat.mp3"
+    },
+    {
+      "image": "/assets/images/match_tiles/level_1/dog.jpg",
+      "text": "un chien",
+      "audio": "/assets/audio/games/match_tiles/level_1/chien.mp3"
+    },
+    {
+      "image": "/assets/images/match_tiles/level_1/bird.jpg",
+      "text": "un oiseau",
+      "audio": "/assets/audio/games/match_tiles/level_1/oiseau.mp3"
+    },
+    {
+      "image": "/assets/images/match_tiles/level_1/fish.jpg",
+      "text": "un poisson",
+      "audio": "/assets/audio/games/match_tiles/level_1/poisson.mp3"
+    },
+    {
+      "image": "/assets/images/match_tiles/level_1/horse.jpeg",
+      "text": "un cheval",
+      "audio": "/assets/audio/games/match_tiles/level_1/cheval.mp3"
+    }
+  ]
+}

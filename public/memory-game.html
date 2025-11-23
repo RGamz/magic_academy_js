@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match Game</title>
+
+        <!-- Modern CSS -->
+    <link rel="stylesheet" href="./css/styles-modern.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .game-container {
+            max-width: 1200px;
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .background-image {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        .tiles-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            margin: 0 auto;
+            gap: 0;
+        }
+
+        .tile {
+            aspect-ratio: 1;
+            background: linear-gradient(145deg, #ffd89b, #19547b);
+            border-radius: 15px;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s, opacity 0.5s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .tile:hover:not(.matched):not(.flipped) {
+            transform: scale(1.05);
+        }
+
+        .tile.flipped .tile-back {
+            transform: rotateY(180deg);
+        }
+
+        .tile.flipped .tile-front {
+            transform: rotateY(0deg);
+        }
+
+        .tile.matched {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .tile-back,
+        .tile-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            padding: 10px;
+            transition: transform 0.6s;
+        }
+
+        .tile-back {
+            background: linear-gradient(145deg, #ffd89b, #19547b);
+            transform: rotateY(0deg);
+        }
+
+        .tile-back::before {
+            content: '?';
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .tile-front {
+            background: white;
+            transform: rotateY(-180deg);
+            overflow: hidden;
+        }
+
+        .tile-front img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .tile-front.text-content {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        .tile-front.audio-content {
+            background: linear-gradient(145deg, #84fab0, #8fd3f4);
+            position: relative;
+        }
+
+        .tile-front.audio-content::before {
+            content: '🔊';
+            font-size: 50px;
+        }
+
+        .congratulations {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px 60px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            text-align: center;
+            animation: popIn 0.5s ease-out;
+        }
+
+        .congratulations.show {
+            display: block;
+        }
+
+        .congratulations h1 {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .congratulations p {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', cursive;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .permanent-restart-btn {
+            display: block;
+            margin: 30px auto;
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', cursive;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+            position: relative;
+            z-index: 3;
+        }
+
+        .permanent-restart-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear infinite;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            cursor: pointer;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #667eea;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            transition: transform 0.2s, background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.1);
+            background: #667eea;
+            color: white;
+        }
+
+        .level-title {
+            text-align: center;
+            color: white;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-family: var(--font-display);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: calc(var(--header-height) + 10px) 10px 10px;
+            }
+
+            .game-container {
+                width: 95%;
+            }
+
+            .level-title {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tile-back::before {
+                font-size: 40px;
+            }
+
+            .tile-front.text-content {
+                font-size: 18px;
+            }
+
+            .permanent-restart-btn {
+                padding: 12px 30px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header" id="header">
+        <div class="header-container">
+        <a href="/" class="brand">
+            <span class="brand-icon">✨</span>
+            <span class="brand-text">L'Académie des Mots Magiques</span>
+        </a>
+        
+        <nav class="site-nav" aria-label="Navigation principale">
+            <a href="./index.html" class="nav-link">
+            <span>📚</span> Leçons
+            </a>
+            <a href="./games.html" class="nav-link" aria-current="page">
+            <span>🎮</span> Jeux
+            </a>
+            <a href="./vocabulary-practice.html" class="nav-link">
+            <span>🗣️</span> Vocabulaire
+            </a>
+            <a href="./speech_tests.html" class="nav-link">
+            <span>🔬</span> Tests
+            </a>
+        </nav>
+        </div>
+    </header>
+    <div class="game-container">
+        <h1 class="level-title" id="levelTitle">Memory Match Game</h1>
+        <div class="background-image" id="backgroundImage"></div>
+        <div class="tiles-grid" id="tilesGrid"></div>
+        <button class="permanent-restart-btn" onclick="restartGame()">Recommencer</button>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeOverlay()"></div>
+    <button class="close-btn" id="closeBtn" onclick="closeOverlay()" style="display: none;">×</button>
+    <div class="congratulations" id="congratulations">
+        <h1>🎉 Félicitations! 🎉</h1>
+        <p>Tu as réussi à tout trouver!</p>
+        <button class="restart-btn" onclick="restartGame()">Recommencer</button>
+    </div>
+
+    <script>
+        let gameData = null;
+        let tiles = [];
+        let flippedTiles = [];
+        let matchedSets = 0;
+        let canClick = true;
+
+        // Load JSON data
+        async function loadGameData() {
+            try {
+                const response = await fetch('data/games/match_tiles_lvl1.json');
+                gameData = await response.json();
+                initGame();
+            } catch (error) {
+                console.error('Error loading game data:', error);
+                alert('Error loading game data. Please make sure the JSON file exists in the data folder.');
+            }
+        }
+
+        function initGame() {
+            const tilesGrid = document.getElementById('tilesGrid');
+            const backgroundImage = document.getElementById('backgroundImage');
+            const levelTitle = document.getElementById('levelTitle');
+
+            // Set background image
+            backgroundImage.style.backgroundImage = `url('${gameData.backgroundImage}')`;
+
+            // Set level title if exists
+            if (gameData.levelName) {
+                levelTitle.textContent = gameData.levelName;
+            }
+
+            // Create tiles array from pairs
+            tiles = [];
+            gameData.pairs.forEach((pair, index) => {
+                tiles.push({
+                    id: index * 3,
+                    setId: index,
+                    type: 'image',
+                    content: pair.image
+                });
+                tiles.push({
+                    id: index * 3 + 1,
+                    setId: index,
+                    type: 'text',
+                    content: pair.text
+                });
+                tiles.push({
+                    id: index * 3 + 2,
+                    setId: index,
+                    type: 'audio',
+                    content: pair.audio
+                });
+            });
+
+            // Shuffle tiles
+            shuffleArray(tiles);
+
+            // Adjust grid columns based on tile count
+            const tileCount = tiles.length;
+            let columns = Math.ceil(Math.sqrt(tileCount));
+            if (tileCount <= 6) columns = 3;
+            else if (tileCount <= 12) columns = 4;
+            else if (tileCount <= 20) columns = 5;
+            tilesGrid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+
+            // Create tile elements
+            tilesGrid.innerHTML = '';
+            tiles.forEach((tile, index) => {
+                const tileElement = createTileElement(tile, index);
+                tilesGrid.appendChild(tileElement);
+            });
+
+            // Reset game state
+            flippedTiles = [];
+            matchedSets = 0;
+
+            // Adjust background image size after tiles are rendered
+            setTimeout(adjustBackgroundSize, 100);
+        }
+
+        function adjustBackgroundSize() {
+            const tilesGrid = document.getElementById('tilesGrid');
+            const backgroundImage = document.getElementById('backgroundImage');
+
+            if (tilesGrid && backgroundImage) {
+                const gridRect = tilesGrid.getBoundingClientRect();
+                backgroundImage.style.width = gridRect.width + 'px';
+                backgroundImage.style.height = gridRect.height + 'px';
+            }
+        }
+
+        function createTileElement(tile, index) {
+            const tileDiv = document.createElement('div');
+            tileDiv.className = 'tile';
+            tileDiv.dataset.index = index;
+            tileDiv.dataset.setId = tile.setId;
+            tileDiv.dataset.type = tile.type;
+
+            const back = document.createElement('div');
+            back.className = 'tile-back';
+
+            const front = document.createElement('div');
+            front.className = 'tile-front';
+
+            if (tile.type === 'image') {
+                const img = document.createElement('img');
+                img.src = tile.content;
+                front.appendChild(img);
+            } else if (tile.type === 'text') {
+                front.className += ' text-content';
+                front.textContent = tile.content;
+            } else if (tile.type === 'audio') {
+                front.className += ' audio-content';
+                const audio = document.createElement('audio');
+                audio.src = tile.content;
+                audio.dataset.audioSrc = tile.content;
+                front.appendChild(audio);
+            }
+
+            tileDiv.appendChild(back);
+            tileDiv.appendChild(front);
+
+            tileDiv.addEventListener('click', () => handleTileClick(tileDiv, tile));
+
+            return tileDiv;
+        }
+
+        function handleTileClick(tileElement, tile) {
+            if (!canClick || tileElement.classList.contains('flipped') || tileElement.classList.contains('matched')) {
+                return;
+            }
+
+            // Flip the tile
+            tileElement.classList.add('flipped');
+
+            // Play audio if it's an audio tile
+            if (tile.type === 'audio') {
+                const audio = tileElement.querySelector('audio');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play();
+                }
+            }
+
+            flippedTiles.push({ element: tileElement, tile: tile });
+
+            // Check if 3 tiles are flipped
+            if (flippedTiles.length === 3) {
+                canClick = false;
+                setTimeout(checkMatch, 1000);
+            }
+        }
+
+        function checkMatch() {
+            const [first, second, third] = flippedTiles;
+
+            // Check if all three tiles have the same setId
+            if (first.tile.setId === second.tile.setId && second.tile.setId === third.tile.setId) {
+                // Match found!
+                first.element.classList.add('matched');
+                second.element.classList.add('matched');
+                third.element.classList.add('matched');
+
+                matchedSets++;
+
+                // Check if all sets are matched
+                if (matchedSets === gameData.pairs.length) {
+                    setTimeout(showCongratulations, 500);
+                }
+            } else {
+                // No match - flip back
+                first.element.classList.remove('flipped');
+                second.element.classList.remove('flipped');
+                third.element.classList.remove('flipped');
+            }
+
+            flippedTiles = [];
+            canClick = true;
+        }
+
+        function showCongratulations() {
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('closeBtn').style.display = 'flex';
+            document.getElementById('congratulations').classList.add('show');
+            createConfetti();
+        }
+
+        function closeOverlay() {
+            document.getElementById('overlay').classList.remove('show');
+            document.getElementById('closeBtn').style.display = 'none';
+            document.getElementById('congratulations').classList.remove('show');
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff69b4'];
+            const confettiCount = 100;
+
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        function restartGame() {
+            closeOverlay();
+            initGame();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Header scroll effect
+        let lastScroll = 0;
+        const header = document.getElementById('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Adjust background size on window resize
+        window.addEventListener('resize', adjustBackgroundSize);
+
+        // Load game on page load
+        window.addEventListener('DOMContentLoaded', loadGameData);
+    </script>
+</body>
+</html>
