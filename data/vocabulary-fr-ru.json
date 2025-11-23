@@ -1,52 +1,68 @@
-[
-  {
-    "french": "bonjour",
-    "russian": "здравствуйте",
-    "audio": "/assets/audio/vocabulary/bonjour.mp3"
-  },
-  {
-    "french": "merci",
-    "russian": "спасибо",
-    "audio": "/assets/audio/vocabulary/merci.mp3"
-  },
-  {
-    "french": "au revoir",
-    "russian": "до свидания",
-    "audio": "/assets/audio/vocabulary/au-revoir.mp3"
-  },
-  {
-    "french": "s'il vous plaît",
-    "russian": "пожалуйста",
-    "audio": "/assets/audio/vocabulary/sil-vous-plait.mp3"
-  },
-  {
-    "french": "oui",
-    "russian": "да",
-    "audio": "/assets/audio/vocabulary/oui.mp3"
-  },
-  {
-    "french": "non",
-    "russian": "нет",
-    "audio": "/assets/audio/vocabulary/non.mp3"
-  },
-  {
-    "french": "pardon",
-    "russian": "извините",
-    "audio": "/assets/audio/vocabulary/pardon.mp3"
-  },
-  {
-    "french": "comment allez-vous",
-    "russian": "как дела",
-    "audio": "/assets/audio/vocabulary/comment-allez-vous.mp3"
-  },
-  {
-    "french": "je m'appelle",
-    "russian": "меня зовут",
-    "audio": "/assets/audio/vocabulary/je-mappelle.mp3"
-  },
-  {
-    "french": "enchanté",
-    "russian": "приятно познакомиться",
-    "audio": "/assets/audio/vocabulary/enchante.mp3"
-  }
-]
+{
+  "lessons": [
+    {
+      "id": 1,
+      "name": "Bonjour!",
+      "description": "Dire bonjour et etre poli",
+      "vocabulary": [
+        {
+          "french": "bonjour",
+          "russian": "здравствуйте",
+          "audio": "/assets/audio/vocabulary/bonjour.mp3"
+        },
+        {
+          "french": "merci",
+          "russian": "спасибо",
+          "audio": "/assets/audio/vocabulary/merci.mp3"
+        },
+        {
+          "french": "au revoir",
+          "russian": "до свидания",
+          "audio": "/assets/audio/vocabulary/au-revoir.mp3"
+        },
+        {
+          "french": "s'il vous plaît",
+          "russian": "пожалуйста",
+          "audio": "/assets/audio/vocabulary/sil-vous-plait.mp3"
+        },
+        {
+          "french": "pardon",
+          "russian": "извините",
+          "audio": "/assets/audio/vocabulary/pardon.mp3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Conversation de base",
+      "description": "Phrases basiques",
+      "vocabulary": [
+        {
+          "french": "oui",
+          "russian": "да",
+          "audio": "/assets/audio/vocabulary/oui.mp3"
+        },
+        {
+          "french": "non",
+          "russian": "нет",
+          "audio": "/assets/audio/vocabulary/non.mp3"
+        },
+        {
+          "french": "comment allez-vous",
+          "russian": "как дела",
+          "audio": "/assets/audio/vocabulary/comment-allez-vous.mp3"
+        },
+        {
+          "french": "je m'appelle",
+          "russian": "меня зовут",
+          "audio": "/assets/audio/vocabulary/je-mappelle.mp3"
+        },
+        {
+          "french": "enchanté",
+          "russian": "приятно познакомиться",
+          "audio": "/assets/audio/vocabulary/enchante.mp3"
+        }
+      ]
+    }
+  ]
+}

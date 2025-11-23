@@ -700,6 +700,8 @@
     let recognition = null;
     let isListening = false;
     let showingHelp = false;
+    let currentLessonId = null;
+    let currentLessonName = '';
 
     // Speech Recognition Setup
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -710,12 +712,91 @@
       recognition.interimResults = false;
     }
 
-    // Load vocabulary from JSON
+    // Get lesson ID from URL parameter
+    function getLessonIdFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const lessonParam = urlParams.get('lesson');
+      return lessonParam ? parseInt(lessonParam) : null;
+    }
+
+    // Render lesson selection grid
+    function renderLessonSelection(lessons) {
+      const container = document.getElementById('gameContainer');
+      container.innerHTML = `
+        <section aria-labelledby="vocabulary-lessons-title">
+          <h2 id="vocabulary-lessons-title" class="sr-only">Leçons de Vocabulaire</h2>
+          <div class="card-grid" role="list">
+            ${lessons.map((lesson, index) => `
+              <article class="lesson-card" role="listitem" style="animation-delay: ${index * 0.1}s">
+                <a href="./vocabulary-practice.html?lesson=${lesson.id}" class="card-link">
+                  <div class="card-media">
+                    <div class="card-badge" style="color: var(--accent-purple)">
+                      <span class="badge-icon">📚</span>
+                      <span>Leçon ${lesson.id}</span>
+                    </div>
+                  </div>
+
+                  <div class="card-content">
+                    <h3 class="card-title">${lesson.name}</h3>
+                    <p class="card-description">${lesson.description}</p>
+                  </div>
+
+                  <div class="card-footer">
+                    <div class="card-meta">
+                      <span class="meta-item">
+                        <span>📝</span>
+                        <span>${lesson.vocabularyCount} mots</span>
+                      </span>
+                    </div>
+                    <button class="card-action" aria-label="Pratiquer cette leçon">
+                      Pratiquer
+                      <span class="btn-icon">→</span>
+                    </button>
+                  </div>
+                </a>
+              </article>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    // Load vocabulary lessons or specific lesson
     async function loadVocabulary() {
       try {
-        const response = await fetch('/data/vocabulary-fr-ru.json');
+        currentLessonId = getLessonIdFromURL();
+
+        if (!currentLessonId) {
+          // No lesson specified, show lesson selection
+          const response = await fetch('/api/vocabulary/lessons');
+          if (!response.ok) throw new Error('Failed to load lessons');
+
+          const data = await response.json();
+
+          if (!data.success || !data.lessons) {
+            throw new Error('Invalid lessons data');
+          }
+
+          renderLessonSelection(data.lessons);
+          return;
+        }
+
+        // Load specific lesson vocabulary
+        const response = await fetch(`/api/vocabulary/lessons/${currentLessonId}`);
         if (!response.ok) throw new Error('Failed to load vocabulary');
-        vocabulary = await response.json();
+
+        const data = await response.json();
+
+        if (!data.success || !data.lesson) {
+          throw new Error('Invalid lesson data');
+        }
+
+        vocabulary = data.lesson.vocabulary;
+        currentLessonName = data.lesson.name;
+
+        // Update page title with lesson name
+        document.querySelector('.hero-title').textContent = `Pratique de Vocabulaire - ${currentLessonName}`;
+
         initGame();
       } catch (error) {
         console.error('Error loading vocabulary:', error);
