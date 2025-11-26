@@ -71,7 +71,7 @@ export function getLessonById(req, res) {
       return res.status(404).json({ success: false, message: 'Lesson not found' });
     }
 
-    // Get all tasks for this lesson
+    // Get all tasks for this lesson (now including external links)
     const tasks = db.prepare(`
       SELECT
         lt.id,
@@ -80,6 +80,8 @@ export function getLessonById(req, res) {
         audio.file_path as audio,
         img.file_path as image,
         g.path as game,
+        el.link as externalLink,
+        el.type as externalLinkType,
         lt.created_at
       FROM lesson_tasks lt
       LEFT JOIN text_translations tt_title ON lt.title_id = tt_title.id
@@ -87,6 +89,7 @@ export function getLessonById(req, res) {
       LEFT JOIN audio_content audio ON lt.audio_id = audio.id
       LEFT JOIN images img ON lt.image_id = img.id
       LEFT JOIN games g ON lt.game_id = g.id
+      LEFT JOIN external_links el ON lt.external_link_id = el.id
       WHERE lt.lesson_id = ?
       ORDER BY lt.id ASC
     `).all(lessonId);
@@ -111,6 +114,14 @@ export function getLessonById(req, res) {
       // Add game if present
       if (task.game) {
         result.game = task.game;
+      }
+
+      // Add external link if present
+      if (task.externalLink) {
+        result.link = {
+          url: task.externalLink,
+          type: task.externalLinkType || 'link'
+        };
       }
 
       return result;

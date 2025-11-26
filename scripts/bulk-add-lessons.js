@@ -1,4 +1,4 @@
-// bulk-add-lessons-improved.js - Enhanced version that includes slugs
+// scripts/bulk-add-lessons.js - Enhanced version with external links support
 import fs from 'fs';
 import Database from 'better-sqlite3';
 import dotenv from 'dotenv';
@@ -46,6 +46,16 @@ function insertGame(title, gamePath) {
   return result.lastInsertRowid;
 }
 
+function insertExternalLink(url, type = 'link') {
+  if (!url) return null;
+  const existing = db.prepare('SELECT id FROM external_links WHERE link = ?').get(url);
+  if (existing) return existing.id;
+  const result = db.prepare(
+    'INSERT INTO external_links (link, type) VALUES (?, ?)'
+  ).run(url, type);
+  return result.lastInsertRowid;
+}
+
 // Generate slug from title or use custom slug
 function generateSlug(title, customSlug = null, lessonId = null) {
   if (customSlug) return customSlug;
@@ -77,6 +87,7 @@ function bulkAddLessons(jsonFilePath) {
   const bulkInsert = db.transaction(() => {
     let lessonCount = 0;
     let taskCount = 0;
+    let linkCount = 0;
 
     for (const lessonData of lessonsData.lessons || []) {
       console.log(`Processing: ${lessonData.title}`);
@@ -122,13 +133,27 @@ function bulkAddLessons(jsonFilePath) {
         const audioId = insertAudio(task.audio);
         const imageId = insertImage(task.image);
         const gameId = insertGame(task.title, task.game);
+        
+        // Handle external link
+        let externalLinkId = null;
+        if (task.link) {
+          // Support both object format { url, type } and simple string
+          if (typeof task.link === 'string') {
+            externalLinkId = insertExternalLink(task.link, 'link');
+          } else if (task.link.url) {
+            externalLinkId = insertExternalLink(task.link.url, task.link.type || 'link');
+            if (task.link.type === 'youtube') {
+              linkCount++;
+            }
+          }
+        }
 
         db.prepare(`
           INSERT INTO lesson_tasks (
             title_id, audio_id, image_id, description_id, 
-            game_id, added_by, lesson_id
-          ) VALUES (?, ?, ?, ?, ?, ?, ?)
-        `).run(taskTitleId, audioId, imageId, taskDescId, gameId, adminUser.id, lessonId);
+            game_id, external_link_id, added_by, lesson_id
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `).run(taskTitleId, audioId, imageId, taskDescId, gameId, externalLinkId, adminUser.id, lessonId);
 
         taskCount++;
       }
@@ -136,14 +161,17 @@ function bulkAddLessons(jsonFilePath) {
       console.log(`  ✓ ${lessonData.tasks?.length || 0} tasks added\n`);
     }
 
-    return { lessonCount, taskCount };
+    return { lessonCount, taskCount, linkCount };
   });
 
-  const { lessonCount, taskCount } = bulkInsert();
+  const { lessonCount, taskCount, linkCount } = bulkInsert();
   
   console.log('\n🎉 Bulk import complete!');
   console.log(`   ${lessonCount} lessons added`);
   console.log(`   ${taskCount} tasks added`);
+  if (linkCount > 0) {
+    console.log(`   ${linkCount} YouTube videos added`);
+  }
   console.log('\n💡 Don\'t forget to restart Docker: docker compose restart\n');
 }
 
@@ -152,19 +180,57 @@ const jsonFile = process.argv[2];
 
 if (!jsonFile) {
   console.log(`
-Usage: node bulk-add-lessons-improved.js <json-file>
+📦 Bulk Add Lessons
+═════════════════════════════════════════════════════
 
-Enhanced JSON format (now supports description, slug, tag):
+Usage: node scripts/bulk-add-lessons.js <json-file>
+
+JSON format:
 {
   "lessons": [
     {
-      "title": "Qu'est-ce qu'il y a dans ta chambre ?",
-      "description": "Learn to describe your bedroom",
-      "slug": "lesson_bedroom",  // Optional: auto-generated if not provided
-      "tag": "Débutant",          // Optional: defaults to "Nouveau"
+      "title": "Lesson Title",
+      "description": "Lesson description for preview",
+      "slug": "lesson_custom_slug",      // Optional: auto-generated if not provided
+      "tag": "Débutant",                  // Optional: defaults to "Nouveau"
       "previewImage": "/assets/images/preview.jpg",
       "mainImage": "/assets/images/main.jpg",
-      "tasks": [...]
+      "tasks": [
+        {
+          "title": "Task title",
+          "lines": ["Line 1", "Line 2"],
+          "audio": "/assets/audio/file.mp3",      // Optional
+          "image": "/assets/images/task.jpg",     // Optional
+          "game": "/games/game.html",             // Optional
+          "link": {                               // Optional - NEW!
+            "url": "https://www.youtube.com/watch?v=VIDEO_ID",
+            "type": "youtube"                     // "youtube" or "link"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+Link types:
+  - "youtube": Embeds as playable video player
+  - "link": Shows as clickable external link
+
+Example with YouTube video:
+{
+  "lessons": [
+    {
+      "title": "Les couleurs",
+      "tasks": [
+        {
+          "title": "Regarde la vidéo",
+          "lines": ["Écoute et répète les couleurs"],
+          "link": {
+            "url": "https://www.youtube.com/watch?v=abc123",
+            "type": "youtube"
+          }
+        }
+      ]
     }
   ]
 }
