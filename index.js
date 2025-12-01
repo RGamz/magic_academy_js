@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import lessonRoutes from './backend/src/routes/lessonRoutes.js';
 import gameRoutes from './backend/src/routes/gameRoutes.js';
 import vocabularyRoutes from './backend/src/routes/vocabularyRoutes.js';
+import bookRoutes from './backend/src/routes/bookRoutes.js';
 
 const env = process.env.NODE_ENV || 'development';
 dotenv.config({ path: `.env.${env}` });
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/api/lessons', lessonRoutes);
 app.use('/api/games', gameRoutes);
 app.use('/api/vocabulary', vocabularyRoutes);
+app.use('/api/books', bookRoutes);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));

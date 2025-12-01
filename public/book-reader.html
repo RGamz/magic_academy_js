@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="L'Académie des Mots Magiques - Lecteur de livres">
+  <title>Lecture - L'Académie des Mots Magiques</title>
+  
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="./css/styles-modern.css">
+  
+  <!-- PDF.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+  
+  <style>
+    /* ==========================================
+       Book Reader Styles
+       ========================================== */
+    
+    .reader-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--spacing-md);
+      min-height: calc(100vh - var(--header-height));
+    }
+    
+    /* Reader Header */
+    .reader-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      flex-wrap: wrap;
+    }
+    
+    .reader-back {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      color: var(--accent-purple);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity var(--transition-fast);
+    }
+    
+    .reader-back:hover {
+      opacity: 0.8;
+    }
+    
+    .reader-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin: 0;
+      flex: 1;
+      text-align: center;
+      min-width: 200px;
+    }
+    
+    .page-indicator {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+    
+    /* Main Reader Layout */
+    .reader-layout {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: var(--spacing-lg);
+      align-items: start;
+    }
+    
+    @media (max-width: 1024px) {
+      .reader-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* PDF Viewer Section */
+    .pdf-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    
+    .pdf-viewer {
+      position: relative;
+      background: #525659;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #pdf-canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .pdf-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+    }
+    
+    .pdf-loading .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto var(--spacing-md);
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Page Navigation */
+    .page-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      background: linear-gradient(135deg, rgba(107, 70, 193, 0.05), rgba(236, 100, 166, 0.05));
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 1rem;
+    }
+    
+    .nav-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .page-number {
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 100px;
+      text-align: center;
+    }
+    
+    /* Sidebar (Audio & Vocabulary) */
+    .reader-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+    
+    @media (max-width: 1024px) {
+      .reader-sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      
+      .sidebar-card {
+        flex: 1;
+        min-width: 280px;
+      }
+    }
+    
+    .sidebar-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    
+    .sidebar-header {
+      padding: var(--spacing-md);
+      background: linear-gradient(135deg, rgba(107, 70, 193, 0.1), rgba(236, 100, 166, 0.1));
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .sidebar-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+    }
+    
+    .sidebar-content {
+      padding: var(--spacing-md);
+    }
+    
+    /* Audio Player */
+    .audio-player {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+    
+    .audio-player audio {
+      width: 100%;
+    }
+    
+    .audio-status {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .audio-status.has-audio {
+      color: var(--accent-purple);
+    }
+    
+    .autoplay-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm);
+      background: rgba(107, 70, 193, 0.05);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+    
+    .autoplay-toggle:hover {
+      background: rgba(107, 70, 193, 0.1);
+    }
+    
+    .autoplay-toggle input {
+      accent-color: var(--accent-purple);
+      width: 18px;
+      height: 18px;
+    }
+    
+    .autoplay-toggle label {
+      cursor: pointer;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    
+    /* Vocabulary List */
+    .vocabulary-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .vocabulary-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: rgba(107, 70, 193, 0.05);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+    
+    .vocabulary-item:hover {
+      background: rgba(107, 70, 193, 0.1);
+      transform: translateX(4px);
+    }
+    
+    .vocab-play-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: transform var(--transition-fast);
+      flex-shrink: 0;
+    }
+    
+    .vocab-play-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .vocab-text {
+      flex: 1;
+    }
+    
+    .vocab-french {
+      font-weight: 600;
+      color: var(--text-primary);
+      display: block;
+    }
+    
+    .vocab-russian {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .no-vocabulary {
+      text-align: center;
+      color: var(--text-secondary);
+      padding: var(--spacing-md);
+      font-style: italic;
+    }
+    
+    /* Error State */
+    .error-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      text-align: center;
+      padding: var(--spacing-xl);
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .error-icon {
+      font-size: 4rem;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .error-container h2 {
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .error-container p {
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Modern Header -->
+  <header class="site-header scrolled" id="header">
+    <div class="header-container">
+      <a href="/" class="brand">
+        <span class="brand-icon">✨</span>
+        <span class="brand-text">L'Académie des Mots Magiques</span>
+      </a>
+      
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="./index.html" class="nav-link">
+          <span>📚</span> Leçons
+        </a>
+        <a href="./books.html" class="nav-link" aria-current="page">
+          <span>📖</span> Livres
+        </a>
+        <a href="./games.html" class="nav-link">
+          <span>🎮</span> Jeux
+        </a>
+        <a href="./vocabulary-practice.html" class="nav-link">
+          <span>🗣️</span> Vocabulaire
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="reader-container">
+    <!-- Reader Header -->
+    <div class="reader-header">
+      <a href="./books.html" class="reader-back">
+        <span>←</span> Bibliothèque
+      </a>
+      <h1 class="reader-title" id="book-title">Chargement...</h1>
+      <div class="page-indicator" id="page-indicator">Page 1</div>
+    </div>
+
+    <!-- Reader Layout -->
+    <div class="reader-layout">
+      <!-- PDF Viewer -->
+      <section class="pdf-section">
+        <div class="pdf-viewer" id="pdf-viewer">
+          <div class="pdf-loading" id="pdf-loading">
+            <div class="spinner"></div>
+            <p>Chargement du livre...</p>
+          </div>
+          <canvas id="pdf-canvas"></canvas>
+        </div>
+        
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+          <button class="nav-btn" id="prev-btn" disabled>
+            <span>←</span> Précédent
+          </button>
+          <span class="page-number" id="page-number">Page 1 / 1</span>
+          <button class="nav-btn" id="next-btn" disabled>
+            Suivant <span>→</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="reader-sidebar">
+        <!-- Audio Player -->
+        <div class="sidebar-card">
+          <div class="sidebar-header">
+            <h2 class="sidebar-title">🔊 Audio</h2>
+          </div>
+          <div class="sidebar-content">
+            <div class="audio-player">
+              <audio id="page-audio" controls>
+                Votre navigateur ne supporte pas l'audio.
+              </audio>
+              <p class="audio-status" id="audio-status">Pas d'audio pour cette page</p>
+              <div class="autoplay-toggle">
+                <input type="checkbox" id="autoplay-checkbox" checked>
+                <label for="autoplay-checkbox">Lecture automatique</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vocabulary -->
+        <div class="sidebar-card">
+          <div class="sidebar-header">
+            <h2 class="sidebar-title">📝 Vocabulaire</h2>
+          </div>
+          <div class="sidebar-content">
+            <div class="vocabulary-list" id="vocabulary-list">
+              <p class="no-vocabulary">Pas de vocabulaire pour cette page</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // Configure PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    // State
+    let pdfDoc = null;
+    let currentPage = 1;
+    let totalPages = 0;
+    let bookData = null;
+    let autoplayEnabled = true;
+
+    // DOM Elements
+    const canvas = document.getElementById('pdf-canvas');
+    const ctx = canvas.getContext('2d');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageNumber = document.getElementById('page-number');
+    const pageIndicator = document.getElementById('page-indicator');
+    const bookTitle = document.getElementById('book-title');
+    const pdfLoading = document.getElementById('pdf-loading');
+    const pageAudio = document.getElementById('page-audio');
+    const audioStatus = document.getElementById('audio-status');
+    const vocabularyList = document.getElementById('vocabulary-list');
+    const autoplayCheckbox = document.getElementById('autoplay-checkbox');
+
+    // Get book slug from URL
+    const params = new URLSearchParams(window.location.search);
+    const bookSlug = params.get('book');
+
+    // Render PDF page
+    async function renderPage(pageNum) {
+      if (!pdfDoc) return;
+
+      const page = await pdfDoc.getPage(pageNum);
+      
+      // Calculate scale to fit container
+      const containerWidth = document.getElementById('pdf-viewer').clientWidth - 40;
+      const viewport = page.getViewport({ scale: 1 });
+      const scale = Math.min(containerWidth / viewport.width, 1.5);
+      const scaledViewport = page.getViewport({ scale });
+
+      canvas.height = scaledViewport.height;
+      canvas.width = scaledViewport.width;
+
+      await page.render({
+        canvasContext: ctx,
+        viewport: scaledViewport
+      }).promise;
+
+      // Update UI
+      currentPage = pageNum;
+      pageNumber.textContent = `Page ${pageNum} / ${totalPages}`;
+      pageIndicator.textContent = `Page ${pageNum}`;
+      
+      // Update buttons
+      prevBtn.disabled = pageNum <= 1;
+      nextBtn.disabled = pageNum >= totalPages;
+
+      // Save progress
+      localStorage.setItem(`book_progress_${bookSlug}`, pageNum.toString());
+
+      // Load page-specific content
+      loadPageContent(pageNum);
+    }
+
+    // Load audio and vocabulary for current page
+    async function loadPageContent(pageNum) {
+      const pageData = bookData?.pages?.[pageNum.toString()] || {};
+
+      // Audio
+      if (pageData.audio) {
+        pageAudio.src = pageData.audio;
+        pageAudio.style.display = 'block';
+        audioStatus.textContent = '🎵 Audio disponible pour cette page';
+        audioStatus.classList.add('has-audio');
+        
+        // Autoplay if enabled
+        if (autoplayEnabled) {
+          try {
+            await pageAudio.play();
+          } catch (e) {
+            console.log('Autoplay blocked by browser');
+          }
+        }
+      } else {
+        pageAudio.src = '';
+        pageAudio.style.display = 'none';
+        audioStatus.textContent = 'Pas d\'audio pour cette page';
+        audioStatus.classList.remove('has-audio');
+      }
+
+      // Vocabulary
+      const vocabulary = pageData.vocabulary || [];
+      
+      if (vocabulary.length > 0) {
+        vocabularyList.innerHTML = vocabulary.map((item, index) => `
+          <div class="vocabulary-item">
+            ${item.audio ? `
+              <button class="vocab-play-btn" onclick="playVocabAudio('${item.audio}')" aria-label="Écouter">
+                🔊
+              </button>
+            ` : ''}
+            <div class="vocab-text">
+              <span class="vocab-french">${item.french}</span>
+              <span class="vocab-russian">${item.russian}</span>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        vocabularyList.innerHTML = '<p class="no-vocabulary">Pas de vocabulaire pour cette page</p>';
+      }
+    }
+
+    // Play vocabulary audio
+    function playVocabAudio(audioSrc) {
+      const audio = new Audio(audioSrc);
+      audio.play();
+    }
+
+    // Navigation handlers
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        renderPage(currentPage - 1);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        renderPage(currentPage + 1);
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' && currentPage > 1) {
+        renderPage(currentPage - 1);
+      } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+        renderPage(currentPage + 1);
+      }
+    });
+
+    // Autoplay toggle
+    autoplayCheckbox.addEventListener('change', (e) => {
+      autoplayEnabled = e.target.checked;
+      localStorage.setItem('book_autoplay', autoplayEnabled.toString());
+    });
+
+    // Load saved autoplay preference
+    const savedAutoplay = localStorage.getItem('book_autoplay');
+    if (savedAutoplay !== null) {
+      autoplayEnabled = savedAutoplay === 'true';
+      autoplayCheckbox.checked = autoplayEnabled;
+    }
+
+    // Load book
+    async function loadBook() {
+      if (!bookSlug) {
+        showError('Aucun livre spécifié');
+        return;
+      }
+
+      try {
+        // Fetch book data from API
+        const response = await fetch(`/api/books/${bookSlug}`);
+        const data = await response.json();
+
+        if (!data.success || !data.data) {
+          throw new Error('Book not found');
+        }
+
+        bookData = data.data;
+        bookTitle.textContent = bookData.title;
+        document.title = `${bookData.title} - L'Académie des Mots Magiques`;
+
+        // Load PDF
+        const loadingTask = pdfjsLib.getDocument(bookData.pdf);
+        pdfDoc = await loadingTask.promise;
+        totalPages = pdfDoc.numPages;
+
+        // Hide loading, show canvas
+        pdfLoading.style.display = 'none';
+        canvas.style.display = 'block';
+
+        // Load saved progress or start at page 1
+        const savedPage = parseInt(localStorage.getItem(`book_progress_${bookSlug}`)) || 1;
+        const startPage = Math.min(savedPage, totalPages);
+
+        renderPage(startPage);
+
+      } catch (error) {
+        console.error('Error loading book:', error);
+        showError('Impossible de charger le livre');
+      }
+    }
+
+    // Show error state
+    function showError(message) {
+      document.querySelector('.reader-layout').innerHTML = `
+        <div class="error-container" style="grid-column: 1 / -1;">
+          <div class="error-icon">📖</div>
+          <h2>Oups!</h2>
+          <p>${message}</p>
+          <a href="./books.html" class="btn btn-primary">Retour à la bibliothèque</a>
+        </div>
+      `;
+    }
+
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (pdfDoc) {
+          renderPage(currentPage);
+        }
+      }, 200);
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', loadBook);
+  </script>
+</body>
+</html>

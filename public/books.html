@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="L'Académie des Mots Magiques - Bibliothèque">
+  <title>Bibliothèque - L'Académie des Mots Magiques</title>
+  
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="./css/styles-modern.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+  
+  <style>
+    /* ==========================================
+       Books Library Styles (iOS-inspired)
+       ========================================== */
+    
+    .library-hero {
+      text-align: center;
+      padding: var(--spacing-xl) 0 var(--spacing-lg);
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    .library-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: white;
+      margin-bottom: var(--spacing-sm);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .library-hero p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    /* Bookshelf Grid */
+    .bookshelf {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--spacing-lg);
+      padding: var(--spacing-lg) 0;
+    }
+    
+    @media (min-width: 768px) {
+      .bookshelf {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: var(--spacing-xl);
+      }
+    }
+    
+    /* Book Card */
+    .book-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      transition: transform var(--transition-base);
+      animation: fadeInUp 0.5s ease backwards;
+    }
+    
+    .book-card:nth-child(1) { animation-delay: 0.05s; }
+    .book-card:nth-child(2) { animation-delay: 0.1s; }
+    .book-card:nth-child(3) { animation-delay: 0.15s; }
+    .book-card:nth-child(4) { animation-delay: 0.2s; }
+    .book-card:nth-child(5) { animation-delay: 0.25s; }
+    .book-card:nth-child(6) { animation-delay: 0.3s; }
+    
+    .book-card:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+    
+    .book-card:hover .book-cover {
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 3px rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Book Cover (3D effect) */
+    .book-cover-wrapper {
+      position: relative;
+      perspective: 1000px;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .book-cover {
+      width: 140px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px 12px 12px 4px;
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.25),
+        -3px 0 10px rgba(0, 0, 0, 0.1) inset;
+      transition: all var(--transition-base);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    @media (min-width: 768px) {
+      .book-cover {
+        width: 160px;
+        height: 230px;
+      }
+    }
+    
+    /* Book spine effect */
+    .book-cover-wrapper::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5%;
+      bottom: 5%;
+      width: 6px;
+      background: linear-gradient(to right, 
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.1) 40%,
+        rgba(255, 255, 255, 0.1) 60%,
+        rgba(0, 0, 0, 0.05)
+      );
+      border-radius: 2px 0 0 2px;
+      z-index: 1;
+    }
+    
+    /* Page edges effect */
+    .book-cover-wrapper::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 3px;
+      bottom: 3px;
+      width: 8px;
+      background: repeating-linear-gradient(
+        to bottom,
+        #f5f5f5 0px,
+        #e0e0e0 1px,
+        #f5f5f5 2px
+      );
+      border-radius: 0 2px 2px 0;
+      z-index: -1;
+    }
+    
+    /* Book Title */
+    .book-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      text-align: center;
+      max-width: 160px;
+      line-height: 1.3;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /* Empty State */
+    .empty-library {
+      text-align: center;
+      padding: var(--spacing-xl);
+      color: white;
+    }
+    
+    .empty-library-icon {
+      font-size: 4rem;
+      margin-bottom: var(--spacing-md);
+      opacity: 0.8;
+    }
+    
+    .empty-library h2 {
+      color: white;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .empty-library p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    /* Loading Skeleton */
+    .skeleton-book {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .skeleton-cover {
+      width: 140px;
+      height: 200px;
+      border-radius: 4px 12px 12px 4px;
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0.1) 25%, 
+        rgba(255,255,255,0.2) 50%, 
+        rgba(255,255,255,0.1) 75%
+      );
+      background-size: 400% 100%;
+      animation: shimmer 1.5s infinite;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .skeleton-title {
+      width: 100px;
+      height: 20px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0.1) 25%, 
+        rgba(255,255,255,0.2) 50%, 
+        rgba(255,255,255,0.1) 75%
+      );
+      background-size: 400% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+    
+    /* Error State */
+    .error-message {
+      text-align: center;
+      padding: var(--spacing-xl);
+      color: white;
+    }
+    
+    .error-message p {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-md);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Modern Header -->
+  <header class="site-header" id="header">
+    <div class="header-container">
+      <a href="/" class="brand">
+        <span class="brand-icon">✨</span>
+        <span class="brand-text">L'Académie des Mots Magiques</span>
+      </a>
+      
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="./index.html" class="nav-link">
+          <span>📚</span> Leçons
+        </a>
+        <a href="./books.html" class="nav-link" aria-current="page">
+          <span>📖</span> Livres
+        </a>
+        <a href="./games.html" class="nav-link">
+          <span>🎮</span> Jeux
+        </a>
+        <a href="./vocabulary-practice.html" class="nav-link">
+          <span>🗣️</span> Vocabulaire
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="library-hero">
+      <h1>📖 Bibliothèque</h1>
+      <p>Découvre nos livres magiques en français!</p>
+    </section>
+
+    <!-- Bookshelf -->
+    <section id="bookshelf" class="bookshelf" aria-label="Livres disponibles">
+      <!-- Loading skeletons -->
+      <div class="skeleton-book">
+        <div class="skeleton-cover"></div>
+        <div class="skeleton-title"></div>
+      </div>
+      <div class="skeleton-book">
+        <div class="skeleton-cover"></div>
+        <div class="skeleton-title"></div>
+      </div>
+      <div class="skeleton-book">
+        <div class="skeleton-cover"></div>
+        <div class="skeleton-title"></div>
+      </div>
+      <div class="skeleton-book">
+        <div class="skeleton-cover"></div>
+        <div class="skeleton-title"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Render books
+    function renderBooks(books) {
+      const bookshelf = document.getElementById('bookshelf');
+      
+      if (books.length === 0) {
+        bookshelf.innerHTML = `
+          <div class="empty-library" style="grid-column: 1 / -1;">
+            <div class="empty-library-icon">📚</div>
+            <h2>La bibliothèque est vide</h2>
+            <p>Les livres arrivent bientôt!</p>
+            <a href="./index.html" class="btn btn-primary">Voir les leçons</a>
+          </div>
+        `;
+        return;
+      }
+
+      bookshelf.innerHTML = books.map((book, index) => `
+        <a href="./book-reader.html?book=${encodeURIComponent(book.slug)}" 
+           class="book-card" 
+           style="animation-delay: ${index * 0.05}s"
+           aria-label="Lire ${book.title}">
+          <div class="book-cover-wrapper">
+            <img 
+              src="${book.cover || '/assets/images/default-book-cover.jpg'}" 
+              alt="${book.title}"
+              class="book-cover"
+              loading="lazy"
+              onerror="this.src='/assets/images/default-book-cover.jpg'"
+            >
+          </div>
+          <h3 class="book-title">${book.title}</h3>
+        </a>
+      `).join('');
+    }
+
+    // Fetch books
+    async function loadBooks() {
+      try {
+        const response = await fetch('/api/books', { cache: 'no-store' });
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          renderBooks(data.data);
+        } else {
+          throw new Error('Failed to load books');
+        }
+      } catch (error) {
+        console.error('Error loading books:', error);
+        document.getElementById('bookshelf').innerHTML = `
+          <div class="error-message" style="grid-column: 1 / -1;">
+            <p>😕 Impossible de charger les livres</p>
+            <button class="btn btn-primary" onclick="location.reload()">Réessayer</button>
+          </div>
+        `;
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', loadBooks);
+  </script>
+</body>
+</html>
