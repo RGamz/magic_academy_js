@@ -16,133 +16,222 @@
     },
     "3": {
       "text": "Voici le plus mignon des petits lapins. Il s'appelle Nino.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_3.mp3",
+      "audio": "/assets/audio/books/amis-pour-la-vie/3.mp3",
       "vocabulary": [
         {
           "french": "mignon",
           "russian": "милый",
-          "audio": "/assets/audio/vocabulary/bonjour.mp3"
-        }]
+          "audio": "/assets/audio/vocabulary/mignon.mp3"
+        }
+      ]
     },
     "4": {
       "text": "Voici la maison de Nino, le lapereau.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_4.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/4.mp3",
+      "vocabulary": [
+        {
+          "french": "maison",
+          "russian": "дом",
+          "audio": "/assets/audio/vocabulary/maison.mp3"
+        }
+      ]
     },
     "5": {
       "text": "Nino est un petit cuisinier futé. Aujourd'hui, il prépare des crêpes sucrées.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_5.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/5.mp3",
+      "vocabulary": [
+        {
+          "french": "futé",
+          "russian": "сообразительный",
+          "audio": "/assets/audio/vocabulary/futé.mp3"
+        },
+        {
+          "french": "cuisinier",
+          "russian": "повар",
+          "audio": "/assets/audio/vocabulary/cuisinier.mp3"
+        }
+      ]
     },
     "6": {
       "text": "Hop! Hop! Nino fait une grosse pile de crêpes tartinées de crème et de confiture aussi !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_6.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/6.mp3",
+      "vocabulary": [
+        {
+          "french": "grosse pile de crêpes",
+          "russian": "большая стопка блинов",
+          "audio": "/assets/audio/vocabulary/grosse-pile-de-crepes.mp3"
+        }
+      ]
     },
     "7": {
       "text": "Miam, Miam ! Quel gourmand, ce Nino ! Il mange une crêpe, puis deux, puis trois, avec beaucoup de crème et de confiture.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_7.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/7.mp3",
+      "vocabulary": [
+        {
+          "french": "quel gourmand",
+          "russian": "какой лакомка",
+          "audio": "/assets/audio/vocabulary/quel-gourmand.mp3"
+        }
+      ]
     },
     "8": {
       "text": "Mais Nino a son petit ventre bien plein et il reste encore beaucoup de crêpes !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_8.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/8.mp3",
+      "vocabulary": [
+        {
+          "french": "petit ventre bien plein",
+          "russian": "маленький полный живот",
+          "audio": "/assets/audio/vocabulary/petit-ventre-bien-plein.mp3"
+        }
+      ]
     },
     "9": {
       "text": "Qui va manger ces crêpes si délicieuses ?",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_9.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/9.mp3",
+      "vocabulary": [
+        {
+          "french": "crêpes si délicieuses",
+          "russian": "настолько вкусные блины",
+          "audio": "/assets/audio/vocabulary/crêpes-si-délicieuses.mp3"
+        }
+      ]
     },
     "10": {
       "text": "Mais qui vient tout là-bas, à petits pas ?",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_10.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/10.mp3",
+      "vocabulary": [
+        {
+          "french": "petits pas",
+          "russian": "маленькие шаги",
+          "audio": "/assets/audio/vocabulary/petits-pas.mp3"
+        }
+      ]
     },
     "11": {
       "text": "C’est la plus mignonne des lapines ! – Bonjour, je m’appelle Amandine. Nino se réjouit : – Je t’invite à partager mon goûter !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_11.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/11.mp3",
+      "vocabulary": [
+        {
+          "french": "partager mon goûter",
+          "russian": "поделиться моим перекусом",
+          "audio": "/assets/audio/vocabulary/partager-mon-gouter.mp3"
+        }
+      ]
     },
     "12": {
       "text": "Quelle gourmande ! Amandine raffole des crêpes. Miam ! Elle en mange une, puis deux, puis trois, avec plein de crème et de confiture !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_12.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/12.mp3",
+      "vocabulary": null
     },
     "13": {
       "text": "Nino et Amandine ont tout mangé. Il n’y a plus une seule crêpe, plus du tout de crème, et le pot de confiture est vide.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_13.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/13.mp3",
+      "vocabulary": [
+        {
+          "french": "un pot de confiture",
+          "russian": "баночка варенья",
+          "audio": "/assets/audio/vocabulary/pot-de-confiture.mp3"
+        }
+      ]
     },
     "14": {
       "text": "Amandine se sauve à petits pas, en chuchotant : Merci Nino pour ce délicieux goûter !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_14.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/14.mp3",
+      "vocabulary": null
     },
     "15": {
       "text": "Pauvre Nino ! Il se retrouve tout seul pour faire la vaisselle !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_15.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/15.mp3",
+      "vocabulary": [
+        {
+          "french": "faire la vaisselle",
+          "russian": "мыть посуду",
+          "audio": "/assets/audio/vocabulary/faire-la-vaisselle.mp3"
+        }
+      ]
     },
     "16": {
       "text": "Nino se couche et se dit : - C’est trop triste de vivre seul ainsi !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_16.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/16.mp3",
+      "vocabulary": [
+        {
+          "french": "vivre seul",
+          "russian": "жить одному",
+          "audio": "/assets/audio/vocabulary/vivre-seul.mp3"
+        }
+      ]
     },
     "17": {
       "text": "Le lendemain matin, Nino sort son petit museau au grand air. Ploc ! Une goutte de pluie tombe dans le petit jardin tout vert.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_17.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/17.mp3",
+      "vocabulary": [
+        {
+          "french": "le petit museau",
+          "russian": "маленькая мордочка",
+          "audio": "/assets/audio/vocabulary/petit-museau.mp3"
+        },
+        {
+          "french": "une goutte de pluie tombe",
+          "russian": "маленькая капля дождя падает",
+          "audio": "/assets/audio/vocabulary/goutte-de-pluie.mp3"
+        }
+      ]
     },
     "18": {
       "text": "Nino ne veut pas se faire mouiller ! Il rentre vite chez lui, et plic, ploc ! Derrière la vitre, il regarde la pluie tomber en grosse giboulée.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_18.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/18.mp3",
+      "vocabulary": [
+        {
+          "french": "se faire mouiller",
+          "russian": "намочить себя",
+          "audio": "/assets/audio/vocabulary/se-faire-mouiller.mp3"
+        }
+      ]
     },
     "19": {
       "text": "Le lendemain, devine qui vient à petits pas au bout du chemin ?",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_19.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/19.mp3",
+      "vocabulary": null
     },
     "20": {
       "text": "Devine qui trottine sous le parapluie couleur cerise ? Quelle surprise...",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_20.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/20.mp3",
+      "vocabulary": null
     },
     "21": {
       "text": "C’est Amandine qui revient ! Mais que cache la coquine lapine dans son petit sac ?",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_21.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/21.mp3",
+      "vocabulary": null
     },
     "22": {
       "text": "Elle cache une boîte.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_22.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/22.mp3",
+      "vocabulary": null
     },
     "23": {
       "text": "Et dans cette boîte, il y a une petite part de tarte aux cerises. Une toute petite part de tarte aux cerises.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_23.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/23.mp3",
+      "vocabulary": null
     },
     "24": {
       "text": "Un bout pour toi, un bout pour moi ! Nino et Amandine se lèchent les babines !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_24.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/24.mp3",
+      "vocabulary": null
     },
     "25": {
       "text": "Miam ! Miam ! Il ne reste plus qu’une miette dans l’assiette.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_25.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/25.mp3",
+      "vocabulary": null
     },
     "26": {
       "text": "Dehors la pluie a cessé de tomber. Mais, cette fois, Amandine ne veut plus s’en aller. Elle veut rester auprès de Nino.",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_26.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/26.mp3",
+      "vocabulary": null
     },
     "27": {
       "text": "Et depuis, Nino et Amandine ne se quittent plus. Qu’il pleuve ou qu’il fasse beau, youpi ! Ils sont amis pour la vie !",
-      "audio": "/assets/audio/books/amis-pour-la-vie/page_27.mp3",
-      "vocabulary": []
+      "audio": "/assets/audio/books/amis-pour-la-vie/27.mp3",
+      "vocabulary": null
     }
   }
 }

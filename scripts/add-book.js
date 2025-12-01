@@ -24,6 +24,31 @@ function generateSlug(title) {
     .replace(/^-+|-+$/g, '');         // Trim hyphens
 }
 
+// Normalize path to web-accessible format
+function normalizePath(inputPath) {
+  if (!inputPath) return null;
+
+  // If it's already a relative web path starting with /, return as-is
+  if (inputPath.startsWith('/assets/')) {
+    return inputPath;
+  }
+
+  // If it's an absolute filesystem path, extract the /assets/... portion
+  const assetsMatch = inputPath.match(/\/assets\/.+$/);
+  if (assetsMatch) {
+    return assetsMatch[0];
+  }
+
+  // Windows-style absolute path (C:/, D:/, etc.)
+  const windowsMatch = inputPath.match(/[A-Z]:[\/\\].+[\/\\]assets[\/\\](.+)$/i);
+  if (windowsMatch) {
+    return '/assets/' + windowsMatch[1].replace(/\\/g, '/');
+  }
+
+  console.warn(`⚠️  Warning: Path "${inputPath}" doesn't contain /assets/. Using as-is.`);
+  return inputPath;
+}
+
 // Add single book
 function addBook(bookData) {
   const slug = bookData.slug || generateSlug(bookData.title);
@@ -35,14 +60,18 @@ function addBook(bookData) {
     return existing.id;
   }
 
+  // Normalize paths to ensure they're web-accessible
+  const coverPath = normalizePath(bookData.cover);
+  const pdfPath = normalizePath(bookData.pdf);
+
   const result = db.prepare(`
     INSERT INTO books (title, slug, cover_image, pdf_path, page_count)
     VALUES (?, ?, ?, ?, ?)
   `).run(
     bookData.title,
     slug,
-    bookData.cover || null,
-    bookData.pdf,
+    coverPath,
+    pdfPath,
     bookData.pageCount || 0
   );
 
@@ -86,10 +115,12 @@ Usage:
 
 Options:
   --title <text>      Book title (required)
-  --pdf <path>        Path to PDF file (required)
-  --cover <path>      Path to cover image (optional)
+  --pdf <path>        Path to PDF file - use web paths like /assets/books/file.pdf (required)
+  --cover <path>      Path to cover image - use web paths like /assets/images/books/cover.jpg (optional)
   --slug <text>       Custom slug (optional, auto-generated from title)
   --pages <number>    Page count (optional)
+
+Note: Paths are automatically normalized to web-accessible format (/assets/...)
 
 JSON file format:
 {
